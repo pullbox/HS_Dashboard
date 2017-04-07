@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
+	template="/templates/tr-template.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="login-form">
+		<p:growl id="msg" showDetail="true"/>
+			<p:panelGrid columns="2">
+				<f:facet name="header">LOGIN</f:facet>
+				<h:outputText value="User Name:" />
+				<p:inputText value="#{loginBean.username}" id="username"
+					required="true" />
+				<h:outputText value="Password:" />
+				<p:inputText value="#{loginBean.password}" id="password"
+					required="true" />
+
+				<p:commandButton id="button" value="Login"
+					action="#{loginBean.doLogin}" update="msg" />
+				<p:commandLink action="#{navigationBean.redirectToWelcome}"
+					value="Welcome page" />
+			
+			</p:panelGrid>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
