@@ -19,7 +19,7 @@ public interface CallToActionDAO  {
 	public void updateCTA(CallToAction cta) throws DAOException;
 	
 	
-	public void deleteCTA(int id) throws DAOException;
+	public void deleteCTA(long id) throws DAOException;
 
 	public CallToAction getCallToActionById(long id) throws DAOException;
 

@@ -41,6 +41,14 @@ public class MySQLDAOFactory extends DAOFactory {
 	}
 
 
+
+	@Override
+	public CallToActionDAO getCallToActionDAO() throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 //	public CallToActionDAO getCallToActionDAO() {
 //		// MysqlItemDAO implements StandardDAO
 //		return new MYSQLCallToActionDAO();

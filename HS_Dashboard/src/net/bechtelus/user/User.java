@@ -39,4 +39,16 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
+	public User(Long aID, String aSLF_user_id, String aName, String aPassword) {
+		this.id = aID;
+		this.slf_user_id = aSLF_user_id;
+		this.username = aName;
+		this.password = aPassword;
+	}
+	
+	public User() {
+		
+	}
+	
 }

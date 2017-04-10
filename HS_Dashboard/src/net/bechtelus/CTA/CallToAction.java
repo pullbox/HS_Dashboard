@@ -34,6 +34,8 @@ public class CallToAction implements Serializable {
 	private boolean escalated;
 	private DateTime dueDate;
 	private	String note;
+	private DateTime modifiedDate;
+	private User modifiedby;
 	
 	/**
 	 * @return the id
@@ -79,6 +81,7 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
+	 * Expansion, Risk, Lifecycle
 	 * @return the ctaType
 	 */
 	public String getCtaType() {
@@ -100,6 +103,7 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
+	 * New, WIP, Waiting on customer, Escalated, deferred, ...
 	 * @param status the status to set
 	 */
 	public void setStatus(String status) {
@@ -128,6 +132,7 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
+	 * payment issue, lost champion, support risk, training issue, adoption issue
 	 * @param reason the reason to set
 	 */
 	public void setReason(String reason) {
@@ -142,6 +147,7 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
+	 * Waiting on product feature, User on vacation, other
 	 * @param snoozeReason the snoozeReason to set
 	 */
 	public void setSnoozeReason(String snoozeReason) {
@@ -170,6 +176,7 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
+	 * Closed - no action
 	 * @param ctaStatus the ctaStatus to set
 	 */
 	public void setCtaStatus(String ctaStatus) {
@@ -184,6 +191,7 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
+	 * Manual, Rule, ...
 	 * @param source the source to set
 	 */
 	public void setSource(String source) {
@@ -260,6 +268,34 @@ public class CallToAction implements Serializable {
 	 */
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	/**
+	 * @return the modifiedDate
+	 */
+	public DateTime getModifiedDate() {
+		return modifiedDate;
+	}
+
+	/**
+	 * @param modifiedDate the modifiedDate to set
+	 */
+	public void setModifiedDate(DateTime modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	/**
+	 * @return the modifiedby
+	 */
+	public User getModifiedby() {
+		return modifiedby;
+	}
+
+	/**
+	 * @param modifiedby the modifiedby to set
+	 */
+	public void setModifiedby(User modifiedby) {
+		this.modifiedby = modifiedby;
 	}
 
 	public CallToAction() {

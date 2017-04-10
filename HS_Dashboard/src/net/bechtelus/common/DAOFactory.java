@@ -15,11 +15,17 @@ import net.bechtelus.util.HSDashboardUtility;
 
 //Abstract class DAO Factory
 public abstract class DAOFactory {
+	public static final String PROP_DB_HOST = "loalhost.HS_Dashboard.database.host";
+	public static final String PROP_DB_PORT = "loalhost.HS_Dashboard.database.port";
+	public static final String PROP_DB_NAME = "loalhost.HS_Dashboard.database.db";
+	public static final String PROP_DB_USER = "loalhost.HS_Dashboard.database.user";
+	public static final String PROP_DB_PASSWORD = "loalhost.HS_Dashboard.database.password";
+	public static final String PROP_DB_TYPE = "loalhost.HS_Dashboard.database.type";
 
 	public static Properties prop = null;
 	private static ConnectionProvider connectionProvider;
 
-	public abstract CallToActionDAO getCustomerDAO() throws DAOException;
+	public abstract CallToActionDAO getCallToActionDAO() throws DAOException;
 
 	// List of DAO types supported by the factory
 	public static final int MYSQL = 1;
@@ -32,61 +38,81 @@ public abstract class DAOFactory {
 	// implement these methods.
 	// public abstract StandardDAO getStandardDAO();
 
-	public static DAOFactory getDAOFactory(int whichFactory) {
+	/*
+	 * public static DAOFactory getDAOFactory(int whichFactory) {
+	 * 
+	 * switch (whichFactory) { case MYSQL: // return new MySQLDAOFactory(); case
+	 * ORACLE: // return new OracleDAOFactory(); case SYBASE: // return new
+	 * SybaseDAOFactory(); case MSSQL: // return new MSSQLDAOFactory();
+	 * 
+	 * default: return null; } }
+	 */
 
-		switch (whichFactory) {
-		case MYSQL:
-			// return new MySQLDAOFactory();
-		case ORACLE:
-			// return new OracleDAOFactory();
-		case SYBASE:
-			// return new SybaseDAOFactory();
-		case MSSQL:
-//			return new MSSQLDAOFactory();
-
-		default:
-			return null;
+	public static DAOFactory getFactory() {
+		DAOFactory factory;
+		loadProperties();
+		if ("mysql".equals(prop.getProperty(PROP_DB_TYPE))) {
+			 System.out.println("MYSQL: DISABLED FOR NOW"); 
+			throw new IllegalArgumentException("Disabling MYSQL");
+		} else if ("mssql".equals(prop.getProperty(PROP_DB_TYPE))) {
+			 factory = MSSQLDAOFactory.getInstance();
+			 return factory;
+		} else {
+			throw new IllegalArgumentException("Unknown Database type " + prop.getProperty(PROP_DB_TYPE));
 		}
 	}
-	
-	public static void loadProperties() { 
-        Log logger = LogFactory.getLog(DAOFactory.class); 
-        if (prop == null) { 
-            prop = new Properties(); 
-//   MessageContext messageContext = MessageContext.getCurrentMessageContext(); 
-//   if (messageContext != null) { 
-//    AxisService service = messageContext.getAxisService(); 
-//    ClassLoader serviceClassLoader = service.getClassLoader(); 
-//    InputStream is = serviceClassLoader.getResourceAsStream(StockTraderUtility.DB_PROPERRTIES_FILE); 
-//    if (is != null) { 
-//     try { 
-//      prop.load(is); 
-//     } catch (IOException e) { 
-//      logger.debug("Unable to load mysql-db properties file and using [jdbc:mysql://localhost/stocktraderdb?user=trade&password=trade] as the default connection",e); 
-//     } 
-//    } else { 
-//     logger.debug("Unable to load mysql-db properties file and using [jdbc:mysql://localhost/stocktraderdb?user=trade&password=trade] as the default connection"); 
-// 
-//    } 
-//   } 
- 
-            InputStream is = DAOFactory.class.getClassLoader().getResourceAsStream(HSDashboardUtility.DB_PROPERRTIES_FILE); 
-            if (is != null) { 
-                try { 
-                    prop.load(is); 
-                } catch (IOException e) { 
-                    logger.debug("Unable to load mssql-db properties file and using [jdbc:mysql://localhost/stocktraderdb?user=trade&password=trade] as the default connection", e); 
-                } 
-            } else { 
-                logger.debug("Unable to load mssql-db properties file and using [jdbc:mysql://localhost/stocktraderdb?user=trade&password=trade] as the default connection"); 
- 
-            } 
-        } 
-         
-    } 
-	
+
+	public DAOFactory() {
+		loadProperties();
+	}
+
+	public static void loadProperties() {
+		Log logger = LogFactory.getLog(DAOFactory.class);
+		if (prop == null) {
+			prop = new Properties();
+			// MessageContext messageContext =
+			// MessageContext.getCurrentMessageContext();
+			// if (messageContext != null) {
+			// AxisService service = messageContext.getAxisService();
+			// ClassLoader serviceClassLoader = service.getClassLoader();
+			// InputStream is =
+			// serviceClassLoader.getResourceAsStream(StockTraderUtility.DB_PROPERRTIES_FILE);
+			// if (is != null) {
+			// try {
+			// prop.load(is);
+			// } catch (IOException e) {
+			// logger.debug("Unable to load mysql-db properties file and using
+			// [jdbc:mysql://localhost/stocktraderdb?user=trade&password=trade]
+			// as the default connection",e);
+			// }
+			// } else {
+			// logger.debug("Unable to load mysql-db properties file and using
+			// [jdbc:mysql://localhost/stocktraderdb?user=trade&password=trade]
+			// as the default connection");
+			//
+			// }
+			// }
+
+			InputStream is = DAOFactory.class.getClassLoader().getResourceAsStream(HSDashboardUtility.DB_PROPERRTIES_FILE);
+			if (is != null) {
+				try {
+					prop.load(is);
+				} catch (IOException e) {
+					logger.debug(
+							"Unable to load mssql-db properties file and using [jdbc:mysql://localhost/stocktraderdb?user=trade&password=trade] as the default connection",
+							e);
+				}
+			} else {
+				logger.debug(
+						"Unable to load mssql-db properties file and using [jdbc:mysql://localhost/stocktraderdb?user=trade&password=trade] as the default connection");
+
+			}
+		}
+
+	}
 
 	public static ConnectionProvider getConnectionProvider() {
 		return connectionProvider;
 	}
+
 }
