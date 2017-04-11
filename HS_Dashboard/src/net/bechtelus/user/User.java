@@ -1,10 +1,11 @@
 package net.bechtelus.user;
 
 public class User {
-	private Long id;
-	private String slf_user_id;
-	private String username;
-	private String password;
+	protected Long id;
+	protected String slf_user_id;
+	protected String username;
+	protected String password;
+	protected String email;
 
 	public Long getId() {
 		return id;
@@ -40,11 +41,26 @@ public class User {
 		this.username = username;
 	}
 	
-	public User(Long aID, String aSLF_user_id, String aName, String aPassword) {
-		this.id = aID;
-		this.slf_user_id = aSLF_user_id;
-		this.username = aName;
-		this.password = aPassword;
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public User(Long aID, String aSLF_user_id, String aName, String aPassword, String aemail) {
+		setId(aID);
+		setSlf_user_id(aSLF_user_id);
+		setUsername(aName);
+		setPassword(aPassword);
+		setEmail(aemail);
 	}
 	
 	public User() {

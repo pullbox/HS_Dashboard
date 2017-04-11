@@ -6,6 +6,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import net.bechtelus.CTA.CallToActionDAO;
 import net.bechtelus.CTA.MSSQLCallToActionDAO;
+import net.bechtelus.user.UserDAO;
 
 public class MSSQLDAOFactory extends DAOFactory {
 	public static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
@@ -68,8 +69,9 @@ public class MSSQLDAOFactory extends DAOFactory {
 				buf.append(prop.getProperty(PROP_DB_HOST));
 				buf.append(":" + prop.getProperty(PROP_DB_PORT));
 				buf.append(";DatabaseName=" + prop.getProperty(PROP_DB_NAME));
-		//		buf.append("; user=" + prop.getProperty(PROP_DB_USER));
-		//		buf.append("; password=" + prop.getProperty(PROP_DB_PASSWORD));
+				// buf.append("; user=" + prop.getProperty(PROP_DB_USER));
+				// buf.append("; password=" +
+				// prop.getProperty(PROP_DB_PASSWORD));
 				buf.append(";integratedSecurity=true");
 				connection = buf.toString();
 			}
@@ -90,17 +92,14 @@ public class MSSQLDAOFactory extends DAOFactory {
 
 	@Override
 	public CallToActionDAO getCallToActionDAO() throws DAOException {
-		logger.debug("MSSQLDAOFactory.getCallToActionDAO"); 
-		  try { 
-		   CallToActionDAO callToActionDAO = new MSSQLCallToActionDAO(getConnection()); 
-		   return callToActionDAO; 
-		  } catch (SQLException e) { 
-		   logger.debug("", e); 
-		   throw new DAOException("Exception was thrown when instantiating a MSSQLCallToActionDAO",e); 
-		  } 
+		logger.debug("MSSQLDAOFactory.getCallToActionDAO");
+		try {
+			CallToActionDAO callToActionDAO = new MSSQLCallToActionDAO(getConnection());
+			return callToActionDAO;
+		} catch (SQLException e) {
+			logger.debug("", e);
+			throw new DAOException("Exception was thrown when instantiating a MSSQLCallToActionDAO", e);
+		}
 	}
-
-	
-	
 
 }

@@ -72,18 +72,19 @@ public class TestCTADAO {
 		
 		/* test find function */
 		fcta = dao.getCallToActionById(1);
-		assertNull("Record was not found as it was deleted", fcta.getDescription());
+		assertNull("Record was not found as it was deleted", fcta);
 				
 	}
 	
 	
 	private CallToAction createCTAobject() {
 		/* setup USER */
+		DAOFactory factory = DAOFactory.getFactory();
+		CallToActionDAO dao = factory.getCallToActionDAO();
+		
 		User assignee = new User();
-		assignee.setId(new Long(1));
-		assignee.setSlf_user_id("ABC1234567890XYZ");
-		assignee.setUsername("Daniel Bechtel assignee");
-		assignee.setPassword("password");
+		assignee = dao.getUserBySLFId("00550000002Ua4WAAS");
+				
 
 		/* setup snoozeperiod */
 		DateTime snoozedt = new DateTime(2017, 9, 15, 9, 00);
@@ -122,6 +123,7 @@ public class TestCTADAO {
 		cta.setId(5);
 
 		boolean inserted = dao.insertCTA(cta);
+		assertTrue("Record was inserted into the DB", inserted);
 		
 		/* test find function */
 		cta = null;
@@ -136,8 +138,11 @@ public class TestCTADAO {
 		fcta = null;
 		cta = dao.getCallToActionById(5);		
 		assertEquals("Description Updated", "Updated the Record", cta.getDescription());
-		assertNotNull(cta.getModifiedby());
+		assertNotNull(cta);
 		
+		cta = null;
+		
+		dao.deleteCTA(5);
 		
 	}
 	

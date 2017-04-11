@@ -30,8 +30,9 @@ public class MSSQLCallToActionDAO extends AbstractMSSQLDAO implements CallToActi
 	private static final String SQL_INSERT = "INSERT INTO items (type, name, description, weight, sort_order, always_applicable) VALUES (?, ?, ?, ?, ?, ?)";
 	private static final String SQL_UPDATE = "UPDATE items SET name=?, type=?, description=?, weight=?, sort_order=?, always_applicable=? WHERE id = ?";
 	private static final String SQL_UPDATE_CALLTOACTION = "Update dbo.CS_HS_CallToActions SET DESCRIPTION=?, ASSIGNEE=?, TYPE=?, STATUS=?, PRIORITY=?, REASON=?, SNOOZEPERIOD=?, CTASTATUS=?, SOURCE=?, MODIFIEDBY=?, ESCALATED=?, DUEDATE=?, NOTE=?, SNOOZEREASON=?, MODIFIEDDATE=getdate() WHERE ID = ?";
-	private static final String SQL_DELETE = "DELETE FROM dbo.CS_HS_CallToActions WHERE id = ";
+	private static final String SQL_DELETE_CALLTOACTION = "DELETE FROM dbo.CS_HS_CallToActions WHERE id = ";
 	private static final String SQL_EXIST_EMAIL = "SELECT id FROM User WHERE email = ?";
+	private static final String SQL_FIND_USER_BY_SLF_ID = "SELECT * FROM dbo.sf_user WHERE USER_ID = ?";
 	private static final String SQL_CHANGE_PASSWORD = "UPDATE User SET password = MD5(?) WHERE id = ?";
 	private static final String SQL_INSERT_CALLTOACTION = "INSERT INTO dbo.CS_HS_CallToActions (ID, DESCRIPTION, ASSIGNEE, TYPE, STATUS, PRIORITY, REASON, SNOOZEPERIOD, CTASTATUS, SOURCE, CREATEDBY, ESCALATED, DUEDATE, NOTE, SNOOZEREASON, CREATEDDATE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, getdate()); SELECT SCOPE_IDENTITY();";
 
@@ -212,54 +213,70 @@ public class MSSQLCallToActionDAO extends AbstractMSSQLDAO implements CallToActi
 
 	@Override
 	public void updateCTA(CallToAction cta) throws DAOException {
-		 if (logger.isDebugEnabled()) { 
-	            logger.debug("MSSQLCallToActionDAO.updateCTA(int)\n ID :" + Long.toString(cta.getId())); 
-	        } 
-		 
-		 PreparedStatement updateCallToAction = null; 
-	        try { 
-	            updateCallToAction = sqlConnection.prepareStatement(SQL_UPDATE_CALLTOACTION); 
-	            
-	            updateCallToAction.setString(1, cta.getDescription()); 
-	            updateCallToAction.setString(2, cta.getAssignee().getSlf_user_id()); 
-	            updateCallToAction.setString(3, cta.getCtaType()); 
-	            updateCallToAction.setString(4, cta.getStatus()); 
-	            updateCallToAction.setString(5, cta.getPriority()); 
-	            updateCallToAction.setString(6, cta.getReason()); 
-	            
-	            updateCallToAction.setDate(7, new java.sql.Date(cta.getSnoozeperiod().getMillis()));
-	            updateCallToAction.setString(8, cta.getCtaStatus());
-	            updateCallToAction.setString(9, cta.getSource());
-	            updateCallToAction.setString(10, cta.getModifiedby().getSlf_user_id());
-	            updateCallToAction.setBoolean(11, cta.isEscalated());
-	            updateCallToAction.setDate(12, new java.sql.Date(cta.getDueDate().getMillis()));
-	            updateCallToAction.setString(13, cta.getNote());
-	            updateCallToAction.setString(14, cta.getSnoozeReason());
-	            updateCallToAction.setDate(15, new java.sql.Date(cta.getModifiedDate().getMillis()));
-	            updateCallToAction.setLong(16, cta.getId());
-	            
-	            updateCallToAction.executeUpdate(); 
-	         
-	        } catch (SQLException e) { 
-	            throw new DAOException("", e); 
-	        } finally { 
-	            if (updateCallToAction != null) { 
-	                try { 
-	                    updateCallToAction.close(); 
-	                } catch (SQLException e) { 
-	                    logger.debug("", e); 
-	                } 
-	            } 
-	        } 
+		if (logger.isDebugEnabled()) {
+			logger.debug("MSSQLCallToActionDAO.updateCTA(int)\n ID :" + Long.toString(cta.getId()));
 		}
+
+		PreparedStatement updateCallToAction = null;
+		try {
+			updateCallToAction = sqlConnection.prepareStatement(SQL_UPDATE_CALLTOACTION);
+
+			updateCallToAction.setString(1, cta.getDescription());
+			updateCallToAction.setNull(2, java.sql.Types.VARCHAR);
+			if (cta.getAssignee() != null) {
+				updateCallToAction.setString(2, cta.getAssignee().getSlf_user_id());
+			}
+			updateCallToAction.setString(3, cta.getCtaType());
+			updateCallToAction.setString(4, cta.getStatus());
+			updateCallToAction.setString(5, cta.getPriority());
+			updateCallToAction.setString(6, cta.getReason());
+			
+			if (cta.getSnoozeperiod() != null) {
+				updateCallToAction.setDate(7, new java.sql.Date(cta.getSnoozeperiod().getMillis()));
+			} else {
+				updateCallToAction.setNull(7, java.sql.Types.DATE);
+			}
+			updateCallToAction.setString(8, cta.getCtaStatus());
+			updateCallToAction.setString(9, cta.getSource());
+		
+			if (cta.getModifiedby() != null) {
+				updateCallToAction.setString(10, cta.getModifiedby().getSlf_user_id());
+			} else {
+				updateCallToAction.setNull(10, java.sql.Types.VARCHAR);
+			}
+			updateCallToAction.setBoolean(11, cta.isEscalated());
+		
+			if (cta.getDueDate() != null) {
+				updateCallToAction.setDate(12, new java.sql.Date(cta.getDueDate().getMillis()));
+			} else {
+				updateCallToAction.setNull(12, java.sql.Types.DATE);
+			}
+			updateCallToAction.setString(13, cta.getNote());
+			updateCallToAction.setString(14, cta.getSnoozeReason());
+			updateCallToAction.setLong(15, cta.getId());
+
+			updateCallToAction.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DAOException("", e);
+		} finally {
+			if (updateCallToAction != null) {
+				try {
+					updateCallToAction.close();
+				} catch (SQLException e) {
+					logger.debug("", e);
+				}
+			}
+		}
+	}
 
 	@Override
 	public void deleteCTA(long id) throws DAOException {
 		Statement deleteCTA = null;
 		try {
 			deleteCTA = sqlConnection.createStatement();
-			
-			String sql = SQL_DELETE + Long.toString(id);
+
+			String sql = SQL_DELETE_CALLTOACTION + Long.toString(id);
 			deleteCTA.executeUpdate(sql);
 		} catch (SQLException e) {
 			logger.debug("", e);
@@ -280,8 +297,8 @@ public class MSSQLCallToActionDAO extends AbstractMSSQLDAO implements CallToActi
 					CallToAction cta = new CallToAction();
 
 					cta.setId(rs.getLong("ID"));
-					cta.setAssignee((rs.getString("ASSIGNEE"));
-					// cta.setCreateby(rs.getString("CREATEDBY"));
+					cta.setAssignee(getUserBySLFId(rs.getString("ASSIGNEE")));
+					cta.setCreateby(getUserBySLFId(rs.getString("CREATEDBY")));
 					cta.setCreatedDate(new DateTime(rs.getDate("CREATEDDATE")));
 					cta.setCtaStatus(rs.getString("CTASTATUS"));
 					cta.setCtaType(rs.getString("TYPE"));
@@ -310,6 +327,46 @@ public class MSSQLCallToActionDAO extends AbstractMSSQLDAO implements CallToActi
 			if (callToActionbyId != null) {
 				try {
 					callToActionbyId.close();
+				} catch (SQLException e) {
+					logger.debug("", e);
+				}
+			}
+		}
+		return null;
+	}
+
+	public User getUserBySLFId(String aUser_ID) throws DAOException {
+
+		PreparedStatement getUserById = null;
+		try {
+			getUserById = sqlConnection.prepareStatement(SQL_FIND_USER_BY_SLF_ID);
+			getUserById.setString(1, aUser_ID);
+			ResultSet rs = getUserById.executeQuery();
+
+			if (rs.next()) {
+				try {
+					User user = new User();
+
+					user.setId(rs.getLong("USER_TK"));
+					user.setSlf_user_id(rs.getString("USER_ID"));
+					user.setEmail(rs.getString("EMAIL"));
+					user.setUsername(rs.getString("FULL_NAME"));
+
+					return user;
+				} finally {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+						logger.debug("", e);
+					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new DAOException("", e);
+		} finally {
+			if (getUserById != null) {
+				try {
+					getUserById.close();
 				} catch (SQLException e) {
 					logger.debug("", e);
 				}
