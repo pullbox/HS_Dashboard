@@ -7,7 +7,10 @@ import java.util.Date;
 import java.util.List;
 
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
 import net.bechtelus.CTA.*;
+import net.bechtelus.common.DAOFactory;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -20,13 +23,15 @@ import javax.inject.Named;
 
 
 
-@Named("jsfShowCTAs")
+@Named("welcomeBean")
 @SessionScoped
 public class WelcomeBean implements Serializable {
 
+	private static final Log logger = LogFactory.getLog(WelcomeBean.class);
 	private static final long serialVersionUID = 7778841766245989495L;
 	private List<CallToAction> ctas;
-	private static MSSQL
+	private CallToAction cta;
+	
 	
 	
 	@PostConstruct
@@ -38,9 +43,14 @@ public class WelcomeBean implements Serializable {
 		ctas = null;
 		ctas = new ArrayList<CallToAction>();
 		
-		for (Ticket ticket : zd.getTicketsFromSearch(this.searchTerm)) {
+		DAOFactory factory = DAOFactory.getFactory();
+		CallToActionDAO dao = factory.getCallToActionDAO();
+		
+		
+		
+		for (CallToAction cta : dao.getCallToActions(userId, true, 0, 0)) {
 			// System.out.println("Body: " + comment.getBody());
-			tickets.add(ticketextended);
+			ctas.add(ticketextended);
 
 		}
 		

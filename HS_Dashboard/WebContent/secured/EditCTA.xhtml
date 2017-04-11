@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/tr-template.xhtml">
+
+	<ui:define name="content">
+
+		<!-- 	<f:metadata>
+			<f:viewParam name="searchTerm" value="#{jsfDspResult.searchTerm}" />
+			<f:viewAction action="#{jsfDspResult.init}" />
+		</f:metadata>
+ -->
+
+		<p:fieldset>
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true" />
+
+				<p:panelGrid columns="2">
+					<f:facet name="header">
+					</f:facet>
+
+
+					<p:outputLabel for="ID" value="Call To Action" />
+					<p:outputLabel id="ID" value="#{editCTABean.ID}" />
+
+					<p:outputLabel for="organization" value="Organization" />
+					<p:outputLabel id="organization"
+						value="#{jsfDspTicket.organization}" />
+
+					<p:outputLabel for="submitter" value="Submitted by" />
+					<p:outputLabel id="submitter" value="#{jsfDspTicket.submitter}" />
+
+					<p:outputLabel for="status" value="Status" />
+					<p:outputLabel id="status" value="#{jsfDspTicket.status}" />
+
+
+					<p:outputLabel for="subject" value="Subject" />
+					<p:outputLabel id="subject" value="#{jsfDspTicket.subject}" />
+
+					<p:outputLabel for="groupName" value="Group" />
+					<p:outputLabel id="groupName" value="#{jsfDspTicket.groupName}" />
+
+					<p:outputLabel for="assigneeName" value="Assigned to" />
+					<p:outputLabel id="assigneeName"
+						value="#{jsfDspTicket.assigneeName}" />
+
+					<p:outputLabel for="description" value="Description" />
+					<p:outputLabel id="description"
+						value="#{jsfDspTicket.firstComment}" escape="false" />
+
+					<p:outputLabel for="createdAt" value="Created At" />
+					<p:outputLabel id="createdAt" value="#{jsfDspTicket.createdAt}" />
+
+
+
+					<p:outputLabel for="requesterName" value="Requester" />
+					<p:outputLabel id="requesterName"
+						value="#{jsfDspTicket.requesterName}" />
+					<p:outputLabel />
+
+
+				</p:panelGrid>
+
+			</h:form>
+	</ui:define>
+</ui:composition>

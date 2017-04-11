@@ -60,7 +60,14 @@ public class NavigationBean implements Serializable {
         return "/secured/LandingPage.xhtml?faces-redirect=true";
     }
      
-    
+    /**
+     * Redirect to create CTA page.
+     * @return Welcome page name.
+     */
+    public String createCTA() {
+        return "/secured/editcta.xhtml";
+    }
+     
     
     /**
      * Go to welcome page.
