@@ -2,7 +2,6 @@ package net.bechtelus.common;
 
 //import net.bechtelus.standard.StandardDAO;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.io.InputStream;

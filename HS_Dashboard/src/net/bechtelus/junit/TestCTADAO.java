@@ -9,26 +9,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Properties;
-import java.util.Queue;
-
-import javax.validation.constraints.AssertTrue;
-
-import java.sql.SQLException;
-
-import net.bechtelus.common.DAOException;
 import net.bechtelus.common.DAOFactory;
 import net.bechtelus.user.User;
 import net.bechtelus.CTA.CallToAction;
 import net.bechtelus.CTA.CallToActionDAO;
-import net.bechtelus.CTA.MSSQLCallToActionDAO;
 
 public class TestCTADAO {
 

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/tomcat-test">
-  <Resource
-    name="BeanManager"
-    auth="Container"
-    type="javax.enterprise.inject.spi.BeanManager"
-    factory="org.jboss.weld.resources.ManagerObjectFactory"
-    />
-</Context>
+<beans
+  xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
+  bean-discovery-mode="annotated">
+  </beans>

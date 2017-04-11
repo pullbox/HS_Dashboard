@@ -6,7 +6,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import net.bechtelus.CTA.CallToActionDAO;
 import net.bechtelus.CTA.MSSQLCallToActionDAO;
-import net.bechtelus.user.UserDAO;
 
 public class MSSQLDAOFactory extends DAOFactory {
 	public static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";

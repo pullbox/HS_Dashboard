@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/tr-template.xhtml">
+
+	<ui:define name="content">
+
+		
+		<h:form id="form">
+			<p:growl id="msgs" showDetail="true" />
+			<p:dataList var="ticketextended" value="#{jsfDspResult.tickets}"
+				type="none">
+
+
+				<div class="ui-grid-row">
+
+
+					<div class="ui-grid-col-1">
+
+						<p:button value="View"
+							outcome="DspTicket?theTicketID=#{ticketextended.id}">
+							<f:viewParam name="theTicketID" value="#{ticketextended.id}" />
+						</p:button>
+
+					</div>
+					<div class="ui-grid-col-1">
+
+						<h:outputText value="#{ticketextended.id}" />
+					</div>
+					<div class="ui-grid-col-1">
+
+						<h:outputText value="#{ticketextended.status}" />
+					</div>
+					<div class="ui-grid-col-2">
+
+						<h:outputText value="#{ticketextended.organizationName}" />
+					</div>
+					<div class="ui-grid-col-7">
+
+						<h:outputText value="#{ticketextended.subject}" />
+					</div>
+				</div>
+
+			</p:dataList>
+		</h:form>
+	</ui:define>
+</ui:composition>
