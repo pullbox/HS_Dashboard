@@ -22,7 +22,7 @@ import javax.inject.Named;
 
 @Named("jsfShowCTAs")
 @SessionScoped
-public class JsfShowCTAs implements Serializable {
+public class WelcomeBean implements Serializable {
 
 	private static final long serialVersionUID = 7778841766245989495L;
 	private List<CallToAction> ctas;
