@@ -21,15 +21,21 @@
 				</div>
 				<div class="uri-g-2" align="right"></div>
 				<div class="uri-g-2" align="right">
-					<p:inputText id="userid" value="Welcome #{loginBean.username}" readonly="true" />
+					<p:inputText id="userid" value="Welcome #{loginBean.username}"
+						readonly="true" />
 				</div>
 			</div>
 
 
 
-			<!-- 	<p:dataList var="cta" value="#{welcomeBean.ctas}">
-
-			</p:dataList> -->
+			<p:dataList var="cta" value="#{welcomeBean.ctas}">
+				<p:outputLabel value="CTA#" />
+				<p:outputLabel value="#{cta.id}" />
+				<p:outputLabel value="#{cta.source}" />
+				<p:outputLabel value="#{cta.status}" />
+				<p:outputLabel value="#{cta.description}" />
+				<p:outputLabel value="#{cta.dueDate}" />
+			</p:dataList>
 
 			<br />
 			<p:commandLink action="#{loginBean.doLogout}" value="Logout" />

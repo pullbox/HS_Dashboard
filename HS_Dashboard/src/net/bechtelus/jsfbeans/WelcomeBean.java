@@ -33,8 +33,8 @@ public class WelcomeBean implements Serializable {
 	private static final long serialVersionUID = 7778841766245989495L;
 	private List<CallToAction> ctas;
 	private CallToAction cta;
-	CallToActionDAO ctadao;
-	UserDAO userdao;
+	private CallToActionDAO ctadao;
+	private UserDAO userdao;
 	
 	
 	private String userid;
@@ -71,6 +71,13 @@ public class WelcomeBean implements Serializable {
 
 
 	
+
+	/**
+	 * @return the ctas
+	 */
+	public List<CallToAction> getCtas() {
+		return ctas;
+	}
 
 	/**
 	 * @return the userid

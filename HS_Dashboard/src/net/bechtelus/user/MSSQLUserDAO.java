@@ -1,5 +1,6 @@
 package net.bechtelus.user;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +15,7 @@ import net.bechtelus.common.AbstractMSSQLDAO;
 import net.bechtelus.common.DAOException;
 import net.bechtelus.user.User;
 
-public class MSSQLUserDAO extends AbstractMSSQLDAO implements UserDAO {
+public class MSSQLUserDAO extends AbstractMSSQLDAO implements UserDAO, Serializable {
 	private static final String SQL_SELECT_USER_BY_USER_TK = "SELECT * from dbo.sf_user WHERE USER_TK = ?";
 	private static final String SQL_SELECT_USER_BY_EMAIL = "SELECT * from dbo.sf_user WHERE EMAIL = ?";
 	private static final String SQL_SELECT_USER_BY_USER_ID = "SELECT * from dbo.sf_user WHERE USER_ID = ?";
