@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import net.bechtelus.CTA.CallToActionDAO;
+import net.bechtelus.user.UserDAO;
 import net.bechtelus.util.HSDashboardUtility;
 
 //Abstract class DAO Factory
@@ -25,6 +26,7 @@ public abstract class DAOFactory {
 	private static ConnectionProvider connectionProvider;
 
 	public abstract CallToActionDAO getCallToActionDAO() throws DAOException;
+	public abstract UserDAO getUSERDAO() throws DAOException;
 
 	// List of DAO types supported by the factory
 	public static final int MYSQL = 1;

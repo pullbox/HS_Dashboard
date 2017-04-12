@@ -24,8 +24,10 @@ public interface CallToActionDAO  {
 
 	public CallToAction getCallToActionById(long id) throws DAOException;
 
-	public User getUserBySLFId(String SLF_User_id) throws DAOException;
 	
 	public List<CallToAction> getCallToActions(String userId, boolean top, int maxTop, int maxDefault) throws DAOException;
 
+	public List<CallToAction> getAllCallToActions(String userId) throws DAOException;
+	
+	
 }

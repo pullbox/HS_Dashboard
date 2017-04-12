@@ -7,21 +7,29 @@
 	template="/templates/tr-template.xhtml">
 
 	<ui:define name="content">
-		<f:facet name="header">
-			<div align="left">
-				<p:commandButton id="button" value="Create CTA"
-					action="#{navigationBean.createCTA}" update="msg" />
-			</div>
-		</f:facet>
 
 
 
 		<h:form id="welcome">
 			<p:growl id="msgs" showDetail="true" />
-			<h3>Welcome #{loginBean.username}</h3>
-			<p:dataList var="cta" value="#{welcomeBean.ctas}">
 
-			</p:dataList>
+
+			<div class="ui-g">
+				<div class="ui-g-8" align="left">
+					<p:commandButton id="button" value="Create CTA"
+						action="#{navigationBean.createCTA}" />
+				</div>
+				<div class="uri-g-2" align="right"></div>
+				<div class="uri-g-2" align="right">
+					<p:inputText id="userid" value="Welcome #{loginBean.username}" readonly="true" />
+				</div>
+			</div>
+
+
+
+			<!-- 	<p:dataList var="cta" value="#{welcomeBean.ctas}">
+
+			</p:dataList> -->
 
 			<br />
 			<p:commandLink action="#{loginBean.doLogout}" value="Logout" />

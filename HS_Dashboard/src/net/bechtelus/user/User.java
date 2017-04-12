@@ -1,68 +1,123 @@
 package net.bechtelus.user;
 
+import net.bechtelus.common.DAOFactory;
+
 public class User {
-	protected Long id;
-	protected String slf_user_id;
-	protected String username;
-	protected String password;
-	protected String email;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	private Long USER_TK;
+	private String USER_ID;
+	private String FULL_NAME;
+	private Boolean ACTIVE;
+	private String EMAIL;
+	private String TITLE;
 
 	
-	public String getSlf_user_id() {
-		return slf_user_id;
-	}
-
-	
-	public void setSlf_user_id(String slf_user_id) {
-		this.slf_user_id = slf_user_id;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
 
 	/**
-	 * @param email the email to set
+	 * @return the uSER_TK
 	 */
-	public void setEmail(String email) {
-		this.email = email;
+	public Long getUSER_TK() {
+		return USER_TK;
 	}
 
-	public User(Long aID, String aSLF_user_id, String aName, String aPassword, String aemail) {
-		setId(aID);
-		setSlf_user_id(aSLF_user_id);
-		setUsername(aName);
-		setPassword(aPassword);
-		setEmail(aemail);
+
+	/**
+	 * @param uSER_TK the uSER_TK to set
+	 */
+	public void setUSER_TK(Long uSER_TK) {
+		USER_TK = uSER_TK;
+	}
+
+
+	/**
+	 * @return the uSER_ID
+	 */
+	public String getUSER_ID() {
+		return USER_ID;
+	}
+
+
+	/**
+	 * @param uSER_ID the uSER_ID to set
+	 */
+	public void setUSER_ID(String uSER_ID) {
+		USER_ID = uSER_ID;
+	}
+
+
+	/**
+	 * @return the fULL_NAME
+	 */
+	public String getFULL_NAME() {
+		return FULL_NAME;
+	}
+
+
+	/**
+	 * @param fULL_NAME the fULL_NAME to set
+	 */
+	public void setFULL_NAME(String fULL_NAME) {
+		FULL_NAME = fULL_NAME;
+	}
+
+
+	/**
+	 * @return the aCTIVE
+	 */
+	public Boolean getACTIVE() {
+		return ACTIVE;
+	}
+
+
+	/**
+	 * @param aCTIVE the aCTIVE to set
+	 */
+	public void setACTIVE(Boolean aCTIVE) {
+		ACTIVE = aCTIVE;
+	}
+
+
+	/**
+	 * @return the eMAIL
+	 */
+	public String getEMAIL() {
+		return EMAIL;
+	}
+
+
+	/**
+	 * @param eMAIL the eMAIL to set
+	 */
+	public void setEMAIL(String eMAIL) {
+		EMAIL = eMAIL;
+	}
+
+
+	/**
+	 * @return the tITLE
+	 */
+	public String getTITLE() {
+		return TITLE;
+	}
+
+
+	/**
+	 * @param tITLE the tITLE to set
+	 */
+	public void setTITLE(String tITLE) {
+		TITLE = tITLE;
+	}
+
+
+	public User(Long user_tk, String user_id, String full_name, Boolean active, String email, String title) {
+		this.setACTIVE(active);
+		this.setEMAIL(email);
+		this.setFULL_NAME(full_name);
+		this.setTITLE(title);
+		this.setUSER_ID(user_id);
+		this.setUSER_TK(user_tk);
 	}
 	
+		
 	public User() {
 		
 	}

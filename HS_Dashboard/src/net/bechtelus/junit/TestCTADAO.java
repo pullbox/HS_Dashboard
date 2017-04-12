@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import net.bechtelus.common.DAOFactory;
 import net.bechtelus.user.User;
+import net.bechtelus.user.UserDAO;
 import net.bechtelus.CTA.CallToAction;
 import net.bechtelus.CTA.CallToActionDAO;
 
@@ -64,10 +65,10 @@ public class TestCTADAO {
 	private CallToAction createCTAobject() {
 		/* setup USER */
 		DAOFactory factory = DAOFactory.getFactory();
-		CallToActionDAO dao = factory.getCallToActionDAO();
+		UserDAO userdao = factory.getUSERDAO();
 		
 		User assignee = new User();
-		assignee = dao.getUserBySLFId("00550000002Ua4WAAS");
+		assignee = userdao.findUserByEmail("dbechtel@pentaho.com");
 				
 
 		/* setup snoozeperiod */

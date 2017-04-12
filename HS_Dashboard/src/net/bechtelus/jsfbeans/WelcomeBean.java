@@ -11,6 +11,8 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import net.bechtelus.CTA.*;
 import net.bechtelus.common.DAOFactory;
+import net.bechtelus.user.User;
+import net.bechtelus.user.UserDAO;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -31,9 +33,14 @@ public class WelcomeBean implements Serializable {
 	private static final long serialVersionUID = 7778841766245989495L;
 	private List<CallToAction> ctas;
 	private CallToAction cta;
+	CallToActionDAO ctadao;
+	UserDAO userdao;
 	
 	
+	private String userid;
 	
+	
+
 	@PostConstruct
 	public void init() {
 		
@@ -44,45 +51,32 @@ public class WelcomeBean implements Serializable {
 		ctas = new ArrayList<CallToAction>();
 		
 		DAOFactory factory = DAOFactory.getFactory();
-		CallToActionDAO dao = factory.getCallToActionDAO();
+		 ctadao = factory.getCallToActionDAO();
+		 userdao = factory.getUSERDAO();
 		
+		 User user = new User();
+		 user = userdao.findUserByUserID(getUserid());
 		
+		ctas =  ctadao.getAllCallToActions(user.getUSER_ID()); 
+			
 		
-		for (CallToAction cta : dao.getCallToActions(userId, true, 0, 0)) {
-			// System.out.println("Body: " + comment.getBody());
-			ctas.add(ticketextended);
-
-		}
 		
 	}
 
 	@PreDestroy
 	public void close() {
-		zd.close();
-		log("destroyed");
+		ctadao = null;
+		userdao = null;
 	}
 
-	public TicketExtended getRowData(String arg0) {
-		log("getRowData " + arg0);
-		return null;
-	}
 
-	public Object getRowKey(TicketExtended arg0) {
+	
 
-		log("getRowkey " + arg0);
-		return null;
-	}
-
-	private void log(String a) {
-		System.out.println(getClass().getName() + " " + a);
-
-	}
-
-	private String time() {
-
-		String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
-				.format(new Date());
-		return timestamp;
+	/**
+	 * @return the userid
+	 */
+	public String getUserid() {
+		return userid;
 	}
 
 }

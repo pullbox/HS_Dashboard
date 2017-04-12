@@ -13,56 +13,94 @@
 		</f:metadata>
  -->
 
-		<p:fieldset>
-			<h:form id="form">
-				<p:growl id="msgs" showDetail="true" />
+		<h:form id="form">
+			<div align="center">
+				<div class="ui-g">
 
-				<p:panelGrid columns="2">
-					<f:facet name="header">
-					</f:facet>
+					<div class="ui-g-12">
+						<p:toolbar>
+							<f:facet name="left">
+								<p:commandButton type="button" update="growl" value="Save"
+									icon="ui-icon-disk" />
+								<p:commandButton type="button" update="growl" value="Delete"
+									icon="ui-icon-trash" />
 
-
-					<p:outputLabel for="ID" value="Call To Action" />
-					<p:outputLabel id="ID" value="#{editCTABean.ID}" />
-
-					<p:outputLabel for="organization" value="Organization" />
-					<p:outputLabel id="organization"
-						value="#{jsfDspTicket.organization}" />
-
-					<p:outputLabel for="submitter" value="Submitted by" />
-					<p:outputLabel id="submitter" value="#{jsfDspTicket.submitter}" />
-
-					<p:outputLabel for="status" value="Status" />
-					<p:outputLabel id="status" value="#{jsfDspTicket.status}" />
-
-
-					<p:outputLabel for="subject" value="Subject" />
-					<p:outputLabel id="subject" value="#{jsfDspTicket.subject}" />
-
-					<p:outputLabel for="groupName" value="Group" />
-					<p:outputLabel id="groupName" value="#{jsfDspTicket.groupName}" />
-
-					<p:outputLabel for="assigneeName" value="Assigned to" />
-					<p:outputLabel id="assigneeName"
-						value="#{jsfDspTicket.assigneeName}" />
-
-					<p:outputLabel for="description" value="Description" />
-					<p:outputLabel id="description"
-						value="#{jsfDspTicket.firstComment}" escape="false" />
-
-					<p:outputLabel for="createdAt" value="Created At" />
-					<p:outputLabel id="createdAt" value="#{jsfDspTicket.createdAt}" />
+							</f:facet>
+						</p:toolbar>
+					</div>
 
 
 
-					<p:outputLabel for="requesterName" value="Requester" />
-					<p:outputLabel id="requesterName"
-						value="#{jsfDspTicket.requesterName}" />
-					<p:outputLabel />
+
+					<p:growl id="msgs" showDetail="true" />
+					<div class="ui-g-12">
+						<p:panelGrid columns="2">
+							<f:facet name="header">
+								<H3>Call To Action</H3>
+							</f:facet>
 
 
-				</p:panelGrid>
+							<p:outputLabel for="ID" value="CTA ID" />
+							<p:outputLabel id="ID" value="#{editCTABean.ID}" />
 
-			</h:form>
+							<p:outputLabel for="description" value="Description" />
+							<p:inputText id="description" value="#{editCTABean.description}" />
+
+							<p:outputLabel for="type" value="Type" />
+							<p:inputText id="type" value="#{editCTABean.type}" />
+
+							<p:outputLabel for="source" value="Source" />
+							<p:selectOneListbox id="source" value="#{editCTABean.source}">
+								<f:selectItem itemLabel="Manual" itemValue="Manual" />
+								<f:selectItem itemLabel="HS_Process" itemValue="HealthScore" />
+							</p:selectOneListbox>
+
+							<p:outputLabel for="priority" value="Priority" />
+							<p:selectOneListbox id="priority" value="#{editCTABean.priority}">
+								<f:selectItem itemLabel="Code Blue" itemValue="Code Blue" />
+								<f:selectItem itemLabel="High" itemValue="High" />
+								<f:selectItem itemLabel="Medium" itemValue="Medium" />
+								<f:selectItem itemLabel="Low" itemValue="Low" />
+							</p:selectOneListbox>
+
+							<p:outputLabel for="status" value="Status" />
+							<p:selectOneListbox id="status" value="#{editCTABean.status}">
+								<f:selectItem itemLabel="New" itemValue="NEW" />
+								<f:selectItem itemLabel="Work in Progress" itemValue="WIP" />
+								<f:selectItem itemLabel="Waiting on Customer" itemValue="WOC" />
+								<f:selectItem itemLabel="Deferred" itemValue="DEFERRED" />
+								<f:selectItem itemLabel="Closed" itemValue="CLOSED" />
+
+							</p:selectOneListbox>
+
+							<p:outputLabel for="isEscalated" value="Escalated" />
+							<p:selectBooleanCheckbox id="isEscalated"
+								value="#{editCTABean.isEscalated}" />
+
+							<p:outputLabel for="note" value="Note" />
+							<p:outputPanel>
+								<p:inputTextarea id="note" rows="5" cols="30" counter="display"
+									maxlength="254" counterTemplate="{0} characters remaining."
+									autoResize="false" value="#{editCTABean.note}" />
+								<br />
+								<h:outputLabel id="display" />
+							</p:outputPanel>
+
+							<p:outputLabel for="dueDate" value="Due Date" />
+							<p:calendar id="dueDate" value="#{editCTABean.dueDate}"
+								pattern="dd-MM-yyyy" mask="true" />
+
+							<p:outputLabel for="snoosePeriod" value="Deferred until" />
+							<p:calendar id="snoosePeriod" value="#{editCTABean.snoozePeriod}"
+								pattern="dd-MM-yyyy" mask="true" />
+
+
+						</p:panelGrid>
+					</div>
+				</div>
+			</div>
+		</h:form>
+
+
 	</ui:define>
 </ui:composition>

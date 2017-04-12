@@ -6,6 +6,8 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import net.bechtelus.CTA.CallToActionDAO;
 import net.bechtelus.CTA.MSSQLCallToActionDAO;
+import net.bechtelus.user.MSSQLUserDAO;
+import net.bechtelus.user.UserDAO;
 
 public class MSSQLDAOFactory extends DAOFactory {
 	public static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
@@ -97,8 +99,19 @@ public class MSSQLDAOFactory extends DAOFactory {
 			return callToActionDAO;
 		} catch (SQLException e) {
 			logger.debug("", e);
-			throw new DAOException("Exception was thrown when instantiating a MSSQLCallToActionDAO", e);
+			throw new DAOException("Exception was thrown when instantiating a MSSQLUserDAO", e);
 		}
 	}
 
+	@Override
+	public UserDAO getUSERDAO() throws DAOException {
+		logger.debug("MSSQLDAOFactory.getUserDAO");
+		try {
+			UserDAO userDAO = new MSSQLUserDAO(getConnection());
+			return userDAO;
+		} catch (SQLException e) {
+			logger.debug("", e);
+			throw new DAOException("Exception was thrown when instantiating a MSSQLUserDAO", e);
+		}
+	}
 }

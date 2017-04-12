@@ -6,12 +6,20 @@ import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import net.bechtelus.CTA.MSSQLCallToActionDAO;
+import net.bechtelus.common.DAOFactory;
 import net.bechtelus.navigation.NavigationBean;
- 
+import net.bechtelus.user.User;
+import net.bechtelus.user.UserDAO;
+
  
 /**
 
@@ -19,35 +27,41 @@ import net.bechtelus.navigation.NavigationBean;
 @Named("loginBean")
 @SessionScoped
 public class LoginBean implements Serializable {
- 
+	
     private static final long serialVersionUID = 7765876811740798583L;
  
-    // Simple user database :)
-    private static final String[] users = {"anna:qazwsx","kate:123456"};
-     
+        
     private String username;
     private String password;
      
     private boolean loggedIn;
+    private UserDAO dao;
  
     @Inject  private NavigationBean navigationBean;
      
+    
+    @PostConstruct
+	public void init() {
+
+    	DAOFactory factory = DAOFactory.getFactory();
+    	dao =factory.getUSERDAO();
+	}
+    
+    
     /**
      * Login operation.
      * @return
      */
     public String doLogin() {
-        // Get every user from our sample database :)
-        for (String user: users) {
-            String dbUsername = user.split(":")[0];
-            String dbPassword = user.split(":")[1];
+    	
+    		User user = dao.findUserByEmail(getUsername());
              
             // Successful login
-            if (dbUsername.equals(username) && dbPassword.equals(password)) {
+            if (user.getEMAIL().equals(username)) {
                 loggedIn = true;
                 return navigationBean.redirectToWelcome();
             }
-        }
+        
          
         // Set login ERROR
         FacesMessage msg = new FacesMessage("Login error!", "ERROR MSG");
