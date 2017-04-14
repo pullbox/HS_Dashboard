@@ -2,6 +2,8 @@ package net.bechtelus.common;
 
 import java.sql.*;
 
+import org.apache.tomcat.jdbc.pool.DataSource;
+import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import net.bechtelus.CTA.CallToActionDAO;
@@ -15,15 +17,43 @@ public class MSSQLDAOFactory extends DAOFactory {
 
 	private static Log logger = LogFactory.getLog(MSSQLDAOFactory.class);
 	private static MSSQLDAOFactory self = null;
-	private Connection con = null;
+	private static Connection con = null;
 	private String connection = null;
+	private static DataSource datasource = null;
+	
 
 	static {
-		try {
-			Class.forName(DRIVER);
-		} catch (ClassNotFoundException e) {
-			logger.warn("Unable to load " + DRIVER + " class", e);
-		}
+		// try {
+		// Class.forName(DRIVER);
+
+		PoolProperties p = new PoolProperties();
+		p.setUrl("jdbc:sqlserver://localhost:1433;DatabaseName=CS_ANALYTICS;integratedSecurity=true");
+		p.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		p.setUsername("");
+		p.setPassword("");
+		p.setJmxEnabled(true);
+		p.setTestWhileIdle(false);
+		p.setTestOnBorrow(true);
+		p.setValidationQuery("SELECT 1");
+		p.setTestOnReturn(false);
+		p.setValidationInterval(30000);
+		p.setTimeBetweenEvictionRunsMillis(30000);
+		p.setMaxActive(100);
+		p.setInitialSize(10);
+		p.setMaxWait(10000);
+		p.setRemoveAbandonedTimeout(60);
+		p.setMinEvictableIdleTimeMillis(30000);
+		p.setMinIdle(10);
+		p.setLogAbandoned(true);
+		p.setRemoveAbandoned(true);
+		p.setJdbcInterceptors("org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;"
+				+ "org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer");
+		datasource = new DataSource();
+		datasource.setPoolProperties(p);
+
+		// } catch (SQLException e) {
+		// logger.warn("Unable to load " + DRIVER + " class", e);
+		// }
 	}
 
 	public static DAOFactory getInstance() {
@@ -39,11 +69,12 @@ public class MSSQLDAOFactory extends DAOFactory {
 	// method to create MSSQL connections
 	public static Connection createConnection() {
 
-		Connection con = null;
+		// Connection con = null;
+		con = null;
 		try {
 			// the sql server driver string
-
-			con = DriverManager.getConnection(DBURL);
+			con = datasource.getConnection();
+			//con = DriverManager.getConnection(DBURL);
 
 		} catch (SQLException e) {
 
@@ -58,7 +89,7 @@ public class MSSQLDAOFactory extends DAOFactory {
 
 	}
 
-	private String getConnectionString() {
+	/*private String getConnectionString() {
 		if (connection == null) {
 			loadProperties();
 			if (prop.size() <= 0) {
@@ -82,11 +113,12 @@ public class MSSQLDAOFactory extends DAOFactory {
 			logger.debug("MSSQLDAOFactory.getConnectionString()\nConnection :" + connection);
 		}
 		return connection;
-	}
+	}*/
 
 	private Connection getConnection() throws SQLException {
 		if (con == null || con.isClosed()) {
-			con = DriverManager.getConnection(getConnectionString());
+			//con = DriverManager.getConnection(getConnectionString());
+			con = datasource.getConnection();
 		}
 		return con;
 	}

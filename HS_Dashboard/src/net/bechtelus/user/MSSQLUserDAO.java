@@ -136,7 +136,7 @@ public class MSSQLUserDAO extends AbstractMSSQLDAO implements UserDAO, Serializa
 	@Override
 	public List<User> getAllActiveUsers() throws DAOException {
 		PreparedStatement getAllCTAs = null;
-		// PreparedStatement updateClosedOrders = null;
+
 		try {
 			getAllCTAs = sqlConnection.prepareStatement(SQL_SELECT_ALL_ACTIVE_USERS);
 			ResultSet rs = getAllCTAs.executeQuery();
