@@ -49,7 +49,7 @@ public class NavigationBean implements Serializable {
      * @return Welcome page name.
      */
     public String redirectToWelcome() {
-        return "/secured/welcome.xhtml?faces-redirect=true";
+        return "/secured/welcome.xhtml?faces-redirect=true&includeViewParams=true";
     }
      
     /**
@@ -65,7 +65,7 @@ public class NavigationBean implements Serializable {
      * @return Welcome page name.
      */
     public String createCTA() {
-        return "/secured/editcta.xhtml";
+        return "/secured/editCTA.xhtml";
     }
      
     

@@ -29,7 +29,7 @@ public class ConnectionPool {
         p.setMaxActive(100);
         p.setInitialSize(10);
         p.setMaxWait(10000);
-        p.setRemoveAbandonedTimeout(60);
+        p.setRemoveAbandonedTimeout(600);
         p.setMinEvictableIdleTimeMillis(30000);
         p.setMinIdle(10);
         p.setLogAbandoned(true);

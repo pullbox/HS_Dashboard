@@ -8,7 +8,9 @@
 
 	<ui:define name="content">
 
-
+		<f:metadata>
+			<f:viewParam name="username" value="#{loginBean.username}" />
+		</f:metadata>
 
 		<h:form id="welcome">
 			<p:growl id="msgs" showDetail="true" />
@@ -21,21 +23,21 @@
 				</div>
 				<div class="uri-g-2" align="right"></div>
 				<div class="uri-g-2" align="right">
-					<p:inputText id="userid" value="Welcome #{loginBean.username}"
+					<p:outputLabel id="userid" value="Welcome #{loginBean.username}"
 						readonly="true" />
 				</div>
 			</div>
 
 
 
-			<p:dataList var="cta" value="#{welcomeBean.ctas}">
+			<!-- 	<p:dataList var="cta" value="#{welcomeBean.ctas}">
 				<p:outputLabel value="CTA#" />
 				<p:outputLabel value="#{cta.id}" />
 				<p:outputLabel value="#{cta.source}" />
 				<p:outputLabel value="#{cta.status}" />
 				<p:outputLabel value="#{cta.description}" />
 				<p:outputLabel value="#{cta.dueDate}" />
-			</p:dataList>
+			</p:dataList> -->
 
 			<br />
 			<p:commandLink action="#{loginBean.doLogout}" value="Logout" />

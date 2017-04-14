@@ -26,7 +26,7 @@ import javax.inject.Named;
 
 
 @Named("welcomeBean")
-@SessionScoped
+@ViewScoped
 public class WelcomeBean implements Serializable {
 
 	private static final Log logger = LogFactory.getLog(WelcomeBean.class);
@@ -37,7 +37,7 @@ public class WelcomeBean implements Serializable {
 	private UserDAO userdao;
 	
 	
-	private String userid;
+	private String username;
 	
 	
 
@@ -55,7 +55,7 @@ public class WelcomeBean implements Serializable {
 		 userdao = factory.getUSERDAO();
 		
 		 User user = new User();
-		 user = userdao.findUserByUserID(getUserid());
+		 user = userdao.findUserByUserID(getUserName());
 		
 		ctas =  ctadao.getAllCallToActions(user.getUSER_ID()); 
 			
@@ -82,8 +82,8 @@ public class WelcomeBean implements Serializable {
 	/**
 	 * @return the userid
 	 */
-	public String getUserid() {
-		return userid;
+	public String getUserName() {
+		return username;
 	}
 
 }
