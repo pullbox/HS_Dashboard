@@ -2,15 +2,20 @@ package net.bechtelus.CTA;
 
 import java.io.Serializable;
 
-import org.joda.time.DateTime;
-import org.joda.time.Interval;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+import org.joda.time.DateTime;
 import net.bechtelus.user.User;
 
 /**
  * @author dbechtel
  *
  */
+
+@Entity
+@Table(name="CS_HS_CallToActions")
 public class CallToAction implements Serializable {
 
 	/**
@@ -18,25 +23,30 @@ public class CallToAction implements Serializable {
 	 */
 	private static final long serialVersionUID = -8906760585094374728L;
 
+	@Id
+	private long id;
 	private String description;
 	private User assignee;
-	private String ctaType;  		// Expansion, Risk, Lifecycle
-	private String status;			// New, WIP, Waiting on customer, Escalated, deferred, ...
-	private String priority;		// High, Medium, Low, Blue
-	private String reason;			// payment issue, lost champion, support risk, training issue, adoption issue
-	private String snoozeReason;	// Waiting on product feature, User on vacation, other
-	private long id;
-	private DateTime snoozeperiod;	//
-	private String ctaStatus;  		// Closed - no action
-	private String source;			// Manual, Rule, ...
+	private String ctaType; // Expansion, Risk, Lifecycle
+	private String status; // New, WIP, Waiting on customer, Escalated,
+							// deferred, ...
+	private String priority; // High, Medium, Low, Blue
+	private String reason; // payment issue, lost champion, support risk,
+							// training issue, adoption issue
+	private String snoozeReason; // Waiting on product feature, User on
+									// vacation, other
+
+	private DateTime snoozeperiod; //
+	private String ctaStatus; // Closed - no action
+	private String source; // Manual, Rule, ...
 	private User createby;
 	private DateTime createdDate;
 	private boolean escalated;
 	private DateTime dueDate;
-	private	String note;
+	private String note;
 	private DateTime modifiedDate;
 	private User modifiedby;
-	
+
 	/**
 	 * @return the id
 	 */
@@ -45,13 +55,13 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
-	
-	
+
 	/**
 	 * @return the description
 	 */
@@ -60,7 +70,8 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
-	 * @param description the description to set
+	 * @param description
+	 *            the description to set
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -74,7 +85,8 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
-	 * @param assignee the assignee to set
+	 * @param assignee
+	 *            the assignee to set
 	 */
 	public void setAssignee(User assignee) {
 		this.assignee = assignee;
@@ -82,6 +94,7 @@ public class CallToAction implements Serializable {
 
 	/**
 	 * Expansion, Risk, Lifecycle
+	 * 
 	 * @return the ctaType
 	 */
 	public String getCtaType() {
@@ -89,7 +102,8 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
-	 * @param ctaType the ctaType to set
+	 * @param ctaType
+	 *            the ctaType to set
 	 */
 	public void setCtaType(String ctaType) {
 		this.ctaType = ctaType;
@@ -104,7 +118,9 @@ public class CallToAction implements Serializable {
 
 	/**
 	 * New, WIP, Waiting on customer, Escalated, deferred, ...
-	 * @param status the status to set
+	 * 
+	 * @param status
+	 *            the status to set
 	 */
 	public void setStatus(String status) {
 		this.status = status;
@@ -118,7 +134,8 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
-	 * @param priority the priority to set
+	 * @param priority
+	 *            the priority to set
 	 */
 	public void setPriority(String priority) {
 		this.priority = priority;
@@ -132,8 +149,11 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
-	 * payment issue, lost champion, support risk, training issue, adoption issue
-	 * @param reason the reason to set
+	 * payment issue, lost champion, support risk, training issue, adoption
+	 * issue
+	 * 
+	 * @param reason
+	 *            the reason to set
 	 */
 	public void setReason(String reason) {
 		this.reason = reason;
@@ -148,7 +168,9 @@ public class CallToAction implements Serializable {
 
 	/**
 	 * Waiting on product feature, User on vacation, other
-	 * @param snoozeReason the snoozeReason to set
+	 * 
+	 * @param snoozeReason
+	 *            the snoozeReason to set
 	 */
 	public void setSnoozeReason(String snoozeReason) {
 		this.snoozeReason = snoozeReason;
@@ -162,7 +184,8 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
-	 * @param snoozeperiod the snoozeperiod to set
+	 * @param snoozeperiod
+	 *            the snoozeperiod to set
 	 */
 	public void setSnoozeperiod(DateTime snoozeperiod) {
 		this.snoozeperiod = snoozeperiod;
@@ -177,7 +200,9 @@ public class CallToAction implements Serializable {
 
 	/**
 	 * Closed - no action
-	 * @param ctaStatus the ctaStatus to set
+	 * 
+	 * @param ctaStatus
+	 *            the ctaStatus to set
 	 */
 	public void setCtaStatus(String ctaStatus) {
 		this.ctaStatus = ctaStatus;
@@ -192,7 +217,9 @@ public class CallToAction implements Serializable {
 
 	/**
 	 * Manual, Rule, ...
-	 * @param source the source to set
+	 * 
+	 * @param source
+	 *            the source to set
 	 */
 	public void setSource(String source) {
 		this.source = source;
@@ -206,7 +233,8 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
-	 * @param createby the createby to set
+	 * @param createby
+	 *            the createby to set
 	 */
 	public void setCreateby(User createby) {
 		this.createby = createby;
@@ -220,7 +248,8 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
-	 * @param createdDate the createdDate to set
+	 * @param createdDate
+	 *            the createdDate to set
 	 */
 	public void setCreatedDate(DateTime createdDate) {
 		this.createdDate = createdDate;
@@ -234,7 +263,8 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
-	 * @param escalated the escalated to set
+	 * @param escalated
+	 *            the escalated to set
 	 */
 	public void setEscalated(boolean escalated) {
 		this.escalated = escalated;
@@ -248,13 +278,12 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
-	 * @param dueDate the dueDate to set
+	 * @param dueDate
+	 *            the dueDate to set
 	 */
 	public void setDueDate(DateTime dueDate) {
 		this.dueDate = dueDate;
 	}
-
-
 
 	/**
 	 * @return the note
@@ -264,7 +293,8 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
-	 * @param note the note to set
+	 * @param note
+	 *            the note to set
 	 */
 	public void setNote(String note) {
 		this.note = note;
@@ -278,7 +308,8 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
-	 * @param modifiedDate the modifiedDate to set
+	 * @param modifiedDate
+	 *            the modifiedDate to set
 	 */
 	public void setModifiedDate(DateTime modifiedDate) {
 		this.modifiedDate = modifiedDate;
@@ -292,13 +323,14 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
-	 * @param modifiedby the modifiedby to set
+	 * @param modifiedby
+	 *            the modifiedby to set
 	 */
 	public void setModifiedby(User modifiedby) {
 		this.modifiedby = modifiedby;
 	}
 
 	public CallToAction() {
-
+		super();
 	}
 }

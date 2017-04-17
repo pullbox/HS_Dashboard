@@ -11,23 +11,45 @@ import net.bechtelus.common.DAOFactory;
 import net.bechtelus.user.User;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.*;
+
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.application.FacesMessage;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 @Named("editCTABean")
-@SessionScoped
+@ViewScoped
 public class EditCTABean implements Serializable {
 	private static final Log logger = LogFactory.getLog(EditCTABean.class);
 	private static final long serialVersionUID = 7778898875625989495L;
 
 	private CallToAction cta;
 
-	public void saveCTAAction(ActionEvent actionEvent) {
+	@PostConstruct
+	public void init() {
+		cta = new CallToAction();
+
+	}
+
+	public boolean saveCTA() {
+		DAOFactory factory = DAOFactory.getFactory();
+		CallToActionDAO dao = factory.getCallToActionDAO();
+		boolean inserted = dao.insertCTA(cta);
+
+		return inserted;
+	}
+
+	public void deleteCTA() {
+		DAOFactory factory = DAOFactory.getFactory();
+		CallToActionDAO dao = factory.getCallToActionDAO();
+		dao.deleteCTA(cta.getId());
+	}
+
+	public void saveCTAActionListener(ActionEvent actionEvent) {
 		if (saveCTA()) {
 			addMessage("CTA " + cta.getDescription() + " was saved!");
 		} else {
@@ -35,8 +57,9 @@ public class EditCTABean implements Serializable {
 		}
 
 	}
-
-	public void deleteCTAAction(ActionEvent actionEvent) {
+	
+	
+	public void deleteCTAActionListener(ActionEvent actionEvent) {
 		deleteCTA();
 		addMessage("CTA " + cta.getDescription() + " was saved!");
 
@@ -133,7 +156,11 @@ public class EditCTABean implements Serializable {
 	}
 
 	public Date getDueDate() {
-		return cta.getDueDate().toDate();
+		if (cta.getDueDate() != null) {
+			return cta.getDueDate().toDate();
+		} else {
+			return null;
+		}
 	}
 
 	public void setDueDate(Date aDate) {
@@ -141,7 +168,12 @@ public class EditCTABean implements Serializable {
 	}
 
 	public Date getSnoozePeriod() {
-		return cta.getSnoozeperiod().toDate();
+		if (cta.getSnoozeperiod() != null) {
+			return cta.getSnoozeperiod().toDate();
+		} else {
+			return null;
+		}
+
 	}
 
 	public void setSnoozePeriod(Date date) {
@@ -149,7 +181,11 @@ public class EditCTABean implements Serializable {
 	}
 
 	public Date getModifiedDate() {
-		return cta.getModifiedDate().toDate();
+		if (cta.getModifiedDate() != null) {
+			return cta.getModifiedDate().toDate();
+		} else {
+			return null;
+		}
 	}
 
 	public String getCreatedBy() {
@@ -178,27 +214,6 @@ public class EditCTABean implements Serializable {
 
 	public void setIsEscalated(Boolean escalated) {
 		cta.setEscalated(escalated);
-	}
-
-	@PostConstruct
-	public void init() {
-		cta = new CallToAction();
-		cta.setId(4722);
-
-	}
-
-	public boolean saveCTA() {
-		DAOFactory factory = DAOFactory.getFactory();
-		CallToActionDAO dao = factory.getCallToActionDAO();
-		boolean inserted = dao.insertCTA(cta);
-
-		return inserted;
-	}
-
-	public void deleteCTA() {
-		DAOFactory factory = DAOFactory.getFactory();
-		CallToActionDAO dao = factory.getCallToActionDAO();
-		dao.deleteCTA(cta.getId());
 	}
 
 	public void addMessage(String summary) {

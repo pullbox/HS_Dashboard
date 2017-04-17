@@ -13,6 +13,7 @@
 		</f:metadata>
  -->
 
+
 		<h:form id="form">
 			<div align="center">
 				<div class="ui-g">
@@ -20,9 +21,11 @@
 					<div class="ui-g-12">
 						<p:toolbar>
 							<f:facet name="left">
-								<p:commandButton type="button" update="growl" value="Save"
+								<p:commandButton update="msgs" value="Save"
+									actionListener="#{editCTABean.saveCTAActionListener()}"
 									icon="ui-icon-disk" />
-								<p:commandButton type="button" update="growl" value="Delete"
+								<p:commandButton update="msgs" value="Delete"
+									actionListener="#{editCTABean.deleteCTAActionListener()}"
 									icon="ui-icon-trash" />
 
 							</f:facet>
@@ -40,14 +43,17 @@
 							</f:facet>
 
 
-							<p:outputLabel for="ID" value="CTA ID" />
-							<p:outputLabel id="ID" value="#{editCTABean.ID}" />
 
 							<p:outputLabel for="description" value="Description" />
 							<p:inputText id="description" value="#{editCTABean.description}" />
 
 							<p:outputLabel for="type" value="Type" />
-							<p:inputText id="type" value="#{editCTABean.type}" />
+							<p:selectOneListbox id="type" value="#{editCTABean.type}">
+								<f:selectItem itemLabel="Lifecycle event" itemValue="LIFECYCLE" />
+								<f:selectItem itemLabel="Risk mitigation" itemValue="RISK" />
+								<f:selectItem itemLabel="Adoption / Expansion"
+									itemValue="EXPANSION" />
+							</p:selectOneListbox>
 
 							<p:outputLabel for="source" value="Source" />
 							<p:selectOneListbox id="source" value="#{editCTABean.source}">
