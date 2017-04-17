@@ -65,7 +65,7 @@ public class NavigationBean implements Serializable {
      * @return Welcome page name.
      */
     public String createCTA() {
-        return "/secured/editCTA.xhtml";
+        return "/secured/editCTA.xhtml?faces-redirect=true&includeViewParams=true";
     }
      
     

@@ -16,6 +16,7 @@ import net.bechtelus.user.UserDAO;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
@@ -26,19 +27,17 @@ import javax.inject.Named;
 
 
 @Named("welcomeBean")
-@ViewScoped
+@RequestScoped
 public class WelcomeBean implements Serializable {
 
 	private static final Log logger = LogFactory.getLog(WelcomeBean.class);
 	private static final long serialVersionUID = 7778841766245989495L;
-	private List<CallToAction> ctas;
-	private CallToAction cta;
-	private CallToActionDAO ctadao;
-	private UserDAO userdao;
 	
-	
+	@EJB
+	private CallToActionService ctaService;
+		
 	private String username;
-	
+	private List<CallToAction> ctas;
 	
 
 	@PostConstruct
@@ -47,7 +46,10 @@ public class WelcomeBean implements Serializable {
 	
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		
-		ctas = null;
+		ctas = ctaService.list();
+		
+		
+		/*ctas = null;
 		ctas = new ArrayList<CallToAction>();
 		
 		DAOFactory factory = DAOFactory.getFactory();
@@ -58,7 +60,7 @@ public class WelcomeBean implements Serializable {
 		 user = userdao.findUserByUserID(getUserName());
 		
 		ctas =  ctadao.getAllCallToActions(user.getUSER_ID()); 
-			
+		*/	
 		
 		
 	}

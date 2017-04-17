@@ -11,6 +11,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
+import javax.persistence.PersistenceContext;
+
 import org.joda.time.*;
 
 import org.apache.commons.logging.LogFactory;
@@ -19,20 +22,24 @@ import org.apache.commons.logging.Log;
 import net.bechtelus.common.AbstractMSSQLDAO;
 import net.bechtelus.common.DAOException;
 import net.bechtelus.common.DAOFactory;
-import net.bechtelus.common.MySQLDAOFactory;
+
 import net.bechtelus.user.MSSQLUserDAO;
 import net.bechtelus.user.User;
 import net.bechtelus.user.UserDAO;
 import net.bechtelus.util.HSDashboardUtility;
 
+@Stateless
 public class MSSQLCallToActionDAO extends AbstractMSSQLDAO implements CallToActionDAO {
+	
+	
+	@PersistenceContext
 	private static final String SQL_SELECT_CALLTOACTION_BY_ID = "SELECT * from dbo.CS_HS_CallToActions WHERE id = ?";
 	private static final String SQL_SELECT_ALL_CTAS = "SELECT * from dbo.CS_HS_CallToActions WHERE ASSIGNEE = ?";
 	
 	private static final String SQL_UPDATE_CALLTOACTION = "Update dbo.CS_HS_CallToActions SET DESCRIPTION=?, ASSIGNEE=?, TYPE=?, STATUS=?, PRIORITY=?, REASON=?, SNOOZEPERIOD=?, CTASTATUS=?, SOURCE=?, MODIFIEDBY=?, ESCALATED=?, DUEDATE=?, NOTE=?, SNOOZEREASON=?, MODIFIEDDATE=getdate() WHERE ID = ?";
 	private static final String SQL_DELETE_CALLTOACTION = "DELETE FROM dbo.CS_HS_CallToActions WHERE id = ";
 	
-	private static final String SQL_INSERT_CALLTOACTION = "INSERT INTO dbo.CS_HS_CallToActions (ID, DESCRIPTION, ASSIGNEE, TYPE, STATUS, PRIORITY, REASON, SNOOZEPERIOD, CTASTATUS, SOURCE, CREATEDBY, ESCALATED, DUEDATE, NOTE, SNOOZEREASON, CREATEDDATE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, getdate()); SELECT SCOPE_IDENTITY();";
+	private static final String SQL_INSERT_CALLTOACTION = "INSERT INTO dbo.CS_HS_CallToActions (ID, DESCRIPTION, ASSIGNEE, TYPE, STATUS, PRIORITY, REASON, SNOOZEPERIOD, CTASTATUS, SOURCE, CREATEDBY, ESCALATED, DUEDATE, NOTE, SNOOZEREASON, CREATEDDATE) VALUES (NEXT VALUE FOR seqCTA, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, getdate()); SELECT SCOPE_IDENTITY();";
 	private static final String SQL_SELECT_CALLTOACTIONS_BY_ID = " cta.id, cta.DESCRIPTION, cta.ASSIGNEE, cta.TYPE, cta.STATUS, cta.PRIORITY, cta.REASON, cta.SNOOZEPERIOD, cta.CTASTATUS, cta.SOURCE, cta.MODIFIEDBY, cta.ESCALATED, cta.DUEDATE, cta.NOTE, cta.SNOOZEREASON, cta.MODIFIEDDATE FROM dbo.CS_HS_CallToActions cta WHERE cta.ASSIGNEE = ? ORDER BY ID DESC";
 
 	private static final Log logger = LogFactory.getLog(MSSQLCallToActionDAO.class);
@@ -175,21 +182,21 @@ public class MSSQLCallToActionDAO extends AbstractMSSQLDAO implements CallToActi
 		try {
 
 			insertCTA = sqlConnection.prepareStatement(SQL_INSERT_CALLTOACTION);
-			insertCTA.setLong(1, cta.getId());
-			insertCTA.setString(2, cta.getDescription());
-			insertCTA.setString(3, cta.getAssignee().getUSER_ID());
-			insertCTA.setString(4, cta.getCtaType());
-			insertCTA.setString(5, cta.getStatus());
-			insertCTA.setString(6, cta.getPriority());
-			insertCTA.setString(7, cta.getReason());
-			insertCTA.setDate(8, new java.sql.Date(cta.getSnoozeperiod().getMillis()));
-			insertCTA.setString(9, cta.getCtaStatus());
-			insertCTA.setString(10, cta.getSource());
-			insertCTA.setString(11, cta.getCreateby().getUSER_ID());
-			insertCTA.setBoolean(12, cta.isEscalated());
-			insertCTA.setDate(13, new java.sql.Date(cta.getDueDate().getMillis()));
-			insertCTA.setString(14, cta.getNote());
-			insertCTA.setString(15, cta.getSnoozeReason());
+			//insertCTA.setLong(1, cta.getId());
+			insertCTA.setString(1, cta.getDescription());
+			insertCTA.setString(2, cta.getAssignee().getUSER_ID());
+			insertCTA.setString(3, cta.getCtaType());
+			insertCTA.setString(4, cta.getStatus());
+			insertCTA.setString(5, cta.getPriority());
+			insertCTA.setString(6, cta.getReason());
+			insertCTA.setDate(7, new java.sql.Date(cta.getSnoozeperiod().getMillis()));
+			insertCTA.setString(8, cta.getCtaStatus());
+			insertCTA.setString(9, cta.getSource());
+			insertCTA.setString(10, cta.getCreateby().getUSER_ID());
+			insertCTA.setBoolean(11, cta.isEscalated());
+			insertCTA.setDate(12, new java.sql.Date(cta.getDueDate().getMillis()));
+			insertCTA.setString(13, cta.getNote());
+			insertCTA.setString(14, cta.getSnoozeReason());
 			insertCTA.executeUpdate();
 			insertSuccess = true;
 

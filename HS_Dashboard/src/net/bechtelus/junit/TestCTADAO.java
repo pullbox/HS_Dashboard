@@ -37,11 +37,10 @@ public class TestCTADAO {
 	public void testMSSQLCTADAO() throws Exception {
 		DAOFactory factory = DAOFactory.getFactory();
 
-
 		/* Get the data access object */
 		CallToActionDAO dao = factory.getCallToActionDAO();
 
-	    /* Create CTA Object */
+		/* Create CTA Object */
 		CallToAction cta = new CallToAction();
 		cta = createCTAobject();
 
@@ -51,31 +50,28 @@ public class TestCTADAO {
 		/* test find function */
 		CallToAction fcta = dao.getCallToActionById(1);
 		assertEquals("Record was not found", "Test Call To Action", fcta.getDescription());
-		
-		/* Delete the record  */
+
+		/* Delete the record */
 		dao.deleteCTA(1);
-		
+
 		/* test find function */
 		fcta = dao.getCallToActionById(1);
 		assertNull("Record was not found as it was deleted", fcta);
-				
+
 	}
-	
-	
+
 	private CallToAction createCTAobject() {
 		/* setup USER */
 		DAOFactory factory = DAOFactory.getFactory();
 		UserDAO userdao = factory.getUSERDAO();
-		
+
 		User assignee = new User();
 		assignee = userdao.findUserByEmail("dbechtel@pentaho.com");
-				
 
 		/* setup snoozeperiod */
 		DateTime snoozedt = new DateTime(2017, 9, 15, 9, 00);
 
 		CallToAction cta = new CallToAction();
-		cta.setId(1);
 		cta.setDescription("Test Call To Action");
 		cta.setAssignee(assignee);
 		cta.setCtaType("RISK");
@@ -89,51 +85,43 @@ public class TestCTADAO {
 		cta.setEscalated(true);
 		cta.setDueDate(snoozedt);
 		cta.setNote("this CTA was created as part of the JUNIT TEST");
-	
+
 		return cta;
 	}
-	
-	
+
 	@Test
 	public void updateCTA() throws Exception {
 		DAOFactory factory = DAOFactory.getFactory();
 
-
 		/* Get the data access object */
 		CallToActionDAO dao = factory.getCallToActionDAO();
 
-	    /* Create CTA Object */
+		/* Create CTA Object */
 		CallToAction cta = new CallToAction();
 		cta = createCTAobject();
-		cta.setId(5);
-
+		
 		boolean inserted = dao.insertCTA(cta);
 		assertTrue("Record was inserted into the DB", inserted);
-		
+
 		/* test find function */
 		cta = null;
-		CallToAction fcta = dao.getCallToActionById(5);
-				
+		CallToAction fcta = dao.getCallToActionById(2);
+
 		fcta.setDescription("Updated the Record");
-		
+
 		/* test find function */
 		dao.updateCTA(fcta);
-			
-		/* find updated record and see if it was updated  */
+
+		/* find updated record and see if it was updated */
 		fcta = null;
-		cta = dao.getCallToActionById(5);		
+		cta = dao.getCallToActionById(2);
 		assertEquals("Description Updated", "Updated the Record", cta.getDescription());
 		assertNotNull(cta);
-		
-		cta = null;
-		
-		dao.deleteCTA(5);
-		
-	}
-	
-	
-	
 
-	
+		cta = null;
+
+		dao.deleteCTA(2);
+
+	}
 
 }
