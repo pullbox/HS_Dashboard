@@ -67,8 +67,7 @@ public class WelcomeBean implements Serializable {
 
 	@PreDestroy
 	public void close() {
-		ctadao = null;
-		userdao = null;
+		
 	}
 
 

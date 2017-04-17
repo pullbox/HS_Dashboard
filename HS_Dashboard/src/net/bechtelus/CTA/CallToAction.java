@@ -2,7 +2,10 @@ package net.bechtelus.CTA;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,6 +19,7 @@ import net.bechtelus.user.User;
 
 @Entity
 @Table(name="CS_HS_CallToActions")
+
 public class CallToAction implements Serializable {
 
 	/**
@@ -24,8 +28,11 @@ public class CallToAction implements Serializable {
 	private static final long serialVersionUID = -8906760585094374728L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String description;
+	
+
 	private User assignee;
 	private String ctaType; // Expansion, Risk, Lifecycle
 	private String status; // New, WIP, Waiting on customer, Escalated,
@@ -333,4 +340,9 @@ public class CallToAction implements Serializable {
 	public CallToAction() {
 		super();
 	}
+	
+	 @Override
+	   public String toString() {
+	      return "CTA [id=" + id + ", name=" + description + ", source=" + source + ", type=" + ctaType + "]";
+	   }
 }

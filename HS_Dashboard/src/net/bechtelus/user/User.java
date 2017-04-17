@@ -1,9 +1,18 @@
 package net.bechtelus.user;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import net.bechtelus.common.DAOFactory;
 
+@Entity
+@Table(name="sf_users")
 public class User {
+	
 	private Long USER_TK;
+	
+	@Id
 	private String USER_ID;
 	private String FULL_NAME;
 	private Boolean ACTIVE;
