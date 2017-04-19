@@ -23,7 +23,11 @@
 						required="true" />
 
 					<p:commandButton id="button" value="Login"
-						action="#{loginBean.doLogin}" update="messages" />
+						action="#{loginBean.doLogin}" update="messages">
+						<f:facet name="extraParameter">
+							<f:param name="commandButtonParam" value="#{loginBean.username}" />
+						</f:facet>
+					</p:commandButton>
 				</p:panelGrid>
 			</div>
 		</h:form>

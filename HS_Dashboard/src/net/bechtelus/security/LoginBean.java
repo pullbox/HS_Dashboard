@@ -3,10 +3,12 @@ package net.bechtelus.security;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -16,7 +18,7 @@ import javax.persistence.Persistence;
 import net.bechtelus.navigation.NavigationBean;
 import net.bechtelus.user.User;
 import net.bechtelus.user.UserService;
-
+import javax.faces.component.UIParameter;
 /**
 
  */
@@ -26,11 +28,12 @@ public class LoginBean implements Serializable {
 
 	private static final long serialVersionUID = 7765876811740798583L;
 
-	private String username;
+
 	private String password;
 
 	private boolean loggedIn;
-
+	private String username;
+	
 	@Inject
 	private NavigationBean navigationBean;
 	@EJB
@@ -47,11 +50,8 @@ public class LoginBean implements Serializable {
 	 * @return
 	 */
 	public String doLogin() {
-		/*
-		 * EntityManagerFactory ef =
-		 * Persistence.createEntityManagerFactory("HS_Dashboard"); EntityManager
-		 * em = ef.createEntityManager();
-		 */
+		
+				
 		userService = new UserService();
 		User user = userService.findUserByEmail(getUsername());
 

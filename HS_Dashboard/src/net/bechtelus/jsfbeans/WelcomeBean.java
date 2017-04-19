@@ -13,21 +13,25 @@ import net.bechtelus.CTA.*;
 import net.bechtelus.common.DAOFactory;
 import net.bechtelus.user.User;
 import net.bechtelus.user.UserDAO;
+import net.bechtelus.util.HSDashboardUtility;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 
 
 
 
 
 @Named("welcomeBean")
-@RequestScoped
+@ViewScoped
 public class WelcomeBean implements Serializable {
 
 	private static final Log logger = LogFactory.getLog(WelcomeBean.class);
@@ -35,33 +39,16 @@ public class WelcomeBean implements Serializable {
 	
 	@EJB
 	private CallToActionService ctaService;
-		
+
+
 	private String username;
 	private List<CallToAction> ctas;
-	
+	private EntityManager em;
+
 
 	@PostConstruct
 	public void init() {
-		
-	
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		
-		ctas = ctaService.list();
-		
-		
-		/*ctas = null;
-		ctas = new ArrayList<CallToAction>();
-		
-		DAOFactory factory = DAOFactory.getFactory();
-		 ctadao = factory.getCallToActionDAO();
-		 userdao = factory.getUSERDAO();
-		
-		 User user = new User();
-		 user = userdao.findUserByUserID(getUserName());
-		
-		ctas =  ctadao.getAllCallToActions(user.getUSER_ID()); 
-		*/	
-		
+			
 		
 	}
 
@@ -77,6 +64,7 @@ public class WelcomeBean implements Serializable {
 	 * @return the ctas
 	 */
 	public List<CallToAction> getCtas() {
+		ctas = ctaService.list();		
 		return ctas;
 	}
 
@@ -87,4 +75,19 @@ public class WelcomeBean implements Serializable {
 		return username;
 	}
 
+	
+	// This method is used to handle exceptions and display cause to user.
+		public void handleException(RuntimeException ex) {
+			StringBuffer details = new StringBuffer();
+			Throwable causes = ex;
+			while (causes.getCause() != null) {
+				details.append(ex.getMessage());
+				details.append("    Caused by:");
+				details.append(causes.getCause().getMessage());
+				causes = causes.getCause();
+			}
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), null);
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	
 }

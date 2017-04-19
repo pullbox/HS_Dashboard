@@ -70,9 +70,8 @@ public class EditCTABean implements Serializable {
 	}
 
 	public void deleteCTA() {
-		DAOFactory factory = DAOFactory.getFactory();
-		CallToActionDAO dao = factory.getCallToActionDAO();
-		dao.deleteCTA(cta.getId());
+		
+		
 	}
 
 	public void saveCTAActionListener(ActionEvent actionEvent) {

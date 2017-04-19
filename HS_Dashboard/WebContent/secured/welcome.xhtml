@@ -9,11 +9,12 @@
 	<ui:define name="content">
 
 		<f:metadata>
-			<f:viewParam name="username" value="#{loginBean.username}" />
+			<f:viewParam  name="username" value="#{loginBean.username}" />
 		</f:metadata>
 
 		<h:form id="welcome">
-			<p:growl id="msgs" showDetail="true" />
+			<h:message id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
 
 
 			<div class="ui-g">
@@ -21,8 +22,8 @@
 					<p:commandButton id="button" value="Create CTA"
 						action="#{navigationBean.createCTA}" />
 				</div>
-				<div class="uri-g-2" align="right"></div>
-				<div class="uri-g-2" align="right">
+				<div class="uri-g-3" align="right"></div>
+				<div class="uri-g-1" align="right">
 					<p:outputLabel id="userid" value="Welcome #{loginBean.username}"
 						readonly="true" />
 				</div>
@@ -30,14 +31,14 @@
 
 
 
-			<!-- 	<p:dataList var="cta" value="#{welcomeBean.ctas}">
+			<p:dataList var="cta" value="#{welcomeBean.ctas}">
 				<p:outputLabel value="CTA#" />
 				<p:outputLabel value="#{cta.id}" />
 				<p:outputLabel value="#{cta.source}" />
 				<p:outputLabel value="#{cta.status}" />
 				<p:outputLabel value="#{cta.description}" />
 				<p:outputLabel value="#{cta.dueDate}" />
-			</p:dataList> -->
+			</p:dataList>
 
 			<br />
 			<p:commandLink action="#{loginBean.doLogout}" value="Logout" />

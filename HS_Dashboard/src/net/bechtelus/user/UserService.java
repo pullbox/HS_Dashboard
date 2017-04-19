@@ -1,5 +1,6 @@
 package net.bechtelus.user;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -19,7 +20,7 @@ import net.bechtelus.util.HSDashboardUtility;
 
 @Named
 @ApplicationScoped
-public class UserService implements UserDAO {
+public class UserService implements UserDAO, Serializable {
 
 
 	private EntityManager em;
