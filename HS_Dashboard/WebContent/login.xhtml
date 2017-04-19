@@ -9,8 +9,10 @@
 	<ui:define name="content">
 
 		<h:form id="login-form">
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
 			<div align="center">
-				<p:growl id="msg" showDetail="true" />
+
 				<p:panelGrid columns="2">
 					<f:facet name="header">LOGIN</f:facet>
 					<h:outputText value="User Name:" />
@@ -21,7 +23,7 @@
 						required="true" />
 
 					<p:commandButton id="button" value="Login"
-						action="#{loginBean.doLogin}" update="msg" />
+						action="#{loginBean.doLogin}" update="messages" />
 				</p:panelGrid>
 			</div>
 		</h:form>
