@@ -1,5 +1,6 @@
 package net.bechtelus.util;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Calendar;
 
@@ -8,8 +9,7 @@ import javax.persistence.Persistence;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
-public class HSDashboardUtility {
+public class HSDashboardUtility implements Serializable {
 
 	public static final String MSSQL_DB_PROPERRTIES_FILE = "mssql-db.properties";
 	public static final String DB_PROPERRTIES_FILE = "db.properties";
@@ -36,11 +36,8 @@ public class HSDashboardUtility {
 
 	private static final Log logger = LogFactory.getLog(HSDashboardUtility.class);
 
-
-	
 	protected static EntityManagerFactory emf;
-	
-	
+
 	public static Date convertToSqlDate(Calendar calendar) {
 		return new Date(calendar.getTimeInMillis());
 	}
@@ -51,15 +48,10 @@ public class HSDashboardUtility {
 		return calendar;
 	}
 
-
-	 public static EntityManagerFactory getEMF (){
-	        if (emf == null){
-	            emf = Persistence.createEntityManagerFactory("HS_Dashboard", new java.util.HashMap());
-	        }
-	        return emf;
-	    }
+	public static EntityManagerFactory getEMF() {
+		if (emf == null) {
+			emf = Persistence.createEntityManagerFactory("HS_Dashboard", new java.util.HashMap());
+		}
+		return emf;
+	}
 }
-	
-	
-	
-

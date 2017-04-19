@@ -1,6 +1,9 @@
 package net.bechtelus.CTA;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,14 +11,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import org.joda.time.DateTime;
 import net.bechtelus.user.User;
 
 /**
@@ -24,19 +29,12 @@ import net.bechtelus.user.User;
  */
 
 @Entity
-@Table(name="CS_HS_CallToActions")
+@Table(name = "CallToAction")
 @NamedQueries({
-	
-	@NamedQuery(
-			name="ctaByID",
-			query="Select c from CallToAction c where c.id = :ctaid"
-			),
-	
-	@NamedQuery(
-			name="ctasByAssignee",
-			query="Select c from CallToAction c where c.assignee = :assignee_user_id"
-			)
-})
+
+		@NamedQuery(name = "ctaByID", query = "Select c from CallToAction c where c.id = :ctaid"),
+
+		@NamedQuery(name = "ctasByAssignee", query = "Select c from CallToAction c where c.assignee = :assignee_user_id") })
 public class CallToAction implements Serializable {
 
 	/**
@@ -45,14 +43,14 @@ public class CallToAction implements Serializable {
 	private static final long serialVersionUID = -8906760585094374728L;
 
 	@Id
-	@SequenceGenerator(name="CTA_SEQ_GEN", sequenceName="seqCTA", allocationSize=1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="CTA_SEQ_GEN")
+	@TableGenerator(name = "TABLE_GEN", table="SEQUENCE_TABLE", pkColumnName="SEQ_NAME", valueColumnName= "SEQ_COUNT", pkColumnValue="CTA", allocationSize=1)
+	@GeneratedValue(generator = "TABLE_GEN", strategy = GenerationType.TABLE)
+	@Column(name="ID", unique=true, nullable=false)
 	private long id;
 	private String description;
-	
-	
-	@OneToOne
-	@JoinColumn(name="ASSIGNEE")
+
+	@ManyToOne
+	@JoinColumn(name = "ASSIGNEE")
 	private User assignee;
 	private String type; // Expansion, Risk, Lifecycle
 	private String status; // New, WIP, Waiting on customer, Escalated,
@@ -62,21 +60,24 @@ public class CallToAction implements Serializable {
 							// training issue, adoption issue
 	private String snoozeReason; // Waiting on product feature, User on
 									// vacation, other
-
-	private DateTime snoozeperiod; //
+	@Temporal(TemporalType.DATE)
+	private java.util.Calendar snoozeperiod; //
 	private String source; // Manual, Rule, ...
-	
+
 	@OneToOne
-	@JoinColumn(name="CREATEDBY")
+	@JoinColumn(name = "CREATEDBY")
 	private User createby;
-	private DateTime createdDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	private java.util.Calendar createdDate;
 	private boolean escalated;
-	private DateTime dueDate;
+	@Temporal(TemporalType.DATE)
+	private java.util.Calendar dueDate;
 	private String note;
-	private DateTime modifiedDate;
-	
+	@Temporal(TemporalType.TIMESTAMP)
+	private java.util.Calendar modifiedDate;
+
 	@OneToOne
-	@JoinColumn(name="MODIFIEDBY")
+	@JoinColumn(name = "MODIFIEDBY")
 	private User modifiedby;
 
 	/**
@@ -211,19 +212,24 @@ public class CallToAction implements Serializable {
 	/**
 	 * @return the snoozeperiod
 	 */
-	public DateTime getSnoozeperiod() {
-		return snoozeperiod;
+	public Date getSnoozeperiod() {
+		if (snoozeperiod == null) {
+			return null;
+		} else {
+			return snoozeperiod.getTime();
+		}
 	}
 
 	/**
 	 * @param snoozeperiod
 	 *            the snoozeperiod to set
 	 */
-	public void setSnoozeperiod(DateTime snoozeperiod) {
-		this.snoozeperiod = snoozeperiod;
+	public void setSnoozeperiod(Date snoozeperiod) {
+		if (this.snoozeperiod == null) {
+			this.snoozeperiod = new GregorianCalendar();
+		}
+		this.snoozeperiod.setTime(snoozeperiod);
 	}
-
-	
 
 	/**
 	 * @return the source
@@ -260,16 +266,24 @@ public class CallToAction implements Serializable {
 	/**
 	 * @return the createdDate
 	 */
-	public DateTime getCreatedDate() {
-		return createdDate;
+	public Date getCreatedDate() {
+		if (createdDate == null) {
+			return null;
+		} else {
+
+			return createdDate.getTime();
+		}
 	}
 
 	/**
 	 * @param createdDate
 	 *            the createdDate to set
 	 */
-	public void setCreatedDate(DateTime createdDate) {
-		this.createdDate = createdDate;
+	public void setCreatedDate(Date createdDate) {
+		if (this.createdDate == null) {
+			this.createdDate = new GregorianCalendar();
+		}
+		this.createdDate.setTime(createdDate);
 	}
 
 	/**
@@ -290,16 +304,24 @@ public class CallToAction implements Serializable {
 	/**
 	 * @return the dueDate
 	 */
-	public DateTime getDueDate() {
-		return dueDate;
+	public Date getDueDate() {
+		if (dueDate == null) {
+			return null;
+		} else {
+			return dueDate.getTime();
+		}
+
 	}
 
 	/**
 	 * @param dueDate
 	 *            the dueDate to set
 	 */
-	public void setDueDate(DateTime dueDate) {
-		this.dueDate = dueDate;
+	public void setDueDate(Date dueDate) {
+		if (this.dueDate == null) {
+			this.dueDate = new GregorianCalendar();
+		}
+		this.dueDate.setTime(dueDate);
 	}
 
 	/**
@@ -320,16 +342,23 @@ public class CallToAction implements Serializable {
 	/**
 	 * @return the modifiedDate
 	 */
-	public DateTime getModifiedDate() {
-		return modifiedDate;
+	public Date getModifiedDate() {
+		if (modifiedDate == null) {
+			return null;
+		} else {
+			return modifiedDate.getTime();
+		}
 	}
 
 	/**
 	 * @param modifiedDate
 	 *            the modifiedDate to set
 	 */
-	public void setModifiedDate(DateTime modifiedDate) {
-		this.modifiedDate = modifiedDate;
+	public void setModifiedDate(Date modifiedDate) {
+		if (this.modifiedDate == null) {
+			this.modifiedDate = new GregorianCalendar();
+		}
+		this.modifiedDate.setTime(modifiedDate);
 	}
 
 	/**
@@ -350,9 +379,9 @@ public class CallToAction implements Serializable {
 	public CallToAction() {
 		super();
 	}
-	
-	 @Override
-	   public String toString() {
-	      return "CTA [id=" + id + ", name=" + description + ", source=" + source + ", type=" + type + "]";
-	   }
+
+	@Override
+	public String toString() {
+		return "CTA [id=" + id + ", name=" + description + ", source=" + source + ", type=" + type + "]";
+	}
 }

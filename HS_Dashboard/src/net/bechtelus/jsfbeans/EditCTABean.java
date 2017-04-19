@@ -2,6 +2,7 @@ package net.bechtelus.jsfbeans;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.joda.time.DateTime;
 import org.apache.commons.logging.Log;
 import net.bechtelus.CTA.*;
 import net.bechtelus.common.DAOFactory;
+import net.bechtelus.navigation.NavigationBean;
 import net.bechtelus.user.User;
 
 import javax.annotation.PostConstruct;
@@ -33,6 +35,9 @@ public class EditCTABean implements Serializable {
 	private static final Log logger = LogFactory.getLog(EditCTABean.class);
 	private static final long serialVersionUID = 7778898875625989495L;
 
+	@Inject
+	NavigationBean navigation;
+	
 	// Current Call To Action
 	private CallToAction cta;
 
@@ -57,7 +62,7 @@ public class EditCTABean implements Serializable {
 	public void init() {
 		try {
 			this.cta = new CallToAction();
-			this.cta.setCreatedDate(new DateTime(new Date()));
+			//this.cta.setCreatedDate(new Date());
 			this.ctaOperation = CREATE_OPERATION;
 		} catch (RuntimeException ex) {
 			handleException(ex);
@@ -71,22 +76,30 @@ public class EditCTABean implements Serializable {
 	}
 
 	public void saveCTAActionListener(ActionEvent actionEvent) {
-		
+
 		try {
 			if (this.ctaOperation == this.UPDATE_OPERATION) {
 				ctaservice.update(this.cta);
 			} else {
 				ctaservice.create(cta);
+				//navigation.redirectToWelcome();
 			}
 			this.ctaModificationResult = SUCCESS;
 		} catch (RollbackException ex) {
 			if (ex.getCause() instanceof OptimisticLockException) {
-				this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase() + " CalltoAction. CTA status has changed since last viewed";
-			 } else {
-				 this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase() + " CalltoAction. An unexpected Error occurred: " + ex.toString();
-			 }
+				this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase()
+						+ " CalltoAction. CTA status has changed since last viewed";
+				logger.debug(" " + ctaModificationResult);
+			} else {
+				this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase()
+						+ " CalltoAction. An unexpected Error occurred: " + ex.toString();
+				logger.debug(" " + ctaModificationResult);
+				handleException(ex);
+			}
 		} catch (Exception ex) {
-			 this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase() + " CalltoAction. An unexpected Error occurred: " + ex.toString();
+			this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase()
+					+ " CalltoAction. An unexpected Error occurred: " + ex.toString();
+			logger.debug(" " + ctaModificationResult);
 		}
 	}
 
@@ -106,12 +119,16 @@ public class EditCTABean implements Serializable {
 		try {
 			ctaservice.delete(this.cta.getId());
 			this.ctaModificationResult = SUCCESS;
-		
-		 }catch (OptimisticLockException ex){
-	            this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase() + " CallToAction.  CTA status has changed since last viewed";
-	        }catch (Exception ex){
-	            this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase() + " CallToAction.  An unexpected Error ocurred: " +ex.toString();
-	        }
+
+		} catch (OptimisticLockException ex) {
+			this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase()
+					+ " CallToAction.  CTA status has changed since last viewed";
+			logger.debug(" " + ctaModificationResult);
+		} catch (Exception ex) {
+			this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase()
+					+ " CallToAction.  An unexpected Error ocurred: " + ex.toString();
+			logger.debug(" " + ctaModificationResult);
+		}
 	}
 
 	public void onDateSelect(SelectEvent event) {
@@ -197,28 +214,24 @@ public class EditCTABean implements Serializable {
 	}
 
 	public Date getCreatedDate() {
-		return cta.getCreatedDate().toDate();
+		return cta.getCreatedDate();
 	}
 
 	public void setCreatedDate(Date date) {
-		cta.setCreatedDate(new DateTime(date));
+		cta.setCreatedDate(date);
 	}
 
 	public Date getDueDate() {
-		if (cta.getDueDate() != null) {
-			return cta.getDueDate().toDate();
-		} else {
-			return null;
-		}
+		return cta.getDueDate();
 	}
 
 	public void setDueDate(Date aDate) {
-		cta.setDueDate(new DateTime(aDate));
+		cta.setDueDate(aDate);
 	}
 
 	public Date getSnoozePeriod() {
 		if (cta.getSnoozeperiod() != null) {
-			return cta.getSnoozeperiod().toDate();
+			return cta.getSnoozeperiod();
 		} else {
 			return null;
 		}
@@ -226,12 +239,12 @@ public class EditCTABean implements Serializable {
 	}
 
 	public void setSnoozePeriod(Date date) {
-		cta.setSnoozeperiod(new DateTime(date));
+		cta.setSnoozeperiod(date);
 	}
 
 	public Date getModifiedDate() {
 		if (cta.getModifiedDate() != null) {
-			return cta.getModifiedDate().toDate();
+			return cta.getModifiedDate();
 		} else {
 			return null;
 		}
@@ -312,7 +325,7 @@ public class EditCTABean implements Serializable {
 			details.append(causes.getCause().getMessage());
 			causes = causes.getCause();
 		}
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, ex.getMessage(), null);
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), null);
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 }

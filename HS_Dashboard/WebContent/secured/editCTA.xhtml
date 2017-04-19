@@ -15,16 +15,19 @@
 
 
 		<h:form id="form">
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
 			<div align="center">
 				<div class="ui-g">
 
 					<div class="ui-g-12">
 						<p:toolbar>
 							<f:facet name="left">
-								<p:commandButton update="msgs" value="Save"
+								<p:commandButton update="messages" value="Save"
 									actionListener="#{editCTABean.saveCTAActionListener}"
-									icon="ui-icon-disk" />
-								<p:commandButton update="msgs" value="Delete"
+									icon="ui-icon-disk" 
+									action="/secured/welcome.xhtml?faces-redirect=true"/>
+								<p:commandButton update="messages" value="Delete"
 									actionListener="#{editCTABean.deleteCTAActionListener}"
 									icon="ui-icon-trash" />
 
@@ -33,9 +36,6 @@
 					</div>
 
 
-
-
-					<p:growl id="msgs" showDetail="true" />
 					<div class="ui-g-12">
 						<p:panelGrid columns="2">
 							<f:facet name="header">
@@ -103,7 +103,7 @@
 
 						</p:panelGrid>
 
-
+						<h:message class="error" />
 
 					</div>
 				</div>
