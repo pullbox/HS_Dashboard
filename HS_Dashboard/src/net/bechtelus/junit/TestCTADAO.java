@@ -127,6 +127,7 @@ public class TestCTADAO {
 		cta.setCreateby(assignee);
 		cta.setEscalated(true);
 		cta.setDueDate(snoozedt);
+		cta.setCreatedDate(new Date());
 		cta.setNote("this CTA was created as part of the JUNIT TEST");
 
 		return cta;
