@@ -74,12 +74,12 @@ public class TestCTADAO {
 		CallToAction cta = new CallToAction();
 		cta.setDescription("Test Call To Action");
 		cta.setAssignee(assignee);
-		cta.setCtaType("RISK");
+		cta.setType("RISK");
 		cta.setStatus("NEW");
 		cta.setPriority("HIGH");
 		cta.setReason("Success Risk");
 		cta.setSnoozeperiod(snoozedt);
-		cta.setCtaStatus("OPEN");
+		cta.setStatus("OPEN");
 		cta.setSource("TEST");
 		cta.setCreateby(assignee);
 		cta.setEscalated(true);

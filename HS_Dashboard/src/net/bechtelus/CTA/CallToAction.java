@@ -7,6 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.joda.time.DateTime;
@@ -19,7 +25,18 @@ import net.bechtelus.user.User;
 
 @Entity
 @Table(name="CS_HS_CallToActions")
-
+@NamedQueries({
+	
+	@NamedQuery(
+			name="ctaByID",
+			query="Select c from CallToAction c where c.id = :ctaid"
+			),
+	
+	@NamedQuery(
+			name="ctasByAssignee",
+			query="Select c from CallToAction c where c.assignee = :assignee_user_id"
+			)
+})
 public class CallToAction implements Serializable {
 
 	/**
@@ -28,13 +45,16 @@ public class CallToAction implements Serializable {
 	private static final long serialVersionUID = -8906760585094374728L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name="CTA_SEQ_GEN", sequenceName="seqCTA", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="CTA_SEQ_GEN")
 	private long id;
 	private String description;
 	
-
+	
+	@OneToOne
+	@JoinColumn(name="ASSIGNEE")
 	private User assignee;
-	private String ctaType; // Expansion, Risk, Lifecycle
+	private String type; // Expansion, Risk, Lifecycle
 	private String status; // New, WIP, Waiting on customer, Escalated,
 							// deferred, ...
 	private String priority; // High, Medium, Low, Blue
@@ -44,14 +64,19 @@ public class CallToAction implements Serializable {
 									// vacation, other
 
 	private DateTime snoozeperiod; //
-	private String ctaStatus; // Closed - no action
 	private String source; // Manual, Rule, ...
+	
+	@OneToOne
+	@JoinColumn(name="CREATEDBY")
 	private User createby;
 	private DateTime createdDate;
 	private boolean escalated;
 	private DateTime dueDate;
 	private String note;
 	private DateTime modifiedDate;
+	
+	@OneToOne
+	@JoinColumn(name="MODIFIEDBY")
 	private User modifiedby;
 
 	/**
@@ -102,18 +127,18 @@ public class CallToAction implements Serializable {
 	/**
 	 * Expansion, Risk, Lifecycle
 	 * 
-	 * @return the ctaType
+	 * @return the type
 	 */
-	public String getCtaType() {
-		return ctaType;
+	public String getType() {
+		return type;
 	}
 
 	/**
-	 * @param ctaType
-	 *            the ctaType to set
+	 * @param type
+	 *            the type to set
 	 */
-	public void setCtaType(String ctaType) {
-		this.ctaType = ctaType;
+	public void setType(String ctaType) {
+		this.type = ctaType;
 	}
 
 	/**
@@ -198,22 +223,7 @@ public class CallToAction implements Serializable {
 		this.snoozeperiod = snoozeperiod;
 	}
 
-	/**
-	 * @return the ctaStatus
-	 */
-	public String getCtaStatus() {
-		return ctaStatus;
-	}
-
-	/**
-	 * Closed - no action
-	 * 
-	 * @param ctaStatus
-	 *            the ctaStatus to set
-	 */
-	public void setCtaStatus(String ctaStatus) {
-		this.ctaStatus = ctaStatus;
-	}
+	
 
 	/**
 	 * @return the source
@@ -343,6 +353,6 @@ public class CallToAction implements Serializable {
 	
 	 @Override
 	   public String toString() {
-	      return "CTA [id=" + id + ", name=" + description + ", source=" + source + ", type=" + ctaType + "]";
+	      return "CTA [id=" + id + ", name=" + description + ", source=" + source + ", type=" + type + "]";
 	   }
 }

@@ -3,6 +3,7 @@ package net.bechtelus.user;
 
 import java.util.List;
 
+import javax.ejb.Remote;
 
 import net.bechtelus.common.DAOException;
 import net.bechtelus.user.User;

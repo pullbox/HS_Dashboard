@@ -3,6 +3,8 @@ package net.bechtelus.jsfbeans;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.apache.commons.logging.Log;
@@ -17,7 +19,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.OptimisticLockException;
+import javax.persistence.RollbackException;
+
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -27,20 +33,35 @@ public class EditCTABean implements Serializable {
 	private static final Log logger = LogFactory.getLog(EditCTABean.class);
 	private static final long serialVersionUID = 7778898875625989495L;
 
+	// Current Call To Action
 	private CallToAction cta;
+
+	// caches the current list of ctas
+	private List<CallToAction> ctas;
+
+	// stores the current modification
+	protected static final String UPDATE_OPERATION = "Update";
+	protected static final String CREATE_OPERATION = "Create";
+	protected String ctaOperation;
+
+	// This stores the result of a modification operation. There are predefined
+	// messages for success and failure.
+	protected String ctaModificationResult;
+	protected static final String SUCCESS = "Success";
+
+	// reference for database access
+	@Inject
+	private CallToActionService ctaservice;
 
 	@PostConstruct
 	public void init() {
-		cta = new CallToAction();
-
-	}
-
-	public boolean saveCTA() {
-		DAOFactory factory = DAOFactory.getFactory();
-		CallToActionDAO dao = factory.getCallToActionDAO();
-		boolean inserted = dao.insertCTA(cta);
-
-		return inserted;
+		try {
+			this.cta = new CallToAction();
+			this.cta.setCreatedDate(new DateTime(new Date()));
+			this.ctaOperation = CREATE_OPERATION;
+		} catch (RuntimeException ex) {
+			handleException(ex);
+		}
 	}
 
 	public void deleteCTA() {
@@ -50,19 +71,47 @@ public class EditCTABean implements Serializable {
 	}
 
 	public void saveCTAActionListener(ActionEvent actionEvent) {
-		if (saveCTA()) {
-			addMessage("CTA " + cta.getDescription() + " was saved!");
-		} else {
-			addMessage("Houstan we have a problem");
+		
+		try {
+			if (this.ctaOperation == this.UPDATE_OPERATION) {
+				ctaservice.update(this.cta);
+			} else {
+				ctaservice.create(cta);
+			}
+			this.ctaModificationResult = SUCCESS;
+		} catch (RollbackException ex) {
+			if (ex.getCause() instanceof OptimisticLockException) {
+				this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase() + " CalltoAction. CTA status has changed since last viewed";
+			 } else {
+				 this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase() + " CalltoAction. An unexpected Error occurred: " + ex.toString();
+			 }
+		} catch (Exception ex) {
+			 this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase() + " CalltoAction. An unexpected Error occurred: " + ex.toString();
 		}
-
 	}
-	
-	
-	public void deleteCTAActionListener(ActionEvent actionEvent) {
-		deleteCTA();
-		addMessage("CTA " + cta.getDescription() + " was saved!");
 
+	public List<CallToAction> getCallToActionsForUser(String assignee_user_id) {
+		try {
+			if (this.ctas == null) {
+				ctas = ctaservice.getCTAsByAssignee(assignee_user_id);
+			}
+
+		} catch (RuntimeException ex) {
+			handleException(ex);
+		}
+		return this.ctas;
+	}
+
+	public void deleteCTAActionListener(ActionEvent actionEvent) {
+		try {
+			ctaservice.delete(this.cta.getId());
+			this.ctaModificationResult = SUCCESS;
+		
+		 }catch (OptimisticLockException ex){
+	            this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase() + " CallToAction.  CTA status has changed since last viewed";
+	        }catch (Exception ex){
+	            this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase() + " CallToAction.  An unexpected Error ocurred: " +ex.toString();
+	        }
 	}
 
 	public void onDateSelect(SelectEvent event) {
@@ -108,11 +157,11 @@ public class EditCTABean implements Serializable {
 	}
 
 	public String getType() {
-		return cta.getCtaType();
+		return cta.getType();
 	}
 
 	public void setType(String type) {
-		cta.setCtaType(type);
+		cta.setType(type);
 	}
 
 	public String getSource() {
@@ -216,8 +265,54 @@ public class EditCTABean implements Serializable {
 		cta.setEscalated(escalated);
 	}
 
-	public void addMessage(String summary) {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+	/**
+	 * @return the ctaOperation
+	 */
+	public String getCtaOperation() {
+		return ctaOperation;
+	}
+
+	/**
+	 * @param ctaOperation
+	 *            the ctaOperation to set
+	 */
+	public void setCtaOperation(String ctaOperation) {
+		this.ctaOperation = ctaOperation;
+	}
+
+	/**
+	 * @return the ctaModificationResult
+	 */
+	public String getCtaModificationResult() {
+		return ctaModificationResult;
+	}
+
+	/**
+	 * @param ctaModificationResult
+	 *            the ctaModificationResult to set
+	 */
+	public void setCtaModificationResult(String ctaModificationResult) {
+		this.ctaModificationResult = ctaModificationResult;
+	}
+
+	/**
+	 * @return the success
+	 */
+	public boolean getSuccess() {
+		return ctaModificationResult == SUCCESS;
+	}
+
+	// This method is used to handle exceptions and display cause to user.
+	public void handleException(RuntimeException ex) {
+		StringBuffer details = new StringBuffer();
+		Throwable causes = ex;
+		while (causes.getCause() != null) {
+			details.append(ex.getMessage());
+			details.append("    Caused by:");
+			details.append(causes.getCause().getMessage());
+			causes = causes.getCause();
+		}
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, ex.getMessage(), null);
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 }

@@ -2,9 +2,12 @@ package net.bechtelus.util;
 
 import java.sql.Date;
 import java.util.Calendar;
+
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.joda.time.DateTime;
+
 
 public class HSDashboardUtility {
 
@@ -33,6 +36,11 @@ public class HSDashboardUtility {
 
 	private static final Log logger = LogFactory.getLog(HSDashboardUtility.class);
 
+
+	
+	protected static EntityManagerFactory emf;
+	
+	
 	public static Date convertToSqlDate(Calendar calendar) {
 		return new Date(calendar.getTimeInMillis());
 	}
@@ -43,4 +51,15 @@ public class HSDashboardUtility {
 		return calendar;
 	}
 
+
+	 public static EntityManagerFactory getEMF (){
+	        if (emf == null){
+	            emf = Persistence.createEntityManagerFactory("HS_Dashboard", new java.util.HashMap());
+	        }
+	        return emf;
+	    }
 }
+	
+	
+	
+

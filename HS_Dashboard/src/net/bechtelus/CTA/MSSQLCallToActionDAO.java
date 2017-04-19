@@ -185,12 +185,11 @@ public class MSSQLCallToActionDAO extends AbstractMSSQLDAO implements CallToActi
 			//insertCTA.setLong(1, cta.getId());
 			insertCTA.setString(1, cta.getDescription());
 			insertCTA.setString(2, cta.getAssignee().getUSER_ID());
-			insertCTA.setString(3, cta.getCtaType());
+			insertCTA.setString(3, cta.getType());
 			insertCTA.setString(4, cta.getStatus());
 			insertCTA.setString(5, cta.getPriority());
 			insertCTA.setString(6, cta.getReason());
 			insertCTA.setDate(7, new java.sql.Date(cta.getSnoozeperiod().getMillis()));
-			insertCTA.setString(8, cta.getCtaStatus());
 			insertCTA.setString(9, cta.getSource());
 			insertCTA.setString(10, cta.getCreateby().getUSER_ID());
 			insertCTA.setBoolean(11, cta.isEscalated());
@@ -232,7 +231,7 @@ public class MSSQLCallToActionDAO extends AbstractMSSQLDAO implements CallToActi
 			if (cta.getAssignee() != null) {
 				updateCallToAction.setString(2, cta.getAssignee().getUSER_ID());
 			}
-			updateCallToAction.setString(3, cta.getCtaType());
+			updateCallToAction.setString(3, cta.getType());
 			updateCallToAction.setString(4, cta.getStatus());
 			updateCallToAction.setString(5, cta.getPriority());
 			updateCallToAction.setString(6, cta.getReason());
@@ -307,7 +306,7 @@ public class MSSQLCallToActionDAO extends AbstractMSSQLDAO implements CallToActi
 					cta.setCreateby(getUserBySLFId(rs.getString("CREATEDBY")));
 					cta.setCreatedDate(new DateTime(rs.getDate("CREATEDDATE")));
 					cta.setCtaStatus(rs.getString("CTASTATUS"));
-					cta.setCtaType(rs.getString("TYPE"));
+					cta.setType(rs.getString("TYPE"));
 					cta.setDescription(rs.getString("DESCRIPTION"));
 					cta.setDueDate(new DateTime(rs.getDate("DUEDATE")));
 					cta.setEscalated(rs.getBoolean("ESCALATED"));
@@ -378,7 +377,7 @@ public class MSSQLCallToActionDAO extends AbstractMSSQLDAO implements CallToActi
 						cta.setCreateby(getUserBySLFId(rs.getString("CREATEDBY")));
 						cta.setCreatedDate(new DateTime(rs.getDate("CREATEDDATE")));
 						cta.setCtaStatus(rs.getString("CTASTATUS"));
-						cta.setCtaType(rs.getString("TYPE"));
+						cta.setType(rs.getString("TYPE"));
 						cta.setDescription(rs.getString("DESCRIPTION"));
 						cta.setDueDate(new DateTime(rs.getDate("DUEDATE")));
 						cta.setEscalated(rs.getBoolean("ESCALATED"));
@@ -434,8 +433,7 @@ public class MSSQLCallToActionDAO extends AbstractMSSQLDAO implements CallToActi
 					cta.setAssignee(getUserBySLFId(rs.getString("ASSIGNEE")));
 					cta.setCreateby(getUserBySLFId(rs.getString("CREATEDBY")));
 					cta.setCreatedDate(new DateTime(rs.getDate("CREATEDDATE")));
-					cta.setCtaStatus(rs.getString("CTASTATUS"));
-					cta.setCtaType(rs.getString("TYPE"));
+					cta.setType(rs.getString("TYPE"));
 					cta.setDescription(rs.getString("DESCRIPTION"));
 					cta.setDueDate(new DateTime(rs.getDate("DUEDATE")));
 					cta.setEscalated(rs.getBoolean("ESCALATED"));

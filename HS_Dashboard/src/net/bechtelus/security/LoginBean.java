@@ -5,18 +5,17 @@ import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import net.bechtelus.CTA.MSSQLCallToActionDAO;
-import net.bechtelus.common.DAOFactory;
 import net.bechtelus.navigation.NavigationBean;
 import net.bechtelus.user.User;
-import net.bechtelus.user.UserDAO;
+import net.bechtelus.user.UserService;
 
 /**
 
@@ -31,10 +30,11 @@ public class LoginBean implements Serializable {
 	private String password;
 
 	private boolean loggedIn;
-	private UserDAO dao;
 
 	@Inject
 	private NavigationBean navigationBean;
+	@EJB
+	private UserService userService;
 
 	@PostConstruct
 	public void init() {
@@ -47,15 +47,20 @@ public class LoginBean implements Serializable {
 	 * @return
 	 */
 	public String doLogin() {
-		DAOFactory factory = DAOFactory.getFactory();
-		dao = factory.getUSERDAO();
-		User user = dao.findUserByEmail(getUsername());
+		/*
+		 * EntityManagerFactory ef =
+		 * Persistence.createEntityManagerFactory("HS_Dashboard"); EntityManager
+		 * em = ef.createEntityManager();
+		 */
+		userService = new UserService();
+		User user = userService.findUserByEmail(getUsername());
 
 		// Successful login
-
-		if (user.getEMAIL().equals(username)) {
-			loggedIn = true;
-			return navigationBean.redirectToWelcome();
+		if (user != null) {
+			if (user.getEMAIL().equals(username)) {
+				loggedIn = true;
+				return navigationBean.redirectToWelcome();
+			}
 		}
 
 		// Set login ERROR
@@ -64,8 +69,11 @@ public class LoginBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		// To to login page
-		dao=null;
-		factory=null;
+		/*
+		 * ef = null; em = null;
+		 */
+		user = null;
+
 		return navigationBean.toLogin();
 
 	}

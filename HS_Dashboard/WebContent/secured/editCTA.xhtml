@@ -22,10 +22,10 @@
 						<p:toolbar>
 							<f:facet name="left">
 								<p:commandButton update="msgs" value="Save"
-									actionListener="#{editCTABean.saveCTAActionListener()}"
+									actionListener="#{editCTABean.saveCTAActionListener}"
 									icon="ui-icon-disk" />
 								<p:commandButton update="msgs" value="Delete"
-									actionListener="#{editCTABean.deleteCTAActionListener()}"
+									actionListener="#{editCTABean.deleteCTAActionListener}"
 									icon="ui-icon-trash" />
 
 							</f:facet>
@@ -102,6 +102,9 @@
 
 
 						</p:panelGrid>
+
+
+
 					</div>
 				</div>
 			</div>
