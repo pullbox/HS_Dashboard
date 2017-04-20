@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+
+	<h:head>
+		<h:body>
+			<!-- <f:metadata>
+				<f:viewParam name="userName" value="#{testView.userName}" />
+				<f:viewAction action="#{testView.init}" />
+			</f:metadata>
+ -->
+ 
+ <h:form>
+			<p:inputText value="#{testView.userName}" id="aName"
+				required="true" />
+
+
+
+			<h:outputText id="userName" value="Welcome #{testView.userName}"
+				readonly="true" />
+</h:form>
+
+		</h:body>
+	</h:head>
+</ui:composition>
