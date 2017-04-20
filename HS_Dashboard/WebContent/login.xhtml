@@ -24,9 +24,7 @@
 
 					<p:commandButton id="button" value="Login"
 						action="#{loginBean.doLogin}" update="messages">
-						<f:facet name="extraParameter">
-							<f:param name="commandButtonParam" value="#{loginBean.username}" />
-						</f:facet>
+					<!-- 	<f:param name="username" value="#{loginBean.username}" /> -->
 					</p:commandButton>
 				</p:panelGrid>
 			</div>

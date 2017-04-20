@@ -28,22 +28,7 @@ public class NavigationBean implements Serializable {
         return "/login.xhtml";
     }
      
-    /**
-     * Redirect to info page.
-     * @return Info page name.
-     */
-    public String redirectToInfo() {
-        return "/info.xhtml?faces-redirect=true";
-    }
-     
-    /**
-     * Go to info page.
-     * @return Info page name.
-     */
-    public String toInfo() {
-        return "/info.xhtml";
-    }
-     
+   
     /**
      * Redirect to welcome page.
      * @return Welcome page name.
@@ -52,13 +37,7 @@ public class NavigationBean implements Serializable {
         return "/secured/welcome.xhtml?faces-redirect=true&includeViewParams=true";
     }
      
-    /**
-     * Redirect to Overview page.
-     * @return Welcome page name.
-     */
-    public String redirectToOverviewPage() {
-        return "/secured/LandingPage.xhtml?faces-redirect=true";
-    }
+   
      
     /**
      * Redirect to create CTA page.
@@ -69,12 +48,6 @@ public class NavigationBean implements Serializable {
     }
      
     
-    /**
-     * Go to welcome page.
-     * @return Welcome page name.
-     */
-    public String toWelcome() {
-        return "/secured/welcome.xhtml";
-    }
+   
      
 }
