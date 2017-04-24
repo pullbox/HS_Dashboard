@@ -62,7 +62,7 @@ public class WelcomeBean implements Serializable {
 
 	@PreDestroy
 	public void close() {
-		
+		ctaService = null;
 	}
 
 

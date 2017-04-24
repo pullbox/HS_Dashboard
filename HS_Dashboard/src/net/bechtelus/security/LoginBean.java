@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -12,6 +13,7 @@ import javax.inject.Named;
 import net.bechtelus.navigation.NavigationBean;
 import net.bechtelus.user.User;
 import net.bechtelus.user.UserService;
+
 /**
 
  */
@@ -21,12 +23,11 @@ public class LoginBean implements Serializable {
 
 	private static final long serialVersionUID = 7765876811740798583L;
 
-
 	private String password;
 
 	private boolean loggedIn;
 	private String username;
-	
+
 	@Inject
 	private NavigationBean navigationBean;
 	@EJB
@@ -34,7 +35,12 @@ public class LoginBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
+		userService = new UserService();
+	}
 
+	@PreDestroy
+	public void close() {
+		userService = null;
 	}
 
 	/**
@@ -43,9 +49,7 @@ public class LoginBean implements Serializable {
 	 * @return
 	 */
 	public String doLogin() {
-		
-				
-		userService = new UserService();
+
 		User user = userService.findUserByEmail(getUsername());
 
 		// Successful login
