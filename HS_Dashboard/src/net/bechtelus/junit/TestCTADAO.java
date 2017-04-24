@@ -5,25 +5,15 @@ import static org.junit.Assert.*;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-
-import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import junit.framework.AssertionFailedError;
-import net.bechtelus.common.DAOFactory;
 import net.bechtelus.user.User;
-import net.bechtelus.user.UserDAO;
 import net.bechtelus.util.HSDashboardUtility;
 import net.bechtelus.CTA.CallToAction;
-import net.bechtelus.CTA.CallToActionDAO;
 
 public class TestCTADAO {
 	private EntityManager em;

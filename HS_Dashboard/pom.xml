@@ -10,37 +10,37 @@
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-annotations-api</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-catalina-ant</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-catalina-ha</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-storeconfig</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-tribes</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-catalina</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
@@ -51,43 +51,43 @@
 			<groupId>org.eclipse.scout.sdk.deps</groupId>
 			<artifactId>ecj</artifactId>
 			<version>4.5</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-el-api</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>1.2.131</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>2.3.2</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jasper-el</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jasper</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jsp-api</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -99,80 +99,80 @@
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-servlet-api</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-api</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-coyote</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-dbcp</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-i18n-es</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-i18n-fr</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-i18n-ja</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jdbc</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jni</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-util-scan</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-util</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-websocket</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-websocket-api</artifactId>
 			<version>8.0.33</version>
-			<scope>compiled</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<!-- Provided by Tomcat, but needed for compilation -->
@@ -185,27 +185,23 @@
 			<groupId>javax.enterprise</groupId>
 			<artifactId>cdi-api</artifactId>
 			<version>1.2</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<!-- JBoss/Weld Refrence Implementation for CDI on a Servlet Container -->
 			<groupId>org.jboss.weld.servlet</groupId>
 			<artifactId>weld-servlet</artifactId>
-			<version>2.2.16.SP1</version>
-			<scope>runtime</scope>
+			<version>2.4.3.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.faces</groupId>
 			<artifactId>javax.faces-api</artifactId>
 			<version>2.3</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<!-- This is the Mojarra Implementation of JSF -->
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.faces</artifactId>
 			<version>2.3.0</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces</groupId>
@@ -240,11 +236,6 @@
 			<version>2.5.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.jboss/jandex  to speed up startup ?????-->
-		<dependency>
-			<groupId>org.jboss</groupId>
-			<artifactId>jandex</artifactId>
-			<version>2.0.3.Final</version>
-		</dependency>
 
 	</dependencies>
 	<build>

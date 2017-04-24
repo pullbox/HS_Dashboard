@@ -2,25 +2,21 @@ package net.bechtelus.jsfbeans;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.logging.LogFactory;
-import org.joda.time.DateTime;
 import org.apache.commons.logging.Log;
 import net.bechtelus.CTA.*;
-import net.bechtelus.common.DAOFactory;
 import net.bechtelus.navigation.NavigationBean;
 import net.bechtelus.user.User;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.*;
-
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
+import javax.faces.application.FacesMessage;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.OptimisticLockException;
