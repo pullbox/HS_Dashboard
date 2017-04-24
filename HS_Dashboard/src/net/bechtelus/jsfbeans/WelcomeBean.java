@@ -5,14 +5,17 @@ import java.util.List;
 
 
 import org.apache.commons.logging.LogFactory;
+
+
+
 import org.apache.commons.logging.Log;
 import net.bechtelus.CTA.*;
 import net.bechtelus.security.LoginBean;
 
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -24,7 +27,10 @@ import javax.persistence.EntityManager;
 
 @Named
 @RequestScoped
+//@URLMapping(id="welcomeBean", pattern="/welcome/#{welcomeBean.userName}", viewId = "/faces/secured/welcome.xhtml")
 public class WelcomeBean implements Serializable {
+	
+	private String userName;
 	
 	@Inject
 	private LoginBean loginBean;
@@ -36,7 +42,7 @@ public class WelcomeBean implements Serializable {
 	private CallToActionService ctaService;
 
 
-	private String username;
+	
 	private List<CallToAction> ctas;
 	private EntityManager em;
 
@@ -48,6 +54,8 @@ public class WelcomeBean implements Serializable {
 	
 	public void init() {
 		String aUsername = getUserName();
+		System.out.println("INIT:UserName: " + aUsername);
+		ctaService = new CallToActionService();
 		this.ctas = ctaService.list();	
 		
 	}
@@ -72,7 +80,7 @@ public class WelcomeBean implements Serializable {
 	 * @return the userid
 	 */
 	public String getUserName() {
-		return username;
+		return userName;
 	}
 	
 
@@ -80,7 +88,7 @@ public class WelcomeBean implements Serializable {
 	 * @return the userid
 	 */
 	public void setUserName(String aUname) {
-		this.username = aUname;
+		this.userName = aUname;
 	}
 	
 	

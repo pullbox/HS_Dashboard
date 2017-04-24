@@ -235,7 +235,10 @@
 			<artifactId>eclipselink</artifactId>
 			<version>2.5.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.jboss/jandex  to speed up startup ?????-->
+		<!-- https://mvnrepository.com/artifact/org.jboss/jandex to speed up startup 
+			????? -->
+
+		<!-- for JSF 2.x -->
 
 	</dependencies>
 	<build>

@@ -9,8 +9,8 @@
 	<ui:define name="content">
 
 		<f:metadata>
-			<f:viewParam  name="username" value="#{welcomeBean.username}" />
-		<!-- 	<f:viewAction  action="#{welcomeBean.init}" /> -->
+			<f:viewParam  name="username" value="#{welcomeBean.userName}" />
+		 	<f:viewAction  action="#{welcomeBean.init}" />
 		</f:metadata>
 
 		<h:form id="welcome">
@@ -25,7 +25,7 @@
 				</div>
 				<div class="uri-g-3" align="right"></div>
 				<div class="uri-g-1" align="right">
-					<p:outputLabel id="userid" value="Welcome #{welcomeBean.username}"
+					<p:outputLabel id="userid" value="Welcome #{welcomeBean.userName}"
 						readonly="true" />
 				</div>
 			</div>
