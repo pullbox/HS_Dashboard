@@ -9,8 +9,9 @@
 	<ui:define name="content">
 
 		<f:metadata>
-			<f:viewParam  id="userName" name="userName" value="#{welcomeBean.userName}" />
-		 	<f:viewAction  action="#{welcomeBean.init}" />
+			<f:viewParam id="userName" name="userName"
+				value="#{welcomeBean.userName}" />
+			<f:viewAction action="#{welcomeBean.init}" />
 		</f:metadata>
 
 		<h:form id="welcome">
@@ -32,18 +33,43 @@
 
 
 
-			<p:dataList var="cta" value="#{welcomeBean.ctas}">
-				<p:outputLabel value="CTA#" />
-				<p:outputLabel value="#{cta.id}" />
-				<p:outputLabel value="#{cta.source}" />
-				<p:outputLabel value="#{cta.status}" />
-				<p:outputLabel value="#{cta.description}" />
-				<p:outputLabel value="#{cta.dueDate}" />
-			</p:dataList>
+			<p:dataTable var="cta" value="#{welcomeBean.ctas}">
+				
+				<p:column headerText="CTA">
+				<p:commandLink id="edit" value="#{cta.id}" action="#{navigationBean.editCTA}" />
+						<f:param name="ctaid" value="#{cta.id}" />
+					
+				</p:column>
+				<p:column headerText="Source">
+					<p:outputLabel value="#{cta.source}" />
+				</p:column>
+				<p:column headerText="Type">
+					<p:outputLabel value="#{cta.type}" />
+				</p:column>
+				<p:column headerText="Status">
+					<p:outputLabel value="#{cta.status}" />
+				</p:column>
+				<p:column headerText="Priority">
+					<p:outputLabel value="#{cta.priority}" />
+				</p:column>
+				<p:column headerText="Description">
+					<p:outputLabel value="#{cta.description}" />
+				</p:column>
+				<p:column headerText="Due Date">
+					<p:outputLabel value="#{cta.dueDate}" />
+				</p:column>
+				<p:column headerText="Created by">
+					<p:outputLabel value="#{cta.createby.FULL_NAME}" />
+				</p:column>
+				<p:column headerText="Note">
+					<p:outputLabel value="#{cta.note}" />
+				</p:column>
+
+
+			</p:dataTable>
 
 			<br />
 			<p:commandLink action="#{welcomeBean.doLogout}" value="Logout" />
-
 		</h:form>
 
 	</ui:define>
