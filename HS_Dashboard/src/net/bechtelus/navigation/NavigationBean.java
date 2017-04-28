@@ -4,7 +4,9 @@ import java.io.Serializable;
 
 
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
 import javax.faces.annotation.ManagedProperty;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -12,11 +14,12 @@ import javax.inject.Named;
 @SessionScoped
 public class NavigationBean implements Serializable {
  
-	 @Inject @ManagedProperty("#{param.userName}")    
-	  private String userName; 
+   private String userName; 
 	 
     private static final long serialVersionUID = 1520318172495977648L;
  
+    
+    
     /**
      * Redirect to login page.
      * @return Login page name.
@@ -39,7 +42,9 @@ public class NavigationBean implements Serializable {
      * @return Welcome page name.
      */
     public String redirectToWelcome() {
-        return "/secured/welcome.xhtml?userName="+ userName + "faces-redirect=true";
+    	userName =  (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userName");
+    	System.out.println("UserName session: " + userName);
+        return "/secured/welcome.xhtml?faces-redirect=true&userName="+ userName;
     }
      
    
@@ -57,6 +62,12 @@ public class NavigationBean implements Serializable {
     }
      
     
+    public String editCTA() {
+    	String ctaID = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("ctaid");
+    	System.out.println("CTAID: " + ctaID);
+        return "/secured/editCTA.xhtml?faces-redirect=true&ctaid=" + ctaID;
+    }
+     
    
      
 }
