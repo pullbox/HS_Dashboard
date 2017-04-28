@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 import net.bechtelus.user.User;
 
@@ -79,6 +80,10 @@ public class CallToAction implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "MODIFIEDBY")
 	private User modifiedby;
+	
+	@Version
+	@Column(name = "Version")
+	private Integer version;
 
 	/**
 	 * @return the id
@@ -374,6 +379,20 @@ public class CallToAction implements Serializable {
 	 */
 	public void setModifiedby(User modifiedby) {
 		this.modifiedby = modifiedby;
+	}
+
+	/**
+	 * @return the version
+	 */
+	public Integer getVersion() {
+		return version;
+	}
+
+	/**
+	 * @param version the version to set
+	 */
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 
 	public CallToAction() {
