@@ -82,7 +82,7 @@ public class CallToAction implements Serializable {
 	private User modifiedby;
 	
 	@Version
-	@Column(name = "Version")
+	@Column(name = "VERSION")
 	private Integer version;
 
 	/**
