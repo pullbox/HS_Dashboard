@@ -44,9 +44,9 @@ public class CallToAction implements Serializable {
 	private static final long serialVersionUID = -8906760585094374728L;
 
 	@Id
-	@TableGenerator(name = "TABLE_GEN", table="SEQUENCE_TABLE", pkColumnName="SEQ_NAME", valueColumnName= "SEQ_COUNT", pkColumnValue="CTA", allocationSize=1)
+	@TableGenerator(name = "TABLE_GEN", table = "SEQUENCE_TABLE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "CTA", allocationSize = 1)
 	@GeneratedValue(generator = "TABLE_GEN", strategy = GenerationType.TABLE)
-	@Column(name="ID", unique=true, nullable=false)
+	@Column(name = "ID", unique = true, nullable = false)
 	private long id;
 	private String description;
 
@@ -80,7 +80,7 @@ public class CallToAction implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "MODIFIEDBY")
 	private User modifiedby;
-	
+
 	@Version
 	@Column(name = "VERSION")
 	private int version;
@@ -231,9 +231,10 @@ public class CallToAction implements Serializable {
 	 */
 	public void setSnoozeperiod(Date snoozeperiod) {
 		if (this.snoozeperiod == null) {
-			this.snoozeperiod = new GregorianCalendar();
+			this.snoozeperiod = null;
+		} else {
+			this.snoozeperiod.setTime(snoozeperiod);
 		}
-		this.snoozeperiod.setTime(snoozeperiod);
 	}
 
 	/**
@@ -286,9 +287,10 @@ public class CallToAction implements Serializable {
 	 */
 	public void setCreatedDate(Date createdDate) {
 		if (this.createdDate == null) {
-			this.createdDate = new GregorianCalendar();
+			this.createdDate = null;
+		} else {
+			this.createdDate.setTime(createdDate);
 		}
-		this.createdDate.setTime(createdDate);
 	}
 
 	/**
@@ -324,9 +326,10 @@ public class CallToAction implements Serializable {
 	 */
 	public void setDueDate(Date dueDate) {
 		if (this.dueDate == null) {
-			this.dueDate = new GregorianCalendar();
+			this.dueDate = null;
+		} else {
+			this.dueDate.setTime(dueDate);
 		}
-		this.dueDate.setTime(dueDate);
 	}
 
 	/**
@@ -361,9 +364,10 @@ public class CallToAction implements Serializable {
 	 */
 	public void setModifiedDate(Date modifiedDate) {
 		if (this.modifiedDate == null) {
-			this.modifiedDate = new GregorianCalendar();
+			this.modifiedDate = null;
+		} else {
+			this.modifiedDate.setTime(modifiedDate);
 		}
-		this.modifiedDate.setTime(modifiedDate);
 	}
 
 	/**
@@ -389,7 +393,8 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
-	 * @param version the version to set
+	 * @param version
+	 *            the version to set
 	 */
 	public void setVersion(int version) {
 		this.version = version;
