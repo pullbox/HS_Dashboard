@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import net.bechtelus.CTA.*;
 import net.bechtelus.navigation.NavigationBean;
 import net.bechtelus.user.User;
+import net.bechtelus.user.UserService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -44,6 +45,7 @@ public class EditCTABean implements Serializable {
 	protected static final String UPDATE_OPERATION = "Update";
 	protected static final String CREATE_OPERATION = "Create";
 	protected String ctaOperation;
+	private User user;
 
 	// This stores the result of a modification operation. There are predefined
 	// messages for success and failure.
@@ -53,6 +55,8 @@ public class EditCTABean implements Serializable {
 	// reference for database access
 	@Inject
 	private CallToActionService ctaservice;
+	@Inject
+	private UserService userservice;
 
 	@PostConstruct
 	public void init() {
@@ -63,6 +67,9 @@ public class EditCTABean implements Serializable {
 
 		System.out.println("CTAID: " + ctaID);
 		System.out.println("userName: " + userName);
+
+		this.user = getUser(userName);
+
 		if (ctaID == null) {
 			try {
 				this.cta = new CallToAction();
@@ -71,7 +78,9 @@ public class EditCTABean implements Serializable {
 				this.cta.setSource("MANUAL");
 				this.cta.setPriority("MEDIUM");
 				this.cta.setStatus("NEW");
-				
+				this.cta.setCreatedDate(new Date());
+				this.cta.setCreateby(user);
+
 			} catch (RuntimeException ex) {
 				handleException(ex);
 			}
@@ -80,12 +89,16 @@ public class EditCTABean implements Serializable {
 				ctaservice = new CallToActionService();
 				this.cta = ctaservice.find(Long.valueOf(ctaID));
 				this.ctaOperation = UPDATE_OPERATION;
+				this.cta.setModifiedby(user);
+				this.cta.setModifiedDate(new Date());
 			} catch (RuntimeException ex) {
 				handleException(ex);
 			} finally {
 				ctaservice = null;
 			}
 		}
+
+		logger.info(cta.toString());
 
 	}
 
@@ -147,6 +160,19 @@ public class EditCTABean implements Serializable {
 					+ " CallToAction.  An unexpected Error ocurred: " + ex.toString();
 			logger.debug(" " + ctaModificationResult);
 		}
+	}
+
+	public User getUser(String email) {
+		User auser = new User();
+		try {
+			userservice = new UserService();
+			auser = userservice.findUserByEmail(email);
+		} catch (Exception ex) {
+			logger.debug(" " + ex.toString());
+		} finally {
+			userservice = null;
+		}
+		return auser;
 	}
 
 	public void onDateSelect(SelectEvent event) {
@@ -232,19 +258,32 @@ public class EditCTABean implements Serializable {
 	}
 
 	public Date getCreatedDate() {
-		return cta.getCreatedDate();
+		if (cta.getCreatedDate() != null) {
+			return cta.getCreatedDate();
+		} else {
+			return null;
+		}
+
 	}
 
 	public void setCreatedDate(Date date) {
-		cta.setCreatedDate(date);
+		if (date != null) {
+			cta.setCreatedDate(date);
+		}
 	}
 
 	public Date getDueDate() {
-		return cta.getDueDate();
+		if (cta.getDueDate() != null) {
+			return cta.getDueDate();
+		} else {
+			return null;
+		}
 	}
 
 	public void setDueDate(Date aDate) {
-		cta.setDueDate(aDate);
+		if (aDate != null) {
+			cta.setDueDate(aDate);
+		}
 	}
 
 	public Date getSnoozePeriod() {
@@ -257,7 +296,9 @@ public class EditCTABean implements Serializable {
 	}
 
 	public void setSnoozePeriod(Date date) {
-		cta.setSnoozeperiod(date);
+		if (date != null) {
+			cta.setSnoozeperiod(date);
+		}
 	}
 
 	public Date getModifiedDate() {
