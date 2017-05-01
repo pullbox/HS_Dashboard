@@ -85,6 +85,9 @@ public class CallToAction implements Serializable {
 	@Column(name = "VERSION")
 	private int version;
 
+	@Column(name = "SCORE_IMPACT")
+	private int impact;
+
 	/**
 	 * @return the id
 	 */
@@ -398,6 +401,20 @@ public class CallToAction implements Serializable {
 	 */
 	public void setVersion(int version) {
 		this.version = version;
+	}
+
+	/**
+	 * @return the impact
+	 */
+	public int getImpact() {
+		return impact;
+	}
+
+	/**
+	 * @param impact the impact to set
+	 */
+	public void setImpact(int impact) {
+		this.impact = impact;
 	}
 
 	public CallToAction() {

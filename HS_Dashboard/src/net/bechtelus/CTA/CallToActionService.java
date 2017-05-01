@@ -69,13 +69,15 @@ public class CallToActionService {
 			acta.setDueDate(cta.getDueDate());
 			acta.setEscalated(cta.isEscalated());
 			acta.setModifiedby(cta.getModifiedby());
+			acta.setModifiedDate(cta.getModifiedDate());
 			acta.setNote(cta.getNote());
 			acta.setPriority(cta.getPriority());
 			acta.setReason(acta.getReason());
 			acta.setSnoozeperiod(cta.getSnoozeperiod());
 			acta.setSnoozeReason(cta.getSnoozeReason());
 			acta.setSource(cta.getSource());
-			acta.setStatus(acta.getStatus());
+			acta.setStatus(cta.getStatus());
+			acta.setImpact(cta.getImpact());
 			em.getTransaction().commit();
 		} finally {
 			em.close();
