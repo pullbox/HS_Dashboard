@@ -235,8 +235,9 @@ public class CallToAction implements Serializable {
 	public void setSnoozeperiod(Date asnoozeperiod) {
 		if (asnoozeperiod == null) {
 			this.snoozeperiod = null;
-		} else {
-			this.snoozeperiod.setTime(asnoozeperiod);
+		} else {Calendar cal = new GregorianCalendar();
+		cal.setTime(asnoozeperiod);
+			this.snoozeperiod = cal;
 		}
 	}
 
@@ -292,7 +293,9 @@ public class CallToAction implements Serializable {
 		if (acreatedDate == null) {
 			this.createdDate = null;
 		} else {
-			this.createdDate.setTime(acreatedDate);
+			Calendar cal = new GregorianCalendar();
+			cal.setTime(acreatedDate);
+			this.createdDate = cal;
 		}
 	}
 
@@ -331,7 +334,9 @@ public class CallToAction implements Serializable {
 		if (adueDate == null) {
 			this.dueDate = null;
 		} else {
-			this.dueDate.setTime(adueDate);
+			Calendar cal = new GregorianCalendar();
+			cal.setTime(adueDate);
+			this.dueDate = cal;
 		}
 	}
 
@@ -369,7 +374,9 @@ public class CallToAction implements Serializable {
 		if (amodifiedDate == null) {
 			this.modifiedDate = null;
 		} else {
-			this.modifiedDate.setTime(amodifiedDate);
+			Calendar cal = new GregorianCalendar();
+			cal.setTime(amodifiedDate);
+			this.modifiedDate =cal;
 		}
 	}
 
