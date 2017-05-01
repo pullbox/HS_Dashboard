@@ -218,10 +218,10 @@ public class CallToAction implements Serializable {
 	 * @return the snoozeperiod
 	 */
 	public Date getSnoozeperiod() {
-		if (snoozeperiod == null) {
+		if (this.snoozeperiod == null) {
 			return null;
 		} else {
-			return snoozeperiod.getTime();
+			return this.snoozeperiod.getTime();
 		}
 	}
 
@@ -229,11 +229,11 @@ public class CallToAction implements Serializable {
 	 * @param snoozeperiod
 	 *            the snoozeperiod to set
 	 */
-	public void setSnoozeperiod(Date snoozeperiod) {
-		if (this.snoozeperiod == null) {
+	public void setSnoozeperiod(Date asnoozeperiod) {
+		if (asnoozeperiod == null) {
 			this.snoozeperiod = null;
 		} else {
-			this.snoozeperiod.setTime(snoozeperiod);
+			this.snoozeperiod.setTime(asnoozeperiod);
 		}
 	}
 
@@ -273,11 +273,11 @@ public class CallToAction implements Serializable {
 	 * @return the createdDate
 	 */
 	public Date getCreatedDate() {
-		if (createdDate == null) {
+		if (this.createdDate == null) {
 			return null;
 		} else {
 
-			return createdDate.getTime();
+			return this.createdDate.getTime();
 		}
 	}
 
@@ -285,11 +285,11 @@ public class CallToAction implements Serializable {
 	 * @param createdDate
 	 *            the createdDate to set
 	 */
-	public void setCreatedDate(Date createdDate) {
-		if (this.createdDate == null) {
+	public void setCreatedDate(Date acreatedDate) {
+		if (acreatedDate == null) {
 			this.createdDate = null;
 		} else {
-			this.createdDate.setTime(createdDate);
+			this.createdDate.setTime(acreatedDate);
 		}
 	}
 
@@ -312,10 +312,10 @@ public class CallToAction implements Serializable {
 	 * @return the dueDate
 	 */
 	public Date getDueDate() {
-		if (dueDate == null) {
+		if (this.dueDate == null) {
 			return null;
 		} else {
-			return dueDate.getTime();
+			return this.dueDate.getTime();
 		}
 
 	}
@@ -324,11 +324,11 @@ public class CallToAction implements Serializable {
 	 * @param dueDate
 	 *            the dueDate to set
 	 */
-	public void setDueDate(Date dueDate) {
-		if (this.dueDate == null) {
+	public void setDueDate(Date adueDate) {
+		if (adueDate == null) {
 			this.dueDate = null;
 		} else {
-			this.dueDate.setTime(dueDate);
+			this.dueDate.setTime(adueDate);
 		}
 	}
 
@@ -351,10 +351,10 @@ public class CallToAction implements Serializable {
 	 * @return the modifiedDate
 	 */
 	public Date getModifiedDate() {
-		if (modifiedDate == null) {
+		if (this.modifiedDate == null) {
 			return null;
 		} else {
-			return modifiedDate.getTime();
+			return this.modifiedDate.getTime();
 		}
 	}
 
@@ -362,11 +362,11 @@ public class CallToAction implements Serializable {
 	 * @param modifiedDate
 	 *            the modifiedDate to set
 	 */
-	public void setModifiedDate(Date modifiedDate) {
-		if (this.modifiedDate == null) {
+	public void setModifiedDate(Date amodifiedDate) {
+		if (amodifiedDate == null) {
 			this.modifiedDate = null;
 		} else {
-			this.modifiedDate.setTime(modifiedDate);
+			this.modifiedDate.setTime(amodifiedDate);
 		}
 	}
 
