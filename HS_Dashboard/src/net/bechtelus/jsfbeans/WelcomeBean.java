@@ -11,13 +11,11 @@ import net.bechtelus.security.LoginBean;
 
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
 
 @Named
 @ViewScoped
@@ -37,13 +35,14 @@ public class WelcomeBean implements Serializable {
 	private CallToActionService ctaService;
 
 	private List<CallToAction> ctas;
-	public void doLogout() {
+	public String doLogout() {
 		loginBean.doLogout();
+		 return "/login.xhtml?faces-redirect=true";
 	}
 
 	public void init() {
-		String aUsername = getUserName();
-		logger.info("UserName: " + aUsername);
+		this.userName =  (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userName");
+		logger.info("UserName: " + userName);
 		this.ctas = getCtas();
 
 	}
