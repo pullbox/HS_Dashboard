@@ -43,8 +43,7 @@ public class NavigationBean implements Serializable {
      */
     public String redirectToWelcome() {
     	userName =  (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userName");
-    	System.out.println("UserName session: " + userName);
-        return "/secured/welcome.xhtml?faces-redirect=true&userName="+ userName;
+    	return "/secured/welcome.xhtml?faces-redirect=true&userName="+ userName;
     }
      
    
@@ -65,7 +64,7 @@ public class NavigationBean implements Serializable {
     public String editCTA() {
     	String ctaID = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("ctaid");
     	System.out.println("CTAID: " + ctaID);
-        return "/secured/editCTA.xhtml?faces-redirect=true&ctaid=" + ctaID;
+        return "/secured/editCTA.xhtml?faces-redirect=true&ctaID=" +ctaID;
     }
      
    

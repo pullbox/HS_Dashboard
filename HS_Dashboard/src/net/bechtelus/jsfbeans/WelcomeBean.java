@@ -37,15 +37,13 @@ public class WelcomeBean implements Serializable {
 	private CallToActionService ctaService;
 
 	private List<CallToAction> ctas;
-	private EntityManager em;
-
 	public void doLogout() {
 		loginBean.doLogout();
 	}
 
 	public void init() {
 		String aUsername = getUserName();
-		System.out.println("INIT:UserName: " + aUsername);
+		logger.info("UserName: " + aUsername);
 		this.ctas = getCtas();
 
 	}

@@ -33,7 +33,7 @@ public class EditCTABean implements Serializable {
 
 	@Inject
 	NavigationBean navigation;
-	
+
 	// Current Call To Action
 	private CallToAction cta;
 
@@ -56,18 +56,41 @@ public class EditCTABean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		try {
-			this.cta = new CallToAction();
-			//this.cta.setCreatedDate(new Date());
-			this.ctaOperation = CREATE_OPERATION;
-		} catch (RuntimeException ex) {
-			handleException(ex);
+
+		String ctaID = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("ctaid");
+		String userName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
+				.get("userName");
+
+		System.out.println("CTAID: " + ctaID);
+		System.out.println("userName: " + userName);
+		if (ctaID == null) {
+			try {
+				this.cta = new CallToAction();
+				// this.cta.setCreatedDate(new Date());
+				this.ctaOperation = CREATE_OPERATION;
+				this.cta.setSource("MANUAL");
+				this.cta.setPriority("MEDIUM");
+				this.cta.setStatus("NEW");
+				
+			} catch (RuntimeException ex) {
+				handleException(ex);
+			}
+		} else {
+			try {
+				ctaservice = new CallToActionService();
+				this.cta = ctaservice.find(Long.valueOf(ctaID));
+				this.ctaOperation = UPDATE_OPERATION;
+			} catch (RuntimeException ex) {
+				handleException(ex);
+			} finally {
+				ctaservice = null;
+			}
 		}
+
 	}
 
 	public void deleteCTA() {
-		
-		
+
 	}
 
 	public void saveCTAActionListener(ActionEvent actionEvent) {
@@ -77,7 +100,7 @@ public class EditCTABean implements Serializable {
 				ctaservice.update(this.cta);
 			} else {
 				ctaservice.create(cta);
-				//navigation.redirectToWelcome();
+				// navigation.redirectToWelcome();
 			}
 			this.ctaModificationResult = SUCCESS;
 		} catch (RollbackException ex) {

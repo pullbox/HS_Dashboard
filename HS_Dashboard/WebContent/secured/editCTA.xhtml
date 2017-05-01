@@ -21,12 +21,12 @@
 				<div class="ui-g">
 
 					<div class="ui-g-12">
-						<p:toolbar>
+						<p:toolbar id="toolbar">
 							<f:facet name="left">
 								<p:commandButton update="messages" value="Save"
 									actionListener="#{editCTABean.saveCTAActionListener}"
-									icon="ui-icon-disk" 
-									action="/secured/welcome.xhtml?faces-redirect=true"/>
+									icon="ui-icon-disk"
+									action="/secured/welcome.xhtml?faces-redirect=true" />
 								<p:commandButton update="messages" value="Delete"
 									actionListener="#{editCTABean.deleteCTAActionListener}"
 									icon="ui-icon-trash"
@@ -100,7 +100,15 @@
 							<p:outputLabel for="snoosePeriod" value="Deferred until" />
 							<p:calendar id="snoosePeriod" value="#{editCTABean.snoozePeriod}"
 								pattern="dd-MM-yyyy" mask="true" />
-
+							<p:outputLabel for="reason" value="Snoose Reason" />
+							<p:outputPanel>
+								<p:inputTextarea id="reason" rows="5" cols="30"
+									counter="display2" maxlength="254"
+									counterTemplate="{0} characters remaining." autoResize="false"
+									value="#{editCTABean.reason}" />
+								<br />
+								<h:outputLabel id="display2" />
+							</p:outputPanel>
 
 						</p:panelGrid>
 
@@ -109,6 +117,7 @@
 					</div>
 				</div>
 			</div>
+			<p:sticky target="toolbar" />
 		</h:form>
 
 

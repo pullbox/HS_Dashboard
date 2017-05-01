@@ -34,11 +34,14 @@
 
 
 			<p:dataTable var="cta" value="#{welcomeBean.ctas}">
-				
+
 				<p:column headerText="CTA">
-				<p:commandLink id="edit" value="#{cta.id}" action="#{navigationBean.editCTA}" />
+					<p:commandLink id="edit" value="#{cta.id}"
+						action="#{navigationBean.editCTA}">
 						<f:param name="ctaid" value="#{cta.id}" />
-					
+					</p:commandLink>
+
+
 				</p:column>
 				<p:column headerText="Source">
 					<p:outputLabel value="#{cta.source}" />

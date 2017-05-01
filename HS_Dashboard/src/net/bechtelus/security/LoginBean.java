@@ -10,6 +10,8 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.NoResultException;
+
 import net.bechtelus.navigation.NavigationBean;
 import net.bechtelus.user.User;
 import net.bechtelus.user.UserService;
@@ -35,7 +37,7 @@ public class LoginBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		userService = new UserService();
+
 	}
 
 	@PreDestroy
@@ -49,28 +51,38 @@ public class LoginBean implements Serializable {
 	 * @return
 	 */
 	public String doLogin() {
+		User user = new User();
 
-		User user = userService.findUserByEmail(getUsername());
+		try {
+			userService = new UserService();
+			user = userService.findUserByEmail(getUsername());
+		} catch (NoResultException e) {
+			// Set login ERROR
+			user = null;
+			FacesMessage msg = new FacesMessage("No User or Wrong Password");
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			
+		} catch (Exception e) {
+			// Set login ERROR
+			user = null;
+			FacesMessage msg = new FacesMessage("Login error!");
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		} finally {
+			userService = null;
+		}
 
 		// Successful login
 		if (user != null) {
 			if (user.getEMAIL().equals(username)) {
 				loggedIn = true;
-				 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userName", username);
+				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userName", username);
 				return navigationBean.redirectToWelcome();
 			}
 		}
 
-		// Set login ERROR
-		FacesMessage msg = new FacesMessage("Login error!", "ERROR MSG");
-		msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-
-		// To to login page
-		/*
-		 * ef = null; em = null;
-		 */
-		user = null;
+	
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("userName");
 		return navigationBean.toLogin();
 

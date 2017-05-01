@@ -83,7 +83,7 @@ public class CallToAction implements Serializable {
 	
 	@Version
 	@Column(name = "VERSION")
-	private Integer version;
+	private int version;
 
 	/**
 	 * @return the id
@@ -384,14 +384,14 @@ public class CallToAction implements Serializable {
 	/**
 	 * @return the version
 	 */
-	public Integer getVersion() {
+	public int getVersion() {
 		return version;
 	}
 
 	/**
 	 * @param version the version to set
 	 */
-	public void setVersion(Integer version) {
+	public void setVersion(int version) {
 		this.version = version;
 	}
 
