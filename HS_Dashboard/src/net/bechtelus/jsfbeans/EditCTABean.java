@@ -46,6 +46,7 @@ public class EditCTABean implements Serializable {
 	protected static final String CREATE_OPERATION = "Create";
 	protected String ctaOperation;
 	private User user;
+	private String id;
 
 	// This stores the result of a modification operation. There are predefined
 	// messages for success and failure.
@@ -108,10 +109,11 @@ public class EditCTABean implements Serializable {
 	public void saveCTAActionListener(ActionEvent actionEvent) {
 
 		try {
+			ctaservice = new CallToActionService();
 			if (this.ctaOperation == this.UPDATE_OPERATION) {
 				ctaservice.update(this.cta);
 			} else {
-				ctaservice.create(cta);
+				ctaservice.create(this.cta);
 				// navigation.redirectToWelcome();
 			}
 			this.ctaModificationResult = SUCCESS;
@@ -130,23 +132,29 @@ public class EditCTABean implements Serializable {
 			this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase()
 					+ " CalltoAction. An unexpected Error occurred: " + ex.toString();
 			logger.debug(" " + ctaModificationResult);
+		} finally {
+			ctaservice = null;
 		}
 	}
 
 	public List<CallToAction> getCallToActionsForUser(String assignee_user_id) {
 		try {
+			ctaservice = new CallToActionService();
 			if (this.ctas == null) {
 				ctas = ctaservice.getCTAsByAssignee(assignee_user_id);
 			}
 
 		} catch (RuntimeException ex) {
 			handleException(ex);
+		} finally {
+			ctaservice = null;
 		}
 		return this.ctas;
 	}
 
 	public void deleteCTAActionListener(ActionEvent actionEvent) {
 		try {
+			ctaservice = new CallToActionService();
 			ctaservice.delete(this.cta.getId());
 			this.ctaModificationResult = SUCCESS;
 
@@ -158,6 +166,8 @@ public class EditCTABean implements Serializable {
 			this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase()
 					+ " CallToAction.  An unexpected Error ocurred: " + ex.toString();
 			logger.debug(" " + ctaModificationResult);
+		} finally {
+			ctaservice = null;
 		}
 	}
 
@@ -294,6 +304,20 @@ public class EditCTABean implements Serializable {
 
 	}
 
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public void setSnoozePeriod(Date date) {
 		if (date != null) {
 			cta.setSnoozeperiod(date);
@@ -326,6 +350,14 @@ public class EditCTABean implements Serializable {
 
 	public void setNote(String note) {
 		cta.setNote(note);
+	}
+
+	public int getImpact() {
+		return cta.getImpact();
+	}
+
+	public void setImpact(int impact) {
+		cta.setImpact(impact);
 	}
 
 	public Boolean getIsEscalated() {
