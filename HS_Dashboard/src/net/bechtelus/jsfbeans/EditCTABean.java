@@ -62,8 +62,7 @@ public class EditCTABean implements Serializable {
 	public void init() {
 
 		String ctaID = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("ctaid");
-		String userName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
-				.get("userName");
+		String userName =  (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userName");
 
 		System.out.println("CTAID: " + ctaID);
 		System.out.println("userName: " + userName);
@@ -75,9 +74,9 @@ public class EditCTABean implements Serializable {
 				this.cta = new CallToAction();
 				// this.cta.setCreatedDate(new Date());
 				this.ctaOperation = CREATE_OPERATION;
-				this.cta.setSource("MANUAL");
-				this.cta.setPriority("MEDIUM");
-				this.cta.setStatus("NEW");
+				this.cta.setSource("Manual");
+				this.cta.setPriority("Medium");
+				this.cta.setStatus("New");
 				this.cta.setCreatedDate(new Date());
 				this.cta.setCreateby(user);
 
@@ -163,16 +162,16 @@ public class EditCTABean implements Serializable {
 	}
 
 	public User getUser(String email) {
-		User auser = new User();
+	
 		try {
 			userservice = new UserService();
-			auser = userservice.findUserByEmail(email);
+			user = userservice.findUserByEmail(email);
 		} catch (Exception ex) {
 			logger.debug(" " + ex.toString());
 		} finally {
 			userservice = null;
 		}
-		return auser;
+		return user;
 	}
 
 	public void onDateSelect(SelectEvent event) {
