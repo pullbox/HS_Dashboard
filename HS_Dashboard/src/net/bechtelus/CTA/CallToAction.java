@@ -59,13 +59,13 @@ public class CallToAction implements Serializable {
 	private String priority; // High, Medium, Low, Blue
 	private String reason; // payment issue, lost champion, support risk,
 							// training issue, adoption issue
-	private String snoozeReason; // Waiting on product feature, User on
+	private String snoozeReason; // Waiting on product feature, Account on
 									// vacation, other
 	@Temporal(TemporalType.DATE)
 	private java.util.Calendar snoozeperiod; //
 	private String source; // Manual, Rule, ...
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "CREATEDBY")
 	private User createby;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -77,7 +77,7 @@ public class CallToAction implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Calendar modifiedDate;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "MODIFIEDBY")
 	private User modifiedby;
 
@@ -208,7 +208,7 @@ public class CallToAction implements Serializable {
 	}
 
 	/**
-	 * Waiting on product feature, User on vacation, other
+	 * Waiting on product feature, Account on vacation, other
 	 * 
 	 * @param snoozeReason
 	 *            the snoozeReason to set

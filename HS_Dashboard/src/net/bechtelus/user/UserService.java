@@ -46,7 +46,7 @@ public class UserService implements UserDAO, Serializable {
 		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
 
 		try {
-			Query query = em.createQuery("SELECT u FROM User u WHERE u.EMAIL = :email", User.class);
+			Query query = em.createQuery("SELECT u FROM Account u WHERE u.EMAIL = :email", User.class);
 			query.setParameter("email", email);
 			result = (User) query.getSingleResult();
 			return result;
@@ -60,7 +60,7 @@ public class UserService implements UserDAO, Serializable {
 	public User findUserByUserID(String user_id) throws DAOException {
 		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
 		try {
-			Query query = em.createQuery("SELECT u FROM User u WHERE u.USER_ID = :userid", User.class);
+			Query query = em.createQuery("SELECT u FROM Account u WHERE u.USER_ID = :userid", User.class);
 			query.setParameter("userid", user_id);
 			result = (User) query.getSingleResult();
 			return result;
@@ -77,13 +77,13 @@ public class UserService implements UserDAO, Serializable {
 	}
 
 	/*
-	 * public void create(User cta) { em.persist(cta); }
+	 * public void create(Account cta) { em.persist(cta); }
 	 * 
 	 * 
-	 * public void update(User cta) { em.merge(cta); }
+	 * public void update(Account cta) { em.merge(cta); }
 	 * 
 	 * 
-	 * public void delete(User cta) { em.remove(em.contains(cta) ? cta :
+	 * public void delete(Account cta) { em.remove(em.contains(cta) ? cta :
 	 * em.merge(cta)); }
 	 */
 

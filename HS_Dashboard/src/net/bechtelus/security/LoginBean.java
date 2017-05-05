@@ -59,7 +59,7 @@ public class LoginBean implements Serializable {
 		} catch (NoResultException e) {
 			// Set login ERROR
 			user = null;
-			FacesMessage msg = new FacesMessage("No User or Wrong Password");
+			FacesMessage msg = new FacesMessage("No Account or Wrong Password");
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			

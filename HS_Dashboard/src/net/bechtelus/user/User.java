@@ -2,10 +2,7 @@ package net.bechtelus.user;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
-import net.bechtelus.common.DAOFactory;
 
 @Entity
 @Table(name="sf_user")

@@ -48,7 +48,7 @@ public class ConnectionPool {
           int cnt = 1;
           while (rs.next()) {
               System.out.println((cnt++)+". Host:" +rs.getString("USER_ID")+
-                " User:"+rs.getString("FULL_NAME")+" Password:"+rs.getString("TITLE"));
+                " Account:"+rs.getString("FULL_NAME")+" Password:"+rs.getString("TITLE"));
           }
           rs.close();
           st.close();
