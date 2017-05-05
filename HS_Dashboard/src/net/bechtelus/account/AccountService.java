@@ -31,13 +31,25 @@ public class AccountService {
 			em.close();
 		}
 	}
-	
-	
+
 	public List<Account> getAccountsByCSM(String CSM_user_id) {
 		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
 		try {
-			 Query query = em.createNamedQuery("accountByCSM");
-			 query.setParameter("CSM_user_id", CSM_user_id);
+			Query query = em.createNamedQuery("accountByCSM");
+			query.setParameter("CSM_user_id", CSM_user_id);
+			return query.getResultList();
+		} finally {
+			em.close();
+		}
+	}
+	
+	
+
+	public List<Account> getAccountsByName(String account_NAME) {
+		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
+		try {
+			Query query = em.createNamedQuery("accountByName");
+			query.setParameter("account_NAME", "%" + account_NAME + "%");
 			return query.getResultList();
 		} finally {
 			em.close();
@@ -46,11 +58,12 @@ public class AccountService {
 	}
 	
 	
+
 	public List<Account> getAccountsByEAG(String EAG_user_id) {
 		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
 		try {
-			 Query query = em.createNamedQuery("accountByEAG");
-			 query.setParameter("EAG_user_id", EAG_user_id);
+			Query query = em.createNamedQuery("accountByEAG");
+			query.setParameter("EAG_user_id", EAG_user_id);
 			return query.getResultList();
 		} finally {
 			em.close();

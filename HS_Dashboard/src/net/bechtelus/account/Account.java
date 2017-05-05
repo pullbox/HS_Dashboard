@@ -19,7 +19,7 @@ import net.bechtelus.user.User;
 @NamedQueries({
 
 		@NamedQuery(name = "accountByCSM", query = "Select c from Account c where c.CUSTOMER_SUCCESS_MANAGER = :CSM_user_id"),
-
+		@NamedQuery(name = "accountByName", query = "Select c from Account c where c.ACCOUNT_NAME like :account_NAME AND c.ACTIVE_SUBS_CUSTOMER = 1" ),
 		@NamedQuery(name = "accountByEAG", query = "Select c from Account c where c.ENTERPRISE_ARCHITECT_ASSIGNED = :EAG_user_id") })
 
 public class Account implements Serializable {

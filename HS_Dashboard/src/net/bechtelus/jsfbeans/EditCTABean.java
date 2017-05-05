@@ -8,6 +8,8 @@ import java.util.List;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import net.bechtelus.CTA.*;
+import net.bechtelus.account.Account;
+import net.bechtelus.account.AccountService;
 import net.bechtelus.navigation.NavigationBean;
 import net.bechtelus.user.User;
 import net.bechtelus.user.UserService;
@@ -25,6 +27,7 @@ import javax.persistence.RollbackException;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 @Named("editCTABean")
 @ViewScoped
@@ -46,6 +49,8 @@ public class EditCTABean implements Serializable {
 	protected static final String CREATE_OPERATION = "Create";
 	protected String ctaOperation;
 	private User user;
+	private Account account;
+	private List<Account> accounts;
 	private String id;
 
 	// This stores the result of a modification operation. There are predefined
@@ -58,7 +63,12 @@ public class EditCTABean implements Serializable {
 	private CallToActionService ctaservice;
 	@Inject
 	private UserService userservice;
-
+	@Inject
+	private AccountService accountservice;
+	
+	
+	
+	
 	@PostConstruct
 	public void init() {
 
@@ -151,6 +161,22 @@ public class EditCTABean implements Serializable {
 		}
 		return this.ctas;
 	}
+	
+	
+	public List<Account> accountscomplete(String query) {
+		try {
+			accountservice = new AccountService();
+			accounts = accountservice.getAccountsByName(query);
+		
+		} catch (RuntimeException ex) {
+			handleException(ex);
+		} finally {
+			accountservice = null;
+		}
+		return this.accounts;
+	}
+	
+	
 
 	public void deleteCTAActionListener(ActionEvent actionEvent) {
 		try {
@@ -183,7 +209,17 @@ public class EditCTABean implements Serializable {
 		}
 		return user;
 	}
+	
+	
+	public void accountSelect(SelectEvent e) {
+		account = (Account)e.getObject();
+	}
 
+	public void accountUnSelect(UnselectEvent e) {
+		account = (Account)e.getObject();
+	}
+
+	
 	public void onDateSelect(SelectEvent event) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -396,6 +432,20 @@ public class EditCTABean implements Serializable {
 	 */
 	public void setCtaModificationResult(String ctaModificationResult) {
 		this.ctaModificationResult = ctaModificationResult;
+	}
+
+	/**
+	 * @return the accounts
+	 */
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+
+	/**
+	 * @param accounts the accounts to set
+	 */
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
 	}
 
 	/**
