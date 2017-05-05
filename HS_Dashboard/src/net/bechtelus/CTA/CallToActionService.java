@@ -63,6 +63,7 @@ public class CallToActionService {
 			CallToAction acta = em.find(CallToAction.class, cta.getId());
 			acta.setAssignee(cta.getAssignee());
 			acta.setCreateby(cta.getCreateby());
+			acta.setAccount(cta.getAccount());
 			acta.setCreatedDate(cta.getCreatedDate());
 			acta.setType(cta.getType());
 			acta.setDescription(cta.getDescription());

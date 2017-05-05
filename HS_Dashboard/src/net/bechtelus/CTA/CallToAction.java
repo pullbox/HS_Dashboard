@@ -22,6 +22,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
+import net.bechtelus.account.Account;
 import net.bechtelus.user.User;
 
 /**
@@ -50,6 +51,10 @@ public class CallToAction implements Serializable {
 	private long id;
 	private String description;
 
+	@ManyToOne
+	@JoinColumn(name = "ACCOUNT")
+	private Account account;
+	
 	@ManyToOne
 	@JoinColumn(name = "ASSIGNEE")
 	private User assignee;
@@ -116,6 +121,20 @@ public class CallToAction implements Serializable {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * @return the account
+	 */
+	public Account getAccount() {
+		return account;
+	}
+
+	/**
+	 * @param account the account to set
+	 */
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 	/**
