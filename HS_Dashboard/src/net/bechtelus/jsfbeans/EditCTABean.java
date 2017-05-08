@@ -48,7 +48,8 @@ public class EditCTABean implements Serializable {
 	protected static final String UPDATE_OPERATION = "Update";
 	protected static final String CREATE_OPERATION = "Create";
 	protected String ctaOperation;
-	private User user;
+	private User user, assignee;
+	private List<User> users;
 	private Account account;
 	private List<Account> accounts;
 	private String id;
@@ -64,7 +65,7 @@ public class EditCTABean implements Serializable {
 	@Inject
 	private UserService userservice;
 	@Inject
-	private AccountService accountservice;
+	private AccountService accountService;
 	
 	
 	
@@ -118,6 +119,7 @@ public class EditCTABean implements Serializable {
 
 	public void saveCTAActionListener(ActionEvent actionEvent) {
 
+				
 		try {
 			ctaservice = new CallToActionService();
 			if (this.ctaOperation == this.UPDATE_OPERATION) {
@@ -165,15 +167,29 @@ public class EditCTABean implements Serializable {
 	
 	public List<Account> accountscomplete(String query) {
 		try {
-			accountservice = new AccountService();
-			accounts = accountservice.getAccountsByName(query);
+			accountService = new AccountService();
+			accounts = accountService.getAccountsByName(query);
 		
 		} catch (RuntimeException ex) {
 			handleException(ex);
 		} finally {
-			accountservice = null;
+			accountService = null;
 		}
 		return this.accounts;
+	}
+	
+	
+	public List<User> assigneecomplete(String query) {
+		try {
+			userservice = new UserService();
+			users = userservice.getUsersByName(query);
+		
+		} catch (RuntimeException ex) {
+			handleException(ex);
+		} finally {
+			userservice = null;
+		}
+		return this.users;
 	}
 	
 	
@@ -211,14 +227,6 @@ public class EditCTABean implements Serializable {
 	}
 	
 	
-	public void accountSelect(SelectEvent e) {
-		account = (Account)e.getObject();
-	}
-
-	public void accountUnSelect(UnselectEvent e) {
-		account = (Account)e.getObject();
-	}
-
 	
 	public void onDateSelect(SelectEvent event) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -253,6 +261,11 @@ public class EditCTABean implements Serializable {
 	public User getAssignee() {
 		return cta.getAssignee();
 	}
+	
+	public void setAssignee(User assignee) {
+		cta.setAssignee(assignee);
+	}
+
 
 	public String getStatus() {
 		return cta.getStatus();
@@ -437,15 +450,15 @@ public class EditCTABean implements Serializable {
 	/**
 	 * @return the accounts
 	 */
-	public List<Account> getAccounts() {
-		return accounts;
+	public Account getAccount() {
+		return cta.getAccount();
 	}
 
 	/**
 	 * @param accounts the accounts to set
 	 */
-	public void setAccounts(List<Account> accounts) {
-		this.accounts = accounts;
+	public void setAccount(Account account) {
+		cta.setAccount(account);
 	}
 
 	/**

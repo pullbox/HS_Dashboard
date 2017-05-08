@@ -1,5 +1,6 @@
 package net.bechtelus.account;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -12,6 +13,8 @@ import net.bechtelus.util.HSDashboardUtility;
 @Named
 @ApplicationScoped
 public class AccountService {
+
+	private static final long serialVersionUID = 7895536896667565950L;
 
 	public Account find(String id) {
 		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
@@ -50,6 +53,19 @@ public class AccountService {
 		try {
 			Query query = em.createNamedQuery("accountByName");
 			query.setParameter("account_NAME", "%" + account_NAME + "%");
+			return query.getResultList();
+		} finally {
+			em.close();
+		}
+
+	}
+	
+	
+	public List<Account> getAccountsByID(String account_ID) {
+		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
+		try {
+			Query query = em.createNamedQuery("accountByID");
+			query.setParameter("account_ID", account_ID);
 			return query.getResultList();
 		} finally {
 			em.close();

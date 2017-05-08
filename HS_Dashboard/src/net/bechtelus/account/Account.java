@@ -20,6 +20,7 @@ import net.bechtelus.user.User;
 
 		@NamedQuery(name = "accountByCSM", query = "Select c from Account c where c.CUSTOMER_SUCCESS_MANAGER = :CSM_user_id"),
 		@NamedQuery(name = "accountByName", query = "Select c from Account c where c.ACCOUNT_NAME like :account_NAME AND c.ACTIVE_SUBS_CUSTOMER = 1" ),
+		@NamedQuery(name = "accountByID", query = "Select c from Account c where c.ACCOUNT_ID = :account_ID" ),
 		@NamedQuery(name = "accountByEAG", query = "Select c from Account c where c.ENTERPRISE_ARCHITECT_ASSIGNED = :EAG_user_id") })
 
 public class Account implements Serializable {
@@ -250,6 +251,10 @@ public class Account implements Serializable {
 
 	public Account() {
 
+	}
+	
+	public String toString() {
+		return ACCOUNT_NAME;
 	}
 
 }

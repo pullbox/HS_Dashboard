@@ -43,6 +43,9 @@
 
 
 				</p:column>
+				<p:column headerText="Account">
+					<p:outputLabel value="#{cta.account.ACCOUNT_NAME}" />
+				</p:column>
 				<p:column headerText="Source">
 					<p:outputLabel value="#{cta.source}" />
 				</p:column>
@@ -71,7 +74,7 @@
 						<f:convertDateTime pattern="MM/dd/yyyy HH:mm" />
 					</p:outputLabel>
 				</p:column>
-				
+
 				<p:column headerText="Modified by">
 					<p:outputLabel value="#{cta.modifiedby.FULL_NAME}" />
 				</p:column>

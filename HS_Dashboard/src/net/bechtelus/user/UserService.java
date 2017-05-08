@@ -6,15 +6,9 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
-import javax.persistence.criteria.Root;
 
+import net.bechtelus.account.Account;
 import net.bechtelus.common.DAOException;
 import net.bechtelus.util.HSDashboardUtility;
 
@@ -23,6 +17,7 @@ import net.bechtelus.util.HSDashboardUtility;
 public class UserService implements UserDAO, Serializable {
 
 
+	private static final long serialVersionUID = -698729208709754881L;
 	private EntityManager em;
 	private User user, result;
 
@@ -46,7 +41,7 @@ public class UserService implements UserDAO, Serializable {
 		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
 
 		try {
-			Query query = em.createQuery("SELECT u FROM Account u WHERE u.EMAIL = :email", User.class);
+			Query query = em.createQuery("SELECT u FROM User u WHERE u.EMAIL = :email", User.class);
 			query.setParameter("email", email);
 			result = (User) query.getSingleResult();
 			return result;
@@ -60,7 +55,7 @@ public class UserService implements UserDAO, Serializable {
 	public User findUserByUserID(String user_id) throws DAOException {
 		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
 		try {
-			Query query = em.createQuery("SELECT u FROM Account u WHERE u.USER_ID = :userid", User.class);
+			Query query = em.createQuery("SELECT u FROM User u WHERE u.USER_ID = :userid", User.class);
 			query.setParameter("userid", user_id);
 			result = (User) query.getSingleResult();
 			return result;
@@ -70,6 +65,20 @@ public class UserService implements UserDAO, Serializable {
 
 	}
 
+	
+	public List<User> getUsersByName(String user_NAME) {
+		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
+		try {
+			Query query = em.createNamedQuery("usersByName");
+			query.setParameter("user_NAME", "%" + user_NAME + "%");
+			return query.getResultList();
+		} finally {
+			em.close();
+		}
+
+	}
+	
+	
 	@Override
 	public List<User> getAllActiveUsers() throws DAOException {
 		// TODO Auto-generated method stub

@@ -45,16 +45,36 @@
 								style="width: 100%;" />
 
 							<p:outputLabel value="Account" />
-							<p:autoComplete id="accountauto" value="#{editCTABean.accounts}"
+							<p:autoComplete id="accountauto" value="#{editCTABean.account}"
 								completeMethod="#{editCTABean.accountscomplete}" var="account"
-								itemValue="#{account}" itemLabel="#{account.ACCOUNT_NAME}" converter="#{accountConverter}" maxResults="5">
-								<p:ajax event="itemSelect"
-									listener="#{editCTABean.accountSelect}" update="messages"></p:ajax>
-								<p:ajax event="itemUnselect"
-									listener="#{editCTABean.accountUnSelect}" update="messages"></p:ajax>
+								itemValue="#{account}" itemLabel="#{account.ACCOUNT_NAME}"
+								converter="accountConverter" maxResults="5"
+								forceSelection="true" style="width: 100%;">
+								<p:column style="width:80%; text-align:left">
+									#{account.ACCOUNT_NAME}
+								</p:column>
+								<p:column style="width:20%; text-align:left">
+									#{account.ACTIVE_SUBS_CUSTOMER}
+								</p:column>
+							</p:autoComplete>
+							
+							
+							<p:outputLabel value="Owner" />
+							<p:autoComplete id="assigneeauto" value="#{editCTABean.assignee}"
+								completeMethod="#{editCTABean.assigneecomplete}" var="User"
+								itemValue="#{user}" itemLabel="#{user.FULL_NAME}"
+								converter="userConverter" maxResults="10"
+								forceSelection="true" style="width: 100%;">
+								<p:column style="width:80%; text-align:left">
+									#{user.FULL_NAME}
+								</p:column>
+								<p:column style="width:20%; text-align:left">
+									#{user.TITLE}
+								</p:column>
 							</p:autoComplete>
 
-
+							<p:outputLabel value="Contact" />
+							<p:outputLabel value="soon" />
 
 							<p:outputLabel for="type" value="Type" />
 							<p:selectOneListbox id="type" value="#{editCTABean.type}"

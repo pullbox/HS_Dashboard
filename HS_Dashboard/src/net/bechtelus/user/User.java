@@ -1,15 +1,27 @@
 package net.bechtelus.user;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="sf_user")
 
+@NamedQueries({
 
-public class User {
 	
+	@NamedQuery(name = "usersByName", query = "Select c from User c where c.FULL_NAME like :user_NAME AND c.ACTIVE = 1" ) })
+
+
+public class User implements Serializable {
+	
+	
+	private static final long serialVersionUID = 1853203949835392692L;
+
 	private Long USER_TK;
 	
 	@Id
