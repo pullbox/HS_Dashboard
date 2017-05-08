@@ -42,8 +42,20 @@ public class CallToActionService {
 		} finally {
 			em.close();
 		}
-
 	}
+	
+	public List<CallToAction> getCTAsByType(String cta_TYPE) {
+		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
+		try {
+			 Query query = em.createNamedQuery("ctasByType");
+			 query.setParameter("ctaType", cta_TYPE);
+			return query.getResultList();
+		} finally {
+			em.close();
+		}
+	}
+
+	
 
 	public void create(CallToAction cta) {
 		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();

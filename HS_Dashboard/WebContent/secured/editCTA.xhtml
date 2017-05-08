@@ -39,7 +39,7 @@
 
 
 
-							<p:outputLabel for="description" value="Description" />
+							<p:outputLabel for="description" value="Subject" />
 							<p:inputText id="description" value="#{editCTABean.description}"
 								required="true" requiredMessage="Description is required!"
 								style="width: 100%;" />
@@ -48,7 +48,7 @@
 							<p:autoComplete id="accountauto" value="#{editCTABean.account}"
 								completeMethod="#{editCTABean.accountscomplete}" var="account"
 								itemValue="#{account}" itemLabel="#{account.ACCOUNT_NAME}"
-								converter="accountConverter" maxResults="5"
+								converter="accountConverter" maxResults="5" required="true" requiredMessage="Please select an Account!"
 								forceSelection="true" style="width: 100%;">
 								<p:column style="width:80%; text-align:left">
 									#{account.ACCOUNT_NAME}
@@ -57,14 +57,14 @@
 									#{account.ACTIVE_SUBS_CUSTOMER}
 								</p:column>
 							</p:autoComplete>
-							
-							
+
+
 							<p:outputLabel value="Owner" />
 							<p:autoComplete id="assigneeauto" value="#{editCTABean.assignee}"
-								completeMethod="#{editCTABean.assigneecomplete}" var="User"
+								completeMethod="#{editCTABean.assigneecomplete}" var="user"
 								itemValue="#{user}" itemLabel="#{user.FULL_NAME}"
-								converter="userConverter" maxResults="10"
-								forceSelection="true" style="width: 100%;">
+								converter="userConverter" maxResults="10" forceSelection="true"
+								style="width: 100%;">
 								<p:column style="width:80%; text-align:left">
 									#{user.FULL_NAME}
 								</p:column>
@@ -77,37 +77,37 @@
 							<p:outputLabel value="soon" />
 
 							<p:outputLabel for="type" value="Type" />
-							<p:selectOneListbox id="type" value="#{editCTABean.type}"
+							<p:selectOneMenu id="type" value="#{editCTABean.type}"
 								required="true" requiredMessage="Please provide a Type!"
-								style="width: 100%;">
+								style="width: 90%;">
 								<f:selectItem itemLabel="Lifecycle event" itemValue="Lifecycle" />
 								<f:selectItem itemLabel="Risk mitigation" itemValue="Risk" />
 								<f:selectItem itemLabel="Expansion" itemValue="Expansion" />
 								<f:selectItem itemLabel="Adoption" itemValue="Adoption" />
-							</p:selectOneListbox>
+							</p:selectOneMenu>
 
 							<p:outputLabel for="source" value="Source" />
-							<p:selectOneListbox id="source" value="#{editCTABean.source}"
+							<p:selectOneMenu id="source" value="#{editCTABean.source}"
 								required="true" requiredMessage="Please select a Source!"
-								style="width: 100%;">
+								style="width: 90%;">
 								<f:selectItem itemLabel="Manual" itemValue="Manual" />
 								<f:selectItem itemLabel="HS_Process" itemValue="HS_Process" />
-							</p:selectOneListbox>
+							</p:selectOneMenu>
 
 							<p:outputLabel for="priority" value="Priority" />
-							<p:selectOneListbox id="priority" value="#{editCTABean.priority}"
+							<p:selectOneMenu id="priority" value="#{editCTABean.priority}"
 								required="true" requiredMessage="Please provide a Priority!"
-								style="width: 100%;">
+								style="width:90%;">
 								<f:selectItem itemLabel="Code Blue" itemValue="Code Blue" />
 								<f:selectItem itemLabel="High" itemValue="High" />
 								<f:selectItem itemLabel="Medium" itemValue="Medium" />
 								<f:selectItem itemLabel="Low" itemValue="Low" />
-							</p:selectOneListbox>
+							</p:selectOneMenu>
 
 							<p:outputLabel for="status" value="Status" />
-							<p:selectOneListbox id="status" value="#{editCTABean.status}"
+							<p:selectOneMenu id="status" value="#{editCTABean.status}"
 								required="true" requiredMessage="Please select a Status!"
-								style="width: 100%;">
+								style="width: 90%;">
 								<f:selectItem itemLabel="New" itemValue="New" />
 								<f:selectItem itemLabel="Work in Progress"
 									itemValue="Work in Progress" />
@@ -116,7 +116,7 @@
 								<f:selectItem itemLabel="Deferred" itemValue="Deferred" />
 								<f:selectItem itemLabel="Closed" itemValue="Closed" />
 
-							</p:selectOneListbox>
+							</p:selectOneMenu>
 
 							<p:outputLabel for="impact" value="Score Impact" />
 							<p:inputText id="impact" value="#{editCTABean.impact}"

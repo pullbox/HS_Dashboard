@@ -16,18 +16,28 @@ import net.bechtelus.util.HSDashboardUtility;
 @ApplicationScoped
 public class UserService implements UserDAO, Serializable {
 
-
 	private static final long serialVersionUID = -698729208709754881L;
 	private EntityManager em;
 	private User user, result;
 
-
 	public User find(String user_id) {
-		return em.find(User.class, user_id);
+		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
+		try {
+			return em.find(User.class, user_id);
+		} finally {
+			em.close();
+		}
 	}
 
 	public List<User> list() {
-		return em.createQuery("SELECT u FROM sf_user u", User.class).getResultList();
+
+		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
+		try {
+			return em.createQuery("SELECT u FROM sf_user u", User.class).getResultList();
+		} finally {
+			em.close();
+		}
+
 	}
 
 	@Override
@@ -65,7 +75,6 @@ public class UserService implements UserDAO, Serializable {
 
 	}
 
-	
 	public List<User> getUsersByName(String user_NAME) {
 		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
 		try {
@@ -77,8 +86,7 @@ public class UserService implements UserDAO, Serializable {
 		}
 
 	}
-	
-	
+
 	@Override
 	public List<User> getAllActiveUsers() throws DAOException {
 		// TODO Auto-generated method stub
@@ -96,6 +104,4 @@ public class UserService implements UserDAO, Serializable {
 	 * em.merge(cta)); }
 	 */
 
-	
-	
 }

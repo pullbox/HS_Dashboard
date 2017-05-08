@@ -34,7 +34,12 @@ public class WelcomeBean implements Serializable {
 	@EJB
 	private CallToActionService ctaService;
 
-	private List<CallToAction> ctas;
+	private List<CallToAction> riskctas;
+	private List<CallToAction> expansionctas;
+	private List<CallToAction> adoptionctas;
+	private List<CallToAction> lifecyclectas;
+	private List<CallToAction> filteredctas;
+	
 	public String doLogout() {
 		loginBean.doLogout();
 		 return "/login.xhtml?faces-redirect=true";
@@ -43,7 +48,7 @@ public class WelcomeBean implements Serializable {
 	public void init() {
 		this.userName =  (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userName");
 		logger.info("UserName: " + userName);
-		this.ctas = getCtas();
+		populateCTAs();
 
 	}
 
@@ -55,11 +60,13 @@ public class WelcomeBean implements Serializable {
 	/**
 	 * @return the ctas
 	 */
-	public List<CallToAction> getCtas() {
+	public void populateCTAs() {
 		ctaService = new CallToActionService();
-		this.ctas = ctaService.list();
+		this.riskctas = ctaService.getCTAsByType("Risk");
+		this.adoptionctas = ctaService.getCTAsByType("Adoption");
+		this.expansionctas = ctaService.getCTAsByType("Expansion");
+		this.lifecyclectas = ctaService.getCTAsByType("Lifecycle");
 		ctaService = null;
-		return ctas;
 	}
 
 	/**
@@ -74,6 +81,48 @@ public class WelcomeBean implements Serializable {
 	 */
 	public void setUserName(String aUname) {
 		this.userName = aUname;
+	}
+
+	/**
+	 * @return the filteredctas
+	 */
+	public List<CallToAction> getFilteredctas() {
+		return filteredctas;
+	}
+
+	/**
+	 * @param filteredctas the filteredctas to set
+	 */
+	public void setFilteredctas(List<CallToAction> filteredctas) {
+		this.filteredctas = filteredctas;
+	}
+
+	/**
+	 * @return the riskctas
+	 */
+	public List<CallToAction> getRiskctas() {
+		return riskctas;
+	}
+
+	/**
+	 * @return the expansionctas
+	 */
+	public List<CallToAction> getExpansionctas() {
+		return expansionctas;
+	}
+
+	/**
+	 * @return the adoptionctas
+	 */
+	public List<CallToAction> getAdoptionctas() {
+		return adoptionctas;
+	}
+
+	/**
+	 * @return the lifecyclectas
+	 */
+	public List<CallToAction> getLifecyclectas() {
+		return lifecyclectas;
 	}
 
 	// This method is used to handle exceptions and display cause to user.

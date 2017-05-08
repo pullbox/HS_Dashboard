@@ -33,62 +33,47 @@
 
 
 
-			<p:dataTable var="cta" value="#{welcomeBean.ctas}">
-
-				<p:column headerText="CTA">
-					<p:commandLink id="edit" value="#{cta.id}"
-						action="#{navigationBean.editCTA}">
-						<f:param name="ctaid" value="#{cta.id}" />
-					</p:commandLink>
-
-
-				</p:column>
-				<p:column headerText="Account">
-					<p:outputLabel value="#{cta.account.ACCOUNT_NAME}" />
-				</p:column>
-				<p:column headerText="Source">
-					<p:outputLabel value="#{cta.source}" />
-				</p:column>
-				<p:column headerText="Type">
-					<p:outputLabel value="#{cta.type}" />
-				</p:column>
-				<p:column headerText="Status">
-					<p:outputLabel value="#{cta.status}" />
-				</p:column>
-				<p:column headerText="Priority">
-					<p:outputLabel value="#{cta.priority}" />
-				</p:column>
-				<p:column headerText="Description">
-					<p:outputLabel value="#{cta.description}" />
-				</p:column>
-				<p:column headerText="Due Date">
-					<p:outputLabel value="#{cta.dueDate}">
-						<f:convertDateTime pattern="MM/dd/yyyy" />
-					</p:outputLabel>
-				</p:column>
-				<p:column headerText="Created by">
-					<p:outputLabel value="#{cta.createby.FULL_NAME}" />
-				</p:column>
-				<p:column headerText="Created Date">
-					<p:outputLabel value="#{cta.createdDate}">
-						<f:convertDateTime pattern="MM/dd/yyyy HH:mm" />
-					</p:outputLabel>
-				</p:column>
-
-				<p:column headerText="Modified by">
-					<p:outputLabel value="#{cta.modifiedby.FULL_NAME}" />
-				</p:column>
-				<p:column headerText="Modified Date">
-					<p:outputLabel value="#{cta.modifiedDate}">
-						<f:convertDateTime pattern="MM/dd/yyyy HH:mm" />
-					</p:outputLabel>
-				</p:column>
-				<p:column headerText="Note">
-					<p:outputLabel value="#{cta.note}" />
-				</p:column>
-
-
+			<p:dataTable var="cta" value="#{welcomeBean.riskctas}"
+				emptyMessage="No Risk records available!">
+				<f:facet name="header">
+					<p:outputPanel>
+						<h:outputText value="Risks" />
+					</p:outputPanel>
+				</f:facet>
+				<ui:include src="/secured/welcometablelist.xhtml" />
 			</p:dataTable>
+
+			<p:dataTable var="cta" value="#{welcomeBean.adoptionctas}"
+				emptyMessage="No Adoption records available!">
+				<f:facet name="header">
+					<p:outputPanel>
+						<h:outputText value="Adoptions" />
+					</p:outputPanel>
+				</f:facet>
+				<ui:include src="/secured/welcometablelist.xhtml" />
+			</p:dataTable>
+
+			<p:dataTable var="cta" value="#{welcomeBean.expansionctas}"
+				emptyMessage="No Expansion records available!">
+				<f:facet name="header">
+					<p:outputPanel>
+						<h:outputText value="Expansions" />
+					</p:outputPanel>
+				</f:facet>
+				<ui:include src="/secured/welcometablelist.xhtml" />
+			</p:dataTable>
+
+
+			<p:dataTable var="cta" value="#{welcomeBean.lifecyclectas}"
+				emptyMessage="No LifeCycle records available!">
+				<f:facet name="header">
+					<p:outputPanel>
+						<h:outputText value="Lifecycle" />
+					</p:outputPanel>
+				</f:facet>
+				<ui:include src="/secured/welcometablelist.xhtml" />
+			</p:dataTable>
+
 
 			<br />
 			<p:commandLink action="#{welcomeBean.doLogout}" value="Logout" />

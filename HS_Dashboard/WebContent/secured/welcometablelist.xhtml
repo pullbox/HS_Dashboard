@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+
+
+	<p:column headerText="CTA">
+		<p:commandLink id="edit" value="#{cta.id}"
+			action="#{navigationBean.editCTA}">
+			<f:param name="ctaid" value="#{cta.id}" />
+		</p:commandLink>
+
+
+	</p:column>
+	<p:column headerText="Account">
+		<p:outputLabel value="#{cta.account.ACCOUNT_NAME}" />
+	</p:column>
+
+
+	<p:column headerText="Assigned to">
+		<p:outputLabel value="#{cta.assignee.FULL_NAME}" />
+	</p:column>
+	<p:column headerText="Source">
+		<p:outputLabel value="#{cta.source}" />
+	</p:column>
+	<p:column headerText="Type">
+		<p:outputLabel value="#{cta.type}" />
+	</p:column>
+	<p:column headerText="Status">
+		<p:outputLabel value="#{cta.status}" />
+	</p:column>
+	<p:column headerText="Priority">
+		<p:outputLabel value="#{cta.priority}" />
+	</p:column>
+	<p:column headerText="Description">
+		<p:outputLabel value="#{cta.description}" />
+	</p:column>
+	<p:column headerText="Due Date">
+		<p:outputLabel value="#{cta.dueDate}">
+			<f:convertDateTime pattern="MM/dd/yyyy" />
+		</p:outputLabel>
+	</p:column>
+	<p:column headerText="Created by">
+		<p:outputLabel value="#{cta.createby.FULL_NAME}" />
+	</p:column>
+	<p:column headerText="Created Date">
+		<p:outputLabel value="#{cta.createdDate}">
+			<f:convertDateTime pattern="MM/dd/yyyy HH:mm" />
+		</p:outputLabel>
+	</p:column>
+
+	<p:column headerText="Modified by">
+		<p:outputLabel value="#{cta.modifiedby.FULL_NAME}" />
+	</p:column>
+	<p:column headerText="Modified Date">
+		<p:outputLabel value="#{cta.modifiedDate}">
+			<f:convertDateTime pattern="MM/dd/yyyy HH:mm" />
+		</p:outputLabel>
+	</p:column>
+	<p:column headerText="Note">
+		<p:outputLabel value="#{cta.note}" />
+	</p:column>
+
+</ui:composition>
