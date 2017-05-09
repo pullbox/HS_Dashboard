@@ -240,6 +240,12 @@
 
 		<!-- for JSF 2.x -->
 
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>all-themes</artifactId>
+			<version>1.0.8</version>
+			<type>pom</type>
+		</dependency>
 	</dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -266,6 +272,11 @@
 			<id>java.net</id>
 			<url>http://clojars.org/repo/</url>
 		</repository>
+		<repository>
+		<id>prime-repo</id>
+		<name>Prime Repo</name>
+		<url>http://repository.primefaces.org</url>
+	</repository>
 	</repositories>
 	<name>HS_Dashboard</name>
 	<organization>

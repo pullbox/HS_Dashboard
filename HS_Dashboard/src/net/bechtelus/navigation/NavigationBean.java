@@ -1,7 +1,10 @@
 package net.bechtelus.navigation;
 
 import java.io.Serializable;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
@@ -9,6 +12,8 @@ import javax.faces.annotation.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.primefaces.context.RequestContext;
 
 @Named("navigationBean")
 @SessionScoped
@@ -67,6 +72,31 @@ public class NavigationBean implements Serializable {
         return "/secured/editCTA.xhtml?faces-redirect=true&ctaid=" +ctaID;
     }
      
+    
+    public void deferCTA() {
+    	String ctaID = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("ctaid");
+    	String userName =  (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userName");
+    	System.out.println("CTAID: " + ctaID);
+    	
+    	 Map<String,Object> options = new HashMap<String, Object>();
+    	 Map<String,List<String>> params = new HashMap<String, List<String>>();
+    	 
+         options.put("modal", true);
+         options.put("width", 640);
+         options.put("height", 340);
+         options.put("contentWidth", "100%");
+         options.put("contentHeight", "100%");
+         options.put("headerElement", "customheader");
+         
+         List<String> ids = new Vector<String>();
+         ids.add(ctaID);
+         List<String> uname = new Vector<String>();
+         uname.add(userName);
+         params.put("ctaid", ids);
+         params.put("username", uname);
+          
+         RequestContext.getCurrentInstance().openDialog("deferCTA", options, params);
+    }
    
      
 }

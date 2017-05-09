@@ -66,15 +66,13 @@ public class EditCTABean implements Serializable {
 	private UserService userservice;
 	@Inject
 	private AccountService accountService;
-	
-	
-	
-	
+
 	@PostConstruct
 	public void init() {
 
 		String ctaID = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("ctaid");
-		String userName =  (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userName");
+		String userName = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.get("userName");
 
 		System.out.println("CTAID: " + ctaID);
 		System.out.println("userName: " + userName);
@@ -86,8 +84,9 @@ public class EditCTABean implements Serializable {
 				this.cta = new CallToAction();
 				// this.cta.setCreatedDate(new Date());
 				this.ctaOperation = CREATE_OPERATION;
+				this.cta.setType("Risk");
 				this.cta.setSource("Manual");
-				this.cta.setPriority("Medium");
+				this.cta.setPriority("3");
 				this.cta.setStatus("New");
 				this.cta.setCreatedDate(new Date());
 				this.cta.setCreateby(user);
@@ -119,7 +118,6 @@ public class EditCTABean implements Serializable {
 
 	public void saveCTAActionListener(ActionEvent actionEvent) {
 
-				
 		try {
 			ctaservice = new CallToActionService();
 			if (this.ctaOperation == this.UPDATE_OPERATION) {
@@ -163,13 +161,12 @@ public class EditCTABean implements Serializable {
 		}
 		return this.ctas;
 	}
-	
-	
+
 	public List<Account> accountscomplete(String query) {
 		try {
 			accountService = new AccountService();
 			accounts = accountService.getAccountsByName(query);
-		
+
 		} catch (RuntimeException ex) {
 			handleException(ex);
 		} finally {
@@ -177,13 +174,12 @@ public class EditCTABean implements Serializable {
 		}
 		return this.accounts;
 	}
-	
-	
+
 	public List<User> assigneecomplete(String query) {
 		try {
 			userservice = new UserService();
 			users = userservice.getUsersByName(query);
-		
+
 		} catch (RuntimeException ex) {
 			handleException(ex);
 		} finally {
@@ -191,8 +187,6 @@ public class EditCTABean implements Serializable {
 		}
 		return this.users;
 	}
-	
-	
 
 	public void deleteCTAActionListener(ActionEvent actionEvent) {
 		try {
@@ -214,7 +208,7 @@ public class EditCTABean implements Serializable {
 	}
 
 	public User getUser(String email) {
-	
+
 		try {
 			userservice = new UserService();
 			user = userservice.findUserByEmail(email);
@@ -225,9 +219,7 @@ public class EditCTABean implements Serializable {
 		}
 		return user;
 	}
-	
-	
-	
+
 	public void onDateSelect(SelectEvent event) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -261,11 +253,10 @@ public class EditCTABean implements Serializable {
 	public User getAssignee() {
 		return cta.getAssignee();
 	}
-	
+
 	public void setAssignee(User assignee) {
 		cta.setAssignee(assignee);
 	}
-
 
 	public String getStatus() {
 		return cta.getStatus();
@@ -297,6 +288,14 @@ public class EditCTABean implements Serializable {
 
 	public void setPriority(String priority) {
 		cta.setPriority(priority);
+	}
+
+	public String getNote() {
+		return cta.getNote();
+	}
+
+	public void setNote(String note) {
+		cta.setNote(note);
 	}
 
 	public String getReason() {
@@ -361,7 +360,8 @@ public class EditCTABean implements Serializable {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -391,14 +391,6 @@ public class EditCTABean implements Serializable {
 		User user = new User();
 		user = cta.getCreateby();
 		return user.getFULL_NAME();
-	}
-
-	public String getNote() {
-		return cta.getNote();
-	}
-
-	public void setNote(String note) {
-		cta.setNote(note);
 	}
 
 	public int getImpact() {
@@ -455,7 +447,8 @@ public class EditCTABean implements Serializable {
 	}
 
 	/**
-	 * @param accounts the accounts to set
+	 * @param accounts
+	 *            the accounts to set
 	 */
 	public void setAccount(Account account) {
 		cta.setAccount(account);

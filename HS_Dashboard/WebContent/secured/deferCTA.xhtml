@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Defer CTA #{deferCTABean.description}</title>
+	<style type="text/css">
+.ui-widget {
+	font-size: 90%;
+}
+</style>
+</h:head>
+
+<h:body>
+
+	<h:form>
+		<i id="deferheader" class="fa fa-fw fa-clock-o" style="display: none">
+			Defer CTA #{deferCTABean.description} </i>
+		<p:messages id="messages" showDetail="true" autoUpdate="true"
+			closable="true" />
+		<h:panelGrid columns="2" cellpadding="5">
+		
+		
+			<p:outputLabel for="snoosePeriod" value="Defer until" />
+			<p:calendar id="snoosePeriod" value="#{deferCTABean.snoozePeriod}"
+				pattern="dd-MM-yyyy" mask="true" style="width: 100%;" />
+			<p:outputLabel for="snoozeReason" value="Defer Reason" />
+			<p:outputPanel>
+				<p:inputTextarea id="snoozeReason" rows="5" cols="30" counter="display2"
+					maxlength="254" counterTemplate="{0} characters remaining."
+					autoResize="false" value="#{deferCTABean.snoozeReason}"
+					style="width: 100%;" />
+				<br />
+				<h:outputLabel id="display2" />
+			</p:outputPanel>
+			
+			
+			<p:outputLabel for="status" value="Status" />
+			<p:selectOneMenu id="status" value="#{deferCTABean.status}"
+				required="true" requiredMessage="Please select a Status!"
+				style="width: 90%;">
+				<f:selectItem itemLabel="Work in Progress"
+					itemValue="Work in Progress" />
+				<f:selectItem itemLabel="Waiting on Customer"
+					itemValue="Waiting on Customer" />
+				<f:selectItem itemLabel="Deferred" itemValue="Deferred" />
+				<f:selectItem itemLabel="Closed" itemValue="Closed" />
+			</p:selectOneMenu>
+
+
+			<p:outputLabel for="priority" value="Priority" />
+			<p:selectOneMenu id="priority" value="#{deferCTABean.priority}"
+				required="true" requiredMessage="Please provide a Priority!"
+				style="width:90%;">
+				<f:selectItem itemLabel="Code Blue" itemValue="1" />
+				<f:selectItem itemLabel="High" itemValue="2" />
+				<f:selectItem itemLabel="Medium" itemValue="3" />
+				<f:selectItem itemLabel="Low" itemValue="4" />
+			</p:selectOneMenu>
+
+
+			<f:facet name="footer">
+				<p:commandButton update="messages" value="Save"
+					actionListener="#{deferCTABean.saveCTAActionListener}"
+					icon="ui-icon-disk" />
+			</f:facet>
+		</h:panelGrid>
+
+
+
+	</h:form>
+</h:body>
+</html>

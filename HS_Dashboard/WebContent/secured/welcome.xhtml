@@ -19,6 +19,7 @@
 				closable="true" />
 
 
+
 			<div class="ui-g">
 				<div class="ui-g-8" align="left">
 					<p:commandButton id="button" value="Create CTA"
@@ -42,7 +43,7 @@
 				</f:facet>
 				<ui:include src="/secured/welcometablelist.xhtml" />
 			</p:dataTable>
-
+			<br />
 			<p:dataTable var="cta" value="#{welcomeBean.adoptionctas}"
 				emptyMessage="No Adoption records available!">
 				<f:facet name="header">
@@ -52,7 +53,7 @@
 				</f:facet>
 				<ui:include src="/secured/welcometablelist.xhtml" />
 			</p:dataTable>
-
+			<br />
 			<p:dataTable var="cta" value="#{welcomeBean.expansionctas}"
 				emptyMessage="No Expansion records available!">
 				<f:facet name="header">
@@ -62,7 +63,7 @@
 				</f:facet>
 				<ui:include src="/secured/welcometablelist.xhtml" />
 			</p:dataTable>
-
+			<br />
 
 			<p:dataTable var="cta" value="#{welcomeBean.lifecyclectas}"
 				emptyMessage="No LifeCycle records available!">

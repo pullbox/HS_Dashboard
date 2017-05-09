@@ -71,8 +71,9 @@ public class CallToActionService {
 	public void update(CallToAction cta) {
 		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
 		try {
-			em.getTransaction().begin();
 			CallToAction acta = em.find(CallToAction.class, cta.getId());
+			em.getTransaction().begin();
+			
 			acta.setAssignee(cta.getAssignee());
 			acta.setCreateby(cta.getCreateby());
 			acta.setAccount(cta.getAccount());
