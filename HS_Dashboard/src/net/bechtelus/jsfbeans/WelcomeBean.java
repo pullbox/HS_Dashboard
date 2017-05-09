@@ -9,6 +9,7 @@ import org.apache.commons.logging.Log;
 import net.bechtelus.CTA.*;
 import net.bechtelus.security.LoginBean;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -45,6 +46,7 @@ public class WelcomeBean implements Serializable {
 		 return "/login.xhtml?faces-redirect=true";
 	}
 
+	@PostConstruct
 	public void init() {
 		this.userName =  (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userName");
 		logger.info("UserName: " + userName);

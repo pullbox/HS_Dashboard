@@ -15,8 +15,12 @@
 			icon="fa fa-clock-o">
 			<f:param name="ctaid" value="#{cta.id}" />
 		</p:commandButton>
-
 	</p:column>
+
+	<p:column headerText="Description">
+		<p:outputLabel value="#{cta.description}" />
+	</p:column>
+
 	<p:column headerText="Account">
 		<p:outputLabel value="#{cta.account.ACCOUNT_NAME}" />
 	</p:column>
@@ -25,9 +29,7 @@
 	<p:column headerText="Assigned to">
 		<p:outputLabel value="#{cta.assignee.FULL_NAME}" />
 	</p:column>
-	<p:column headerText="Source">
-		<p:outputLabel value="#{cta.source}" />
-	</p:column>
+
 
 	<p:column headerText="Status">
 		<p:outputLabel value="#{cta.status}" />
@@ -35,13 +37,14 @@
 	<p:column headerText="Priority">
 		<p:outputLabel value="#{cta.priority}" />
 	</p:column>
-	<p:column headerText="Description">
-		<p:outputLabel value="#{cta.description}" />
-	</p:column>
+
 	<p:column headerText="Due Date">
 		<p:outputLabel value="#{cta.dueDate}">
 			<f:convertDateTime pattern="MM/dd/yyyy" />
 		</p:outputLabel>
+	</p:column>
+	<p:column headerText="Note">
+		<p:outputLabel value="#{cta.note}" />
 	</p:column>
 	<!-- <p:column headerText="Created by">
 		<p:outputLabel value="#{cta.createby.FULL_NAME}" />
@@ -52,6 +55,9 @@
 		</p:outputLabel>
 	</p:column> -->
 
+	<p:column headerText="Source">
+		<p:outputLabel value="#{cta.source}" />
+	</p:column>
 	<p:column headerText="Modified by">
 		<p:outputLabel value="#{cta.modifiedby.FULL_NAME}" />
 	</p:column>
@@ -60,8 +66,6 @@
 			<f:convertDateTime pattern="MM/dd/yyyy HH:mm" />
 		</p:outputLabel>
 	</p:column>
-	<p:column headerText="Note">
-		<p:outputLabel value="#{cta.note}" />
-	</p:column>
+
 
 </ui:composition>

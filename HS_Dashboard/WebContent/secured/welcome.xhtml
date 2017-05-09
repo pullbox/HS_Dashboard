@@ -4,41 +4,38 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
 	xmlns:of="http://omnifaces.org/functions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/templates/tr-template.xhtml">
 
 	<ui:define name="content">
 
-		<f:metadata>
-			<f:viewParam id="userName" name="userName"
-				value="#{welcomeBean.userName}" />
-			<f:viewAction action="#{welcomeBean.init}" />
-		</f:metadata>
-
+		
 		<h:form id="welcome">
 			<h:message id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
 
 
 
-			<div class="ui-g">
-				<div class="ui-g-8" align="left">
+			<div>
+				<div align="left">
 					<p:commandButton id="button" value="Create CTA"
 						action="#{navigationBean.createCTA}" />
 				</div>
-				<div class="uri-g-3" align="right"></div>
-				<div class="uri-g-1" align="right">
+
+				<div align="right">
 					<p:outputLabel id="userid" value="Welcome #{welcomeBean.userName}"
 						readonly="true" />
 				</div>
 			</div>
 
 
-
 			<p:dataTable var="cta" value="#{welcomeBean.riskctas}"
 				emptyMessage="No Risk records available!">
 				<f:facet name="header">
 					<p:outputPanel>
-						<h:outputText value="Risks" />
+						<div align="left">
+							<h:outputText value="Risks  #{fn:length(welcomeBean.riskctas)}" />
+						</div>
 					</p:outputPanel>
 				</f:facet>
 				<ui:include src="/secured/welcometablelist.xhtml" />
@@ -48,7 +45,10 @@
 				emptyMessage="No Adoption records available!">
 				<f:facet name="header">
 					<p:outputPanel>
-						<h:outputText value="Adoptions" />
+						<div align="left">
+							<h:outputText
+								value="Adoptions   #{fn:length(welcomeBean.adoptionctas)}" />
+						</div>
 					</p:outputPanel>
 				</f:facet>
 				<ui:include src="/secured/welcometablelist.xhtml" />
@@ -58,7 +58,10 @@
 				emptyMessage="No Expansion records available!">
 				<f:facet name="header">
 					<p:outputPanel>
-						<h:outputText value="Expansions" />
+						<div align="left">
+							<h:outputText
+								value="Expansions    #{fn:length(welcomeBean.expansionctas)}" />
+						</div>
 					</p:outputPanel>
 				</f:facet>
 				<ui:include src="/secured/welcometablelist.xhtml" />
@@ -69,8 +72,12 @@
 				emptyMessage="No LifeCycle records available!">
 				<f:facet name="header">
 					<p:outputPanel>
-						<h:outputText value="Lifecycle" />
+						<div align="left">
+							<h:outputText
+								value="Lifecycle    #{fn:length(welcomeBean.lifecyclectas)}" />
+						</div>
 					</p:outputPanel>
+
 				</f:facet>
 				<ui:include src="/secured/welcometablelist.xhtml" />
 			</p:dataTable>

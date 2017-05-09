@@ -47,8 +47,7 @@ public class NavigationBean implements Serializable {
      * @return Welcome page name.
      */
     public String redirectToWelcome() {
-    	userName =  (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userName");
-    	return "/secured/welcome.xhtml?faces-redirect=true&userName="+ userName;
+    	return "/secured/welcome.xhtml?faces-redirect=true";
     }
      
    
