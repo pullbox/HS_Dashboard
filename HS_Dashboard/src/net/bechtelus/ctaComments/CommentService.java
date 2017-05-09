@@ -1,6 +1,5 @@
 package net.bechtelus.ctaComments;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -8,6 +7,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import net.bechtelus.CTA.CallToAction;
 import net.bechtelus.util.HSDashboardUtility;
 
 @Named
@@ -33,7 +33,7 @@ public class CommentService {
 		}
 	}
 
-	public List<Comment> getCommentsByCTA(String cta_id) {
+	public List<Comment> getCommentsByCTA(CallToAction cta_id) {
 		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
 		try {
 			Query query = em.createNamedQuery("commentsByCTA");

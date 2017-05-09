@@ -1,7 +1,9 @@
 package net.bechtelus.ctaComments;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -124,29 +126,51 @@ public class Comment implements Serializable {
 	/**
 	 * @return the createdDate
 	 */
-	public java.util.Calendar getCreatedDate() {
-		return createdDate;
+	public Date getCreatedDate() {
+		if (this.createdDate == null) {
+			return null;
+		} else {
+
+			return this.createdDate.getTime();
+		}
 	}
 
 	/**
 	 * @param createdDate the createdDate to set
 	 */
-	public void setCreatedDate(java.util.Calendar createdDate) {
-		this.createdDate = createdDate;
+	public void setCreatedDate(Date acreatedDate) {
+		if (acreatedDate == null) {
+			this.createdDate = null;
+		} else {
+			Calendar cal = new GregorianCalendar();
+			cal.setTime(acreatedDate);
+			this.createdDate = cal;
+		}
 	}
 
 	/**
 	 * @return the modifiedDate
 	 */
-	public java.util.Calendar getModifiedDate() {
-		return modifiedDate;
+	public Date getModifiedDate() {
+		if (this.modifiedDate == null) {
+			return null;
+		} else {
+
+			return this.modifiedDate.getTime();
+		}
 	}
 
 	/**
 	 * @param modifiedDate the modifiedDate to set
 	 */
-	public void setModifiedDate(java.util.Calendar modifiedDate) {
-		this.modifiedDate = modifiedDate;
+	public void setModifiedDate(Date amodifiedDate) {
+		if (amodifiedDate== null) {
+			this.modifiedDate = null;
+		} else {
+			Calendar cal = new GregorianCalendar();
+			cal.setTime(amodifiedDate);
+			this.modifiedDate = cal;
+		}
 	}
 
 	/**

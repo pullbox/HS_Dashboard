@@ -13,3 +13,7 @@ color: #FFFFFF;
 font-size: 10px;
 
 }
+
+.preformatted {
+	white-space: pre-wrap;
+}

@@ -7,6 +7,7 @@
 
 <h:head>
 	<title>Defer CTA #{deferCTABean.description}</title>
+	<link rel="stylesheet" href="/HS_Dashboard/resources/css/styles.css" />
 	<style type="text/css">
 .ui-widget {
 	font-size: 90%;
@@ -22,22 +23,11 @@
 		<p:messages id="messages" showDetail="true" autoUpdate="true"
 			closable="true" />
 		<h:panelGrid columns="2" cellpadding="5">
-		
-		
-			<p:outputLabel for="snoosePeriod" value="Defer until" />
-			<p:calendar id="snoosePeriod" value="#{deferCTABean.snoozePeriod}"
-				pattern="dd-MM-yyyy" mask="true" style="width: 100%;" />
-			<p:outputLabel for="snoozeReason" value="Defer Reason" />
-			<p:outputPanel>
-				<p:inputTextarea id="snoozeReason" rows="5" cols="30" counter="display2"
-					maxlength="254" counterTemplate="{0} characters remaining."
-					autoResize="false" value="#{deferCTABean.snoozeReason}"
-					style="width: 100%;" />
-				<br />
-				<h:outputLabel id="display2" />
-			</p:outputPanel>
-			
-			
+
+
+
+
+
 			<p:outputLabel for="status" value="Status" />
 			<p:selectOneMenu id="status" value="#{deferCTABean.status}"
 				required="true" requiredMessage="Please select a Status!"
@@ -62,12 +52,33 @@
 			</p:selectOneMenu>
 
 
-			<f:facet name="footer">
-				<p:commandButton update="messages" value="Save"
-					actionListener="#{deferCTABean.saveCTAActionListener}"
-					icon="ui-icon-disk" />
-			</f:facet>
+			<p:outputLabel for="snoosePeriod" value="Defer until" />
+			<p:calendar id="snoosePeriod" value="#{deferCTABean.snoozePeriod}"
+				pattern="dd-MM-yyyy" mask="true" style="width: 100%;" />
+			<p:outputLabel for="deferComment" value="Defer Reason" />
+			<p:outputPanel>
+				<p:inputTextarea id="deferComment" rows="5" cols="30"
+					counter="display2" maxlength="254"
+					counterTemplate="{0} characters remaining." autoResize="false"
+					value="#{deferCTABean.deferComment}" style="width: 100%;" />
+				<br />
+				<h:outputLabel id="display2" />
+			</p:outputPanel>
 		</h:panelGrid>
+
+
+		<p:dataScroller value="#{deferCTABean.comments}" var="comment"
+			chunkSize="10" mode="inline" scrollHeight="50">
+			<h:outputText value="#{comment.comment}" styleclass="preformatted"/>
+		</p:dataScroller>
+
+
+		
+			<p:commandButton update="messages" value="Save"
+				actionListener="#{deferCTABean.saveCTAActionListener}"
+				icon="ui-icon-disk" />
+	
+
 
 
 

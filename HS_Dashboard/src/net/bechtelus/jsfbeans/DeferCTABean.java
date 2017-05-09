@@ -8,8 +8,8 @@ import java.util.List;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import net.bechtelus.CTA.*;
-import net.bechtelus.account.Account;
-import net.bechtelus.account.AccountService;
+import net.bechtelus.ctaComments.Comment;
+import net.bechtelus.ctaComments.CommentService;
 import net.bechtelus.navigation.NavigationBean;
 import net.bechtelus.user.User;
 import net.bechtelus.user.UserService;
@@ -27,7 +27,6 @@ import javax.persistence.RollbackException;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
 
 @Named("deferCTABean")
 @ViewScoped
@@ -45,13 +44,17 @@ public class DeferCTABean implements Serializable {
 	private String ctaModificationResult;
 
 	private String id;
+	private Comment theComment;
 	private List<User> users;
+	private List<Comment> comments;
 
 	// reference for database access
 	@Inject
 	private CallToActionService ctaservice;
 	@Inject
 	private UserService userservice;
+	@Inject
+	private CommentService commentService;
 
 	@PostConstruct
 	public void init() {
@@ -77,7 +80,22 @@ public class DeferCTABean implements Serializable {
 		} finally {
 			ctaservice = null;
 		}
-
+		
+		try {
+			commentService = new CommentService();
+			this.comments = commentService.getCommentsByCTA(this.cta);
+		} catch (RuntimeException ex) {
+			handleException(ex);
+		} finally {
+			commentService = null;
+		}
+		
+		theComment = new Comment();
+		theComment.setCta_id(cta);
+		theComment.setCreateby(user);
+		theComment.setCreatedDate(new Date());
+		
+		
 		// logger.info(cta.toString());
 
 	}
@@ -87,7 +105,6 @@ public class DeferCTABean implements Serializable {
 		try {
 			ctaservice = new CallToActionService();
 			ctaservice.update(this.cta);
-			RequestContext.getCurrentInstance().closeDialog(null);
 		} catch (RollbackException ex) {
 			if (ex.getCause() instanceof OptimisticLockException) {
 				this.ctaModificationResult = "Failed to update "
@@ -107,6 +124,34 @@ public class DeferCTABean implements Serializable {
 			ctaservice = null;
 
 		}
+		
+		
+		try {
+			commentService = new CommentService();
+			commentService.create(this.theComment);
+			RequestContext.getCurrentInstance().closeDialog(null);
+		} catch (RollbackException ex) {
+			if (ex.getCause() instanceof OptimisticLockException) {
+				this.ctaModificationResult = "Failed to update "
+						+ " Comment. Comment status has changed since last viewed";
+				logger.debug(" " + ctaModificationResult);
+			} else {
+				this.ctaModificationResult = "Failed to Update" + " Comment. An unexpected Error occurred: "
+						+ ex.toString();
+				logger.debug(" " + ctaModificationResult);
+				handleException(ex);
+			}
+		} catch (Exception ex) {
+			this.ctaModificationResult = "Failed to Update" + " Comment. An unexpected Error occurred: "
+					+ ex.toString();
+			logger.debug(" " + ctaModificationResult);
+		} finally {
+			ctaservice = null;
+
+		}
+		
+		
+		
 	}
 
 	public List<User> assigneecomplete(String query) {
@@ -151,6 +196,20 @@ public class DeferCTABean implements Serializable {
 
 	public Long getID() {
 		return cta.getId();
+	}
+
+	/**
+	 * @return the deferComment
+	 */
+	public String getDeferComment() {
+		return theComment.getComment();
+	}
+
+	/**
+	 * @param deferComment the deferComment to set
+	 */
+	public void setDeferComment(String deferComment) {
+		this.theComment.setComment(deferComment);
 	}
 
 	public void setID(Long ID) {
@@ -262,6 +321,20 @@ public class DeferCTABean implements Serializable {
 
 	public void setNote(String note) {
 		cta.setNote(note);
+	}
+
+	/**
+	 * @return the comments
+	 */
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	/**
+	 * @param comments the comments to set
+	 */
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 	/**
