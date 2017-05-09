@@ -78,6 +78,7 @@ public class LoginBean implements Serializable {
 			if (user.getEMAIL().equals(username)) {
 				loggedIn = true;
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userName", username);
+				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("loginBean", this);
 				return navigationBean.redirectToWelcome();
 			}
 		}
