@@ -22,6 +22,7 @@
 					<p:inputText value="#{loginBean.password}" id="password"
 						required="true" />
 
+					<p:captcha label="Captcha" />
 					<p:commandButton id="button" value="Login"
 						action="#{loginBean.doLogin}" update="messages">
 						<!-- <f:param name="userName" value="#{loginBean.username}" /> -->
