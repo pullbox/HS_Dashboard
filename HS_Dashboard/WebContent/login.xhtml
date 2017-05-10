@@ -21,12 +21,15 @@
 					<h:outputText value="Password:" />
 					<p:inputText value="#{loginBean.password}" id="password"
 						required="true" />
+					<f:facet name="footer">
+						<p:captcha label="Captcha" />
+						<div align="center">
+							<p:commandButton id="button" value="Login"
+								action="#{loginBean.doLogin}" update="messages">
+							</p:commandButton>
+						</div>
 
-					<p:captcha label="Captcha" />
-					<p:commandButton id="button" value="Login"
-						action="#{loginBean.doLogin}" update="messages">
-						<!-- <f:param name="userName" value="#{loginBean.username}" /> -->
-					</p:commandButton>
+					</f:facet>
 				</p:panelGrid>
 			</div>
 		</h:form>
