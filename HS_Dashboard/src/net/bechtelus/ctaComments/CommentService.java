@@ -36,7 +36,7 @@ public class CommentService {
 	public List<Comment> getCommentsByCTA(CallToAction cta_id) {
 		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
 		try {
-			Query query = em.createNamedQuery("commentsByCTA");
+			Query query = em.createNamedQuery("commentsByCTAdesc");
 			query.setParameter("cta_ID", cta_id);
 			return query.getResultList();
 		} finally {

@@ -28,7 +28,8 @@ import net.bechtelus.user.User;
 
 @NamedQueries({
 
-		@NamedQuery(name = "commentsByCTA", query = "Select c from Comment c where c.cta_id = :cta_ID")		 })
+		@NamedQuery(name = "commentsByCTAasc", query = "Select c from Comment c where c.cta_id = :cta_ID order by c.id "),	
+		@NamedQuery(name = "commentsByCTAdesc", query = "Select c from Comment c where c.cta_id = :cta_ID order by c.id desc")	})
 
 public class Comment implements Serializable {
 

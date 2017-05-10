@@ -80,7 +80,7 @@ public class DeferCTABean implements Serializable {
 		} finally {
 			ctaservice = null;
 		}
-		
+
 		try {
 			commentService = new CommentService();
 			this.comments = commentService.getCommentsByCTA(this.cta);
@@ -89,13 +89,12 @@ public class DeferCTABean implements Serializable {
 		} finally {
 			commentService = null;
 		}
-		
+
 		theComment = new Comment();
 		theComment.setCta_id(cta);
 		theComment.setCreateby(user);
 		theComment.setCreatedDate(new Date());
-		
-		
+
 		// logger.info(cta.toString());
 
 	}
@@ -124,34 +123,34 @@ public class DeferCTABean implements Serializable {
 			ctaservice = null;
 
 		}
-		
-		
-		try {
-			commentService = new CommentService();
-			commentService.create(this.theComment);
-			RequestContext.getCurrentInstance().closeDialog(null);
-		} catch (RollbackException ex) {
-			if (ex.getCause() instanceof OptimisticLockException) {
-				this.ctaModificationResult = "Failed to update "
-						+ " Comment. Comment status has changed since last viewed";
-				logger.debug(" " + ctaModificationResult);
-			} else {
+
+		if (theComment.getComment().length() > 0) {
+			try {
+				commentService = new CommentService();
+				commentService.create(this.theComment);
+				RequestContext.getCurrentInstance().closeDialog(null);
+			} catch (RollbackException ex) {
+				if (ex.getCause() instanceof OptimisticLockException) {
+					this.ctaModificationResult = "Failed to update "
+							+ " Comment. Comment status has changed since last viewed";
+					logger.debug(" " + ctaModificationResult);
+				} else {
+					this.ctaModificationResult = "Failed to Update" + " Comment. An unexpected Error occurred: "
+							+ ex.toString();
+					logger.debug(" " + ctaModificationResult);
+					handleException(ex);
+				}
+			} catch (Exception ex) {
 				this.ctaModificationResult = "Failed to Update" + " Comment. An unexpected Error occurred: "
 						+ ex.toString();
 				logger.debug(" " + ctaModificationResult);
-				handleException(ex);
+			} finally {
+				ctaservice = null;
+
 			}
-		} catch (Exception ex) {
-			this.ctaModificationResult = "Failed to Update" + " Comment. An unexpected Error occurred: "
-					+ ex.toString();
-			logger.debug(" " + ctaModificationResult);
-		} finally {
-			ctaservice = null;
 
 		}
-		
-		
-		
+
 	}
 
 	public List<User> assigneecomplete(String query) {
@@ -206,7 +205,8 @@ public class DeferCTABean implements Serializable {
 	}
 
 	/**
-	 * @param deferComment the deferComment to set
+	 * @param deferComment
+	 *            the deferComment to set
 	 */
 	public void setDeferComment(String deferComment) {
 		this.theComment.setComment(deferComment);
@@ -331,7 +331,8 @@ public class DeferCTABean implements Serializable {
 	}
 
 	/**
-	 * @param comments the comments to set
+	 * @param comments
+	 *            the comments to set
 	 */
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;

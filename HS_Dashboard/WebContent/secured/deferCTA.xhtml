@@ -7,7 +7,7 @@
 
 <h:head>
 	<title>Defer CTA #{deferCTABean.description}</title>
-	<link rel="stylesheet" href="/HS_Dashboard/resources/css/styles.css" />
+
 	<style type="text/css">
 .ui-widget {
 	font-size: 90%;
@@ -17,6 +17,7 @@
 
 <h:body>
 
+	<h:outputStylesheet library="css" name="styles.css" />
 	<h:form>
 		<i id="deferheader" class="fa fa-fw fa-clock-o" style="display: none">
 			Defer CTA #{deferCTABean.description} </i>
@@ -66,20 +67,18 @@
 			</p:outputPanel>
 		</h:panelGrid>
 
+		<p:commandButton update="messages" value="Save"
+			actionListener="#{deferCTABean.saveCTAActionListener}"
+			icon="ui-icon-disk" />
+
 
 		<p:dataScroller value="#{deferCTABean.comments}" var="comment"
-			chunkSize="10" mode="inline" scrollHeight="50">
-			<h:outputText value="#{comment.comment}" styleclass="preformatted"/>
+			chunkSize="10" mode="inline" scrollHeight="300">
+			<p:panel id="commentpanel"
+				header="Author: #{comment.createby.FULL_NAME} -  #{comment.createdDate.toLocaleString()}">
+				<h:outputText value="#{comment.comment}" style="white-space: pre-wrap;" />
+			</p:panel>
 		</p:dataScroller>
-
-
-		
-			<p:commandButton update="messages" value="Save"
-				actionListener="#{deferCTABean.saveCTAActionListener}"
-				icon="ui-icon-disk" />
-	
-
-
 
 
 	</h:form>

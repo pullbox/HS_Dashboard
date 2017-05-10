@@ -19,18 +19,15 @@
 </h:head>
 <h:body>
 	<p:layout fullPage="true">
-		<p:layoutUnit position="north" size="100" resizable="false"
+		<p:layoutUnit position="north" size="60" resizable="false"
 			closable="false" collapsible="false">
 
-			<f:facet name="header">
+			<p:panelGrid columns="2">
 				<h:graphicImage name="Pentaho_logo.png" library="images" height="40"
 					style="vertical-align: middle;" />
-				<span style="font-size: 180%; vertical-align: middle;">Health
-					Score Dashboard</span>
-
-
-				<div align="left"></div>
-			</f:facet>
+				<h:outputText style="font-size: 30px;" value="Health Score Dashboard" />
+				</p:panelGrid>
+	
 		</p:layoutUnit>
 
 		<!-- <p:layoutUnit id="template-bottom" position="south" size="100"

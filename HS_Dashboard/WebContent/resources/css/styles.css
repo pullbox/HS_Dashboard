@@ -6,7 +6,7 @@ color: #FFFFFF;
 }
 
 .ui-datatable-odd {
- 
+     background: #eaeaea;
 }
 
 .privatecommentfont {
@@ -16,4 +16,12 @@ font-size: 10px;
 
 .preformatted {
 	white-space: pre-wrap;
+}
+
+.prewrap {
+	white-space: pre-wrap;    
+}
+
+.ui-widget-content.prewrap {
+	white-space: pre-wrap;    
 }

@@ -82,7 +82,7 @@ public class NavigationBean implements Serializable {
     	 
          options.put("modal", true);
          options.put("width", 640);
-         options.put("height", 340);
+         options.put("height", 440);
          options.put("contentWidth", "100%");
          options.put("contentHeight", "100%");
          options.put("headerElement", "customheader");
