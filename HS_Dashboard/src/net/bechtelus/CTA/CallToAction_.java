@@ -7,11 +7,12 @@ import javax.persistence.metamodel.StaticMetamodel;
 import net.bechtelus.account.Account;
 import net.bechtelus.user.User;
 
-@Generated(value="Dali", date="2017-05-05T17:01:08.979-0400")
+@Generated(value="Dali", date="2017-05-15T14:47:30.361-0400")
 @StaticMetamodel(CallToAction.class)
 public class CallToAction_ {
 	public static volatile SingularAttribute<CallToAction, Long> id;
 	public static volatile SingularAttribute<CallToAction, String> description;
+	public static volatile SingularAttribute<CallToAction, Account> account;
 	public static volatile SingularAttribute<CallToAction, User> assignee;
 	public static volatile SingularAttribute<CallToAction, String> type;
 	public static volatile SingularAttribute<CallToAction, String> status;
@@ -29,5 +30,4 @@ public class CallToAction_ {
 	public static volatile SingularAttribute<CallToAction, User> modifiedby;
 	public static volatile SingularAttribute<CallToAction, Integer> version;
 	public static volatile SingularAttribute<CallToAction, Integer> impact;
-	public static volatile SingularAttribute<CallToAction, Account> account;
 }

@@ -25,22 +25,16 @@
 			closable="true" />
 		<h:panelGrid columns="2" cellpadding="5">
 
-
-
-
-
-			<p:outputLabel for="status" value="Status" />
-			<p:selectOneMenu id="status" value="#{deferCTABean.status}"
-				required="true" requiredMessage="Please select a Status!"
-				style="width: 90%;">
-				<f:selectItem itemLabel="Work in Progress"
-					itemValue="Work in Progress" />
-				<f:selectItem itemLabel="Waiting on Customer"
-					itemValue="Waiting on Customer" />
-				<f:selectItem itemLabel="Deferred" itemValue="Deferred" />
-				<f:selectItem itemLabel="Closed" itemValue="Closed" />
+			<p:outputLabel for="impact" value="Score Impact" />
+			<p:selectOneMenu id="impact" value="#{deferCTABean.impact}"
+				required="true" requiredMessage="What is the impact of this Risk until the defer date!"
+				style="width:90%;">
+				<f:selectItem itemLabel="Highly negative" itemValue="-100" />
+				<f:selectItem itemLabel="Negative" itemValue="-50" />
+				<f:selectItem itemLabel="no Impact" itemValue="1" />
+				<f:selectItem itemLabel="Positive" itemValue="50" />
+				<f:selectItem itemLabel="Highly positive" itemValue="100" />
 			</p:selectOneMenu>
-
 
 			<p:outputLabel for="priority" value="Priority" />
 			<p:selectOneMenu id="priority" value="#{deferCTABean.priority}"
@@ -76,7 +70,8 @@
 			chunkSize="10" mode="inline" scrollHeight="300">
 			<p:panel id="commentpanel"
 				header="Author: #{comment.createby.FULL_NAME} -  #{comment.createdDate.toLocaleString()}">
-				<h:outputText value="#{comment.comment}" style="white-space: pre-wrap;" />
+				<h:outputText value="#{comment.comment}"
+					style="white-space: pre-wrap;" />
 			</p:panel>
 		</p:dataScroller>
 

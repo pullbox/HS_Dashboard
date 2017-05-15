@@ -75,6 +75,7 @@ public class DeferCTABean implements Serializable {
 			this.cta = ctaservice.find(Long.valueOf(ctaID));
 			this.cta.setModifiedby(user);
 			this.cta.setModifiedDate(new Date());
+			this.cta.setStatus("Deferred");
 		} catch (RuntimeException ex) {
 			handleException(ex);
 		} finally {
@@ -94,6 +95,7 @@ public class DeferCTABean implements Serializable {
 		theComment.setCta_id(cta);
 		theComment.setCreateby(user);
 		theComment.setCreatedDate(new Date());
+		theComment.setComment("Deferred: ");
 
 		// logger.info(cta.toString());
 
@@ -230,6 +232,15 @@ public class DeferCTABean implements Serializable {
 
 	public void setPriority(String priority) {
 		cta.setPriority(priority);
+	}
+	
+
+	public int getImpact() {
+		return cta.getImpact();
+	}
+
+	public void setImpact(int impact) {
+		cta.setImpact(impact);
 	}
 
 	public String getDescription() {
