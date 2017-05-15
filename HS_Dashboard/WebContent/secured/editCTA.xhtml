@@ -26,7 +26,7 @@
 									icon="ui-icon-trash"
 									action="/secured/welcome.xhtml?faces-redirect=true" />
 								<p:commandButton update="messages" value="add Comment"
-									actionListener="#{editCTABean.addComment}" icon="fa fa-comment" 
+									actionListener="#{editCTABean.addComment}" icon="fa fa-comment"
 									action="/secured/welcome.xhtml" />
 							</f:facet>
 						</p:toolbar>
@@ -34,6 +34,13 @@
 
 
 					<div class="ui-g-12">
+						<div>
+							<ui:include src="/secured/lifecycle.xhtml" />
+						</div>
+
+
+
+
 						<div class="ui-g-6" align="left">
 							<p:panelGrid columns="2" layout="grid">
 								<f:facet name="header">

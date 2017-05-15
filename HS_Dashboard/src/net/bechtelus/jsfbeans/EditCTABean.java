@@ -2,6 +2,7 @@ package net.bechtelus.jsfbeans;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,8 @@ import javax.persistence.RollbackException;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
+import org.primefaces.model.timeline.TimelineEvent;
+import org.primefaces.model.timeline.TimelineModel;
 
 @Named("editCTABean")
 @ViewScoped
@@ -43,6 +46,13 @@ public class EditCTABean implements Serializable {
 	@Inject
 	NavigationBean navigation;
 
+	private TimelineModel lifecycle;
+	private Date lcmin;
+	private Date lcmax;
+	private long lczoomMin;
+	private long lczoomMax;
+	
+	
 	// Current Call To Action
 	private CallToAction cta;
 
@@ -128,6 +138,41 @@ public class EditCTABean implements Serializable {
 			}
 			
 		}
+		
+		
+		lifecycle = new TimelineModel();
+		Calendar cal = Calendar.getInstance();
+		Calendar bis = Calendar.getInstance();
+		cal.set(2016, Calendar.MAY, 15,0,0,0);
+		bis.set(2016, Calendar.MAY, 22,0,0,0);
+		TimelineEvent aTimeEvent = new TimelineEvent("A LifeCycle Event", cal.getTime(), bis.getTime());
+		lifecycle.add(aTimeEvent);
+		
+		cal.set(2016, Calendar.MAY, 19,0,0,0);
+		bis.set(2016, Calendar.MAY, 23,0,0,0);
+		aTimeEvent = new TimelineEvent("A second LifeCycle Event", cal.getTime(), bis.getTime());
+		lifecycle.add(aTimeEvent);
+		
+		cal.set(2016, Calendar.NOVEMBER, 19,0,0,0);
+		bis.set(2016, Calendar.NOVEMBER, 20,0,0,0);
+		aTimeEvent = new TimelineEvent("A third LifeCycle Event", cal.getTime(), bis.getTime());
+		lifecycle.add(aTimeEvent);
+		
+		
+		cal.set(2010, Calendar.JANUARY, 01,0,0,0);
+		lcmin = cal.getTime();
+		cal.set(2030, Calendar.DECEMBER, 31,0,0,0);
+		lcmax = cal.getTime();
+		
+		// one day in milliseconds for zoomMin
+        lczoomMin = 1000L * 60 * 60 * 24;
+ 
+        // about three months in milliseconds for zoomMax
+        lczoomMax = 1000L * 60 * 60 * 24 * 31 * 3;
+		
+		
+		
+		
 
 		logger.info(cta.toString());
 
@@ -299,6 +344,76 @@ public class EditCTABean implements Serializable {
 
 	public void setAssignee(User assignee) {
 		cta.setAssignee(assignee);
+	}
+
+	/**
+	 * @return the lifecycle
+	 */
+	public TimelineModel getLifecycle() {
+		return lifecycle;
+	}
+
+	/**
+	 * @param lifecycle the lifecycle to set
+	 */
+	public void setLifecycle(TimelineModel lifecycle) {
+		this.lifecycle = lifecycle;
+	}
+
+	/**
+	 * @return the lcmin
+	 */
+	public Date getLcmin() {
+		return lcmin;
+	}
+
+	/**
+	 * @param lcmin the lcmin to set
+	 */
+	public void setLcmin(Date lcmin) {
+		this.lcmin = lcmin;
+	}
+
+	/**
+	 * @return the lcmax
+	 */
+	public Date getLcmax() {
+		return lcmax;
+	}
+
+	/**
+	 * @param lcmax the lcmax to set
+	 */
+	public void setLcmax(Date lcmax) {
+		this.lcmax = lcmax;
+	}
+
+	/**
+	 * @return the lczoomMin
+	 */
+	public long getLczoomMin() {
+		return lczoomMin;
+	}
+
+	/**
+	 * @param lczoomMin the lczoomMin to set
+	 */
+	public void setLczoomMin(long lczoomMin) {
+		this.lczoomMin = lczoomMin;
+	}
+
+	/**
+	 * @return the lczoomMax
+	 */
+	public long getLczoomMax() {
+		return lczoomMax;
+	}
+
+	/**
+	 * @param lczoomMax the lczoomMax to set
+	 */
+	public void setLczoomMax(long lczoomMax) {
+		this.lczoomMax = lczoomMax;
 	}
 
 	public String getStatus() {
