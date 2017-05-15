@@ -150,13 +150,13 @@ public class EditCTABean implements Serializable {
 		
 		cal.set(2016, Calendar.MAY, 19,0,0,0);
 		bis.set(2016, Calendar.MAY, 23,0,0,0);
-		aTimeEvent = new TimelineEvent("A second LifeCycle Event", cal.getTime(), bis.getTime());
-		lifecycle.add(aTimeEvent);
+		TimelineEvent bTimeEvent = new TimelineEvent("A second LifeCycle Event", cal.getTime(), bis.getTime());
+		lifecycle.add(bTimeEvent);
 		
 		cal.set(2016, Calendar.NOVEMBER, 19,0,0,0);
 		bis.set(2016, Calendar.NOVEMBER, 20,0,0,0);
-		aTimeEvent = new TimelineEvent("A third LifeCycle Event", cal.getTime(), bis.getTime());
-		lifecycle.add(aTimeEvent);
+		TimelineEvent cTimeEvent = new TimelineEvent("A third LifeCycle Event", cal.getTime(), bis.getTime());
+		lifecycle.add(cTimeEvent);
 		
 		
 		cal.set(2010, Calendar.JANUARY, 01,0,0,0);
