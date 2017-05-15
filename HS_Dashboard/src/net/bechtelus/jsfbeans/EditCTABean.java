@@ -3,13 +3,18 @@ package net.bechtelus.jsfbeans;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import net.bechtelus.CTA.*;
 import net.bechtelus.account.Account;
 import net.bechtelus.account.AccountService;
+import net.bechtelus.ctaComments.Comment;
+import net.bechtelus.ctaComments.CommentService;
 import net.bechtelus.navigation.NavigationBean;
 import net.bechtelus.user.User;
 import net.bechtelus.user.UserService;
@@ -53,6 +58,8 @@ public class EditCTABean implements Serializable {
 	private Account account;
 	private List<Account> accounts;
 	private String id;
+	
+	private List<Comment> comments;
 
 	// This stores the result of a modification operation. There are predefined
 	// messages for success and failure.
@@ -66,7 +73,10 @@ public class EditCTABean implements Serializable {
 	private UserService userservice;
 	@Inject
 	private AccountService accountService;
-
+	@Inject
+	private CommentService commentService;
+	
+	
 	@PostConstruct
 	public void init() {
 
@@ -106,6 +116,17 @@ public class EditCTABean implements Serializable {
 			} finally {
 				ctaservice = null;
 			}
+			
+			
+			try {
+				commentService = new CommentService();
+				this.comments = commentService.getCommentsByCTA(this.cta);
+			} catch (RuntimeException ex) {
+				handleException(ex);
+			} finally {
+				commentService = null;
+			}
+			
 		}
 
 		logger.info(cta.toString());
@@ -146,6 +167,28 @@ public class EditCTABean implements Serializable {
 			ctaservice = null;
 		}
 	}
+	
+	
+	 public void addComment() {
+	    	 Map<String,Object> options = new HashMap<String, Object>();
+	    	 Map<String,List<String>> params = new HashMap<String, List<String>>();
+	    	 
+	         options.put("modal", true);
+	         options.put("width", 640);
+	         options.put("height", 440);
+	         options.put("contentWidth", "100%");
+	         options.put("contentHeight", "100%");
+	         options.put("headerElement", "customheader");
+	         
+	         List<String> ids = new Vector<String>();
+	         ids.add(String.valueOf(cta.getId()));
+	         List<String> uname = new Vector<String>();
+	         uname.add(user.getEMAIL());
+	         params.put("ctaid", ids);
+	         params.put("username", uname);
+	          
+	         RequestContext.getCurrentInstance().openDialog("addComment", options, params);
+	    }
 
 	public List<CallToAction> getCallToActionsForUser(String assignee_user_id) {
 		try {
@@ -452,6 +495,20 @@ public class EditCTABean implements Serializable {
 	 */
 	public void setAccount(Account account) {
 		cta.setAccount(account);
+	}
+
+	/**
+	 * @return the comments
+	 */
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	/**
+	 * @param comments the comments to set
+	 */
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 	/**

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Add Comment to  #{deferCTABean.description}</title>
+
+	<style type="text/css">
+.ui-widget {
+	font-size: 90%;
+}
+</style>
+</h:head>
+
+<h:body>
+
+	<h:outputStylesheet library="css" name="styles.css" />
+	<h:form>
+		<i id="addComment" class="fa fa-fw fa-clock-o" style="display: none">
+			add Comment to  #{addCommentBean.description} </i>
+		<p:messages id="messages" showDetail="true" autoUpdate="true"
+			closable="true" />
+		<h:panelGrid columns="2" cellpadding="5">
+
+
+			<p:outputLabel for="comment" value="Comment" />
+			<p:outputPanel>
+				<p:inputTextarea id="comment" rows="28" cols="200"
+					counter="display2" maxlength="8000"
+					counterTemplate="{0} characters remaining." autoResize="false"
+					value="#{addCommentBean.comment}" style="width: 100%;" />
+				<br />
+				<h:outputLabel id="display2" />
+			</p:outputPanel>
+		</h:panelGrid>
+
+		<p:commandButton update="messages" value="Save"
+			actionListener="#{addCommentBean.saveComment}"
+			icon="ui-icon-disk" />
+
+	</h:form>
+</h:body>
+</html>
