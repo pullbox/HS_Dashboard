@@ -7,6 +7,7 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<class>net.bechtelus.CTA.CallToAction</class>
 		<class>net.bechtelus.account.Account</class>
+		<class>net.bechtelus.csmstones.SuccessMileStones</class>
 		<class>net.bechtelus.ctaComments.Comment</class>
 		<class>net.bechtelus.milestone.BasicMileStone</class>
 		<class>net.bechtelus.user.User</class>
