@@ -27,7 +27,7 @@
 									action="/secured/welcome.xhtml?faces-redirect=true" />
 								<p:commandButton update="messages" value="add Comment"
 									actionListener="#{editCTABean.addComment}" icon="fa fa-comment"
-									action="/secured/welcome.xhtml" />
+									action="/secured/welcome.xhtml" disabled="#{editCTABean.commentsAvailable}"/>
 							</f:facet>
 						</p:toolbar>
 					</div>
@@ -132,7 +132,7 @@
 								</p:selectOneMenu>
 
 								<p:outputLabel for="impact" value="Score Impact" />
-								<p:selectOneMenu id="impact" value="#{deferCTABean.impact}"
+								<p:selectOneMenu id="impact" value="#{editCTABean.impact}"
 									required="true"
 									requiredMessage="What is the impact of this Risk until the defer date!"
 									style="width:90%;">
@@ -192,11 +192,14 @@
 								<f:facet name="header">
 									<H4>Comments</H4>
 								</f:facet>
-								<p:panel id="commentpanel"
-									header="Author: #{comment.createby.FULL_NAME} -  #{comment.createdDate.toLocaleString()}">
-									<h:outputText value="#{comment.comment}"
-										style="white-space: pre-wrap;" />
-								</p:panel>
+								<div align="left">
+									<p:panel id="commentpanel"
+										header="Author: #{comment.createby.FULL_NAME} -  #{comment.createdDate.toLocaleString()}">
+
+										<h:outputText value="#{comment.comment}"
+											style="white-space: pre-wrap;" />
+									</p:panel>
+								</div>
 							</p:dataScroller>
 						</div>
 						<h:message class="error" />

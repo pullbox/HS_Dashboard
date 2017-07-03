@@ -8,12 +8,13 @@
 		<class>net.bechtelus.CTA.CallToAction</class>
 		<class>net.bechtelus.account.Account</class>
 		<class>net.bechtelus.ctaComments.Comment</class>
+		<class>net.bechtelus.milestone.MileStone</class>
 		<class>net.bechtelus.user.User</class>
 
 
 		<properties>
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:sqlserver://localhost:1433;DatabaseName=CS_ANALYTICS;integratedSecurity=true" />
+				value="jdbc:sqlserver://localhost:1433;DatabaseName=CS_ANALYTICS" />
 			<property name="javax.persistence.jdbc.driver"
 				value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
 			<property name="eclipselink.logging.level" value="FINE" />
@@ -21,6 +22,8 @@
 			<property name="eclipselink.jdbc.batch-writing" value="JDBC" />
 			<property name="hibernate.id.new_generator_mappings" value="true" />
 			<property name="eclipselink.ddl-generation" value="create-tables"/>
+			<property name="javax.persistence.jdbc.password" value="msspassword1!"/>
+			<property name="javax.persistence.jdbc.user" value="dbechtel"/>
 		</properties>
 
 
