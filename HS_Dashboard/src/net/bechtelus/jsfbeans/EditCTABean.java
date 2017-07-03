@@ -267,11 +267,11 @@ public class EditCTABean implements Serializable {
 
 		} catch (OptimisticLockException ex) {
 			this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase()
-					+ " MileStone.  CTA status has changed since last viewed";
+					+ " BasicMileStone.  CTA status has changed since last viewed";
 			logger.debug(" " + ctaModificationResult);
 		} catch (Exception ex) {
 			this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase()
-					+ " MileStone.  An unexpected Error ocurred: " + ex.toString();
+					+ " BasicMileStone.  An unexpected Error ocurred: " + ex.toString();
 			logger.debug(" " + ctaModificationResult);
 		} finally {
 			ctaservice = null;
