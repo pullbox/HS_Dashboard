@@ -31,11 +31,11 @@ import net.bechtelus.user.User;
  */
 
 @Entity
-@Table(name = "MileStone")
+@Table(name = "BasicMileStone")
 @NamedQueries({
 
-		@NamedQuery(name = "mstonByID", query = "Select m from MileStone m where m.id = :mstoneid") })
-public class MileStone implements Serializable {
+		@NamedQuery(name = "mstonByID", query = "Select m from BasicMileStone m where m.id = :mstoneid") })
+public class BasicMileStone implements Serializable {
 
 	/**
 	 * 
@@ -49,7 +49,11 @@ public class MileStone implements Serializable {
 	private long id;
 	private String description;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	private java.util.Calendar startTime;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	private java.util.Calendar endTime;
 
 
 	@ManyToOne
@@ -143,6 +147,64 @@ public class MileStone implements Serializable {
 			this.createdDate = cal;
 		}
 	}
+	
+	
+	/**
+	 * @return the createdDate
+	 */
+	public Date getstartTime() {
+		if (this.startTime == null) {
+			return null;
+		} else {
+
+			return this.startTime.getTime();
+		}
+	}
+
+	/**
+	 * @param createdDate
+	 *            the createdDate to set
+	 */
+	public void setstartTime(Date aStartTime) {
+		if (aStartTime == null) {
+			this.startTime = null;
+		} else {
+			Calendar cal = new GregorianCalendar();
+			cal.setTime(aStartTime);
+			this.startTime = cal;
+		}
+	}
+	
+	
+	
+	
+	/**
+	 * @return the createdDate
+	 */
+	public Date getendTime() {
+		if (this.endTime == null) {
+			return null;
+		} else {
+
+			return this.endTime.getTime();
+		}
+	}
+
+	/**
+	 * @param createdDate
+	 *            the createdDate to set
+	 */
+	public void setendTime(Date aendTime) {
+		if (aendTime == null) {
+			this.endTime = null;
+		} else {
+			Calendar cal = new GregorianCalendar();
+			cal.setTime(aendTime);
+			this.endTime = cal;
+		}
+	}
+	
+	
 
 	/**
 	 * @return the note
@@ -214,12 +276,12 @@ public class MileStone implements Serializable {
 		this.version = version;
 	}
 
-	public MileStone() {
+	public BasicMileStone() {
 		super();
 	}
 
 	@Override
 	public String toString() {
-		return "MileStone [id=" + id + ", name=" + description + "]";
+		return "BasicMileStone [id=" + id + ", name=" + description + "]";
 	}
 }
