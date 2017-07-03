@@ -9,14 +9,14 @@
 
 	<ui:define name="content">
 
-		
+
 		<h:form id="welcome">
 			<h:message id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
 
 
 
-			<div>
+			<p:panel id="div_header">
 				<div align="left">
 					<p:commandButton id="button" value="Create CTA"
 						action="#{navigationBean.createCTA}" />
@@ -26,15 +26,23 @@
 					<p:outputLabel id="userid" value="Welcome #{welcomeBean.userName}"
 						readonly="true" />
 				</div>
-			</div>
-
+			</p:panel>
 
 			<p:dataTable var="cta" value="#{welcomeBean.riskctas}"
-				emptyMessage="No Risk records available!">
+				emptyMessage="No Risk records available!" widgetVar="riskTable"
+				filteredValue="#{welcomeBean.filteredriskctas}">
 				<f:facet name="header">
 					<p:outputPanel>
-						<div align="left">
-							<h:outputText value="Risks  #{fn:length(welcomeBean.riskctas)}" />
+						<div class="ui-g">
+							<div class="ui-g-6" align="left">
+								<h:outputText value="Risks  #{fn:length(welcomeBean.riskctas)}" />
+							</div>
+							<div class="ui-g-6" align="right">
+								<h:outputText value="Search:" />
+								<p:inputText id="globalFilter"
+									onkeyup="PF('riskTable').filter()" style="width:150px"
+									placeholder="Enter keyword" />
+							</div>
 						</div>
 					</p:outputPanel>
 				</f:facet>
@@ -85,6 +93,7 @@
 
 			<br />
 			<p:commandLink action="#{welcomeBean.doLogout}" value="Logout" />
+			<p:sticky target="div_header" />
 		</h:form>
 
 	</ui:define>

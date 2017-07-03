@@ -17,11 +17,11 @@
 		</p:commandButton>
 	</p:column>
 
-	<p:column headerText="Description">
+	<p:column headerText="Description" filterBy="#{cta.description}" filterMatchMode="contains">
 		<p:outputLabel value="#{cta.description}" />
 	</p:column>
 
-	<p:column headerText="Account">
+	<p:column headerText="Account" filterBy="#{cta.account.ACCOUNT_NAME}" filterMatchMode="contains">
 		<p:outputLabel value="#{cta.account.ACCOUNT_NAME}" />
 	</p:column>
 
@@ -31,14 +31,14 @@
 	</p:column>
 
 
-	<p:column headerText="Status">
+	<p:column headerText="Status" filterBy="#{cta.status}" filterMatchMode="contains" sortBy="#{cta.status}">
 		<p:outputLabel value="#{cta.status}" />
 	</p:column>
 	<p:column headerText="Priority">
 		<p:outputLabel value="#{cta.priority}" />
 	</p:column>
 
-	<p:column headerText="Due Date">
+	<p:column headerText="Due Date" sortBy="#{cta.dueDate}">
 		<p:outputLabel value="#{cta.dueDate}">
 			<f:convertDateTime pattern="MM/dd/yyyy" />
 		</p:outputLabel>

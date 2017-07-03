@@ -51,8 +51,7 @@ public class EditCTABean implements Serializable {
 	private Date lcmax;
 	private long lczoomMin;
 	private long lczoomMax;
-	
-	
+
 	// Current Call To Action
 	private CallToAction cta;
 
@@ -68,7 +67,7 @@ public class EditCTABean implements Serializable {
 	private Account account;
 	private List<Account> accounts;
 	private String id;
-	
+
 	private List<Comment> comments;
 
 	// This stores the result of a modification operation. There are predefined
@@ -85,8 +84,7 @@ public class EditCTABean implements Serializable {
 	private AccountService accountService;
 	@Inject
 	private CommentService commentService;
-	
-	
+
 	@PostConstruct
 	public void init() {
 
@@ -126,53 +124,38 @@ public class EditCTABean implements Serializable {
 			} finally {
 				ctaservice = null;
 			}
-			
-			
-			try {
-				commentService = new CommentService();
-				this.comments = commentService.getCommentsByCTA(this.cta);
-			} catch (RuntimeException ex) {
-				handleException(ex);
-			} finally {
-				commentService = null;
-			}
-			
+
+			refreshComments();
 		}
-		
-		
+
 		lifecycle = new TimelineModel();
 		Calendar cal = Calendar.getInstance();
 		Calendar bis = Calendar.getInstance();
-		cal.set(2016, Calendar.MAY, 15,0,0,0);
-		bis.set(2016, Calendar.MAY, 22,0,0,0);
+		cal.set(2016, Calendar.MAY, 15, 0, 0, 0);
+		bis.set(2016, Calendar.MAY, 22, 0, 0, 0);
 		TimelineEvent aTimeEvent = new TimelineEvent("A LifeCycle Event", cal.getTime(), bis.getTime());
 		lifecycle.add(aTimeEvent);
-		
-		cal.set(2016, Calendar.MAY, 19,0,0,0);
-		bis.set(2016, Calendar.MAY, 23,0,0,0);
+
+		cal.set(2016, Calendar.MAY, 19, 0, 0, 0);
+		bis.set(2016, Calendar.MAY, 23, 0, 0, 0);
 		TimelineEvent bTimeEvent = new TimelineEvent("A second LifeCycle Event", cal.getTime(), bis.getTime());
 		lifecycle.add(bTimeEvent);
-		
-		cal.set(2016, Calendar.NOVEMBER, 19,0,0,0);
-		bis.set(2016, Calendar.NOVEMBER, 20,0,0,0);
+
+		cal.set(2017, Calendar.NOVEMBER, 19, 0, 0, 0);
+		bis.set(2017, Calendar.NOVEMBER, 20, 0, 0, 0);
 		TimelineEvent cTimeEvent = new TimelineEvent("A third LifeCycle Event", cal.getTime(), bis.getTime());
 		lifecycle.add(cTimeEvent);
-		
-		
-		cal.set(2010, Calendar.JANUARY, 01,0,0,0);
+
+		cal.set(2010, Calendar.JANUARY, 01, 0, 0, 0);
 		lcmin = cal.getTime();
-		cal.set(2030, Calendar.DECEMBER, 31,0,0,0);
+		cal.set(2030, Calendar.DECEMBER, 31, 0, 0, 0);
 		lcmax = cal.getTime();
-		
+
 		// one day in milliseconds for zoomMin
-        lczoomMin = 1000L * 60 * 60 * 24;
- 
-        // about three months in milliseconds for zoomMax
-        lczoomMax = 1000L * 60 * 60 * 24 * 31 * 3;
-		
-		
-		
-		
+		lczoomMin = 1000L * 60 * 60 * 24;
+
+		// about three months in milliseconds for zoomMax
+		lczoomMax = 1000L * 60 * 60 * 24 * 31 * 3;
 
 		logger.info(cta.toString());
 
@@ -212,28 +195,28 @@ public class EditCTABean implements Serializable {
 			ctaservice = null;
 		}
 	}
+
+	public void addComment() {
+		Map<String, Object> options = new HashMap<String, Object>();
+		Map<String, List<String>> params = new HashMap<String, List<String>>();
+
+		options.put("modal", true);
+		options.put("width", 640);
+		options.put("height", 440);
+		options.put("contentWidth", "100%");
+		options.put("contentHeight", "100%");
+		options.put("headerElement", "customheader");
+
+		List<String> ids = new Vector<String>();
+		ids.add(String.valueOf(cta.getId()));
+		List<String> uname = new Vector<String>();
+		uname.add(user.getEMAIL());
+		params.put("ctaid", ids);
+		params.put("username", uname);
+
+		RequestContext.getCurrentInstance().openDialog("addComment", options, params);
 	
-	
-	 public void addComment() {
-	    	 Map<String,Object> options = new HashMap<String, Object>();
-	    	 Map<String,List<String>> params = new HashMap<String, List<String>>();
-	    	 
-	         options.put("modal", true);
-	         options.put("width", 640);
-	         options.put("height", 440);
-	         options.put("contentWidth", "100%");
-	         options.put("contentHeight", "100%");
-	         options.put("headerElement", "customheader");
-	         
-	         List<String> ids = new Vector<String>();
-	         ids.add(String.valueOf(cta.getId()));
-	         List<String> uname = new Vector<String>();
-	         uname.add(user.getEMAIL());
-	         params.put("ctaid", ids);
-	         params.put("username", uname);
-	          
-	         RequestContext.getCurrentInstance().openDialog("addComment", options, params);
-	    }
+	}
 
 	public List<CallToAction> getCallToActionsForUser(String assignee_user_id) {
 		try {
@@ -284,11 +267,11 @@ public class EditCTABean implements Serializable {
 
 		} catch (OptimisticLockException ex) {
 			this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase()
-					+ " CallToAction.  CTA status has changed since last viewed";
+					+ " MileStone.  CTA status has changed since last viewed";
 			logger.debug(" " + ctaModificationResult);
 		} catch (Exception ex) {
 			this.ctaModificationResult = "Failed to " + this.ctaOperation.toLowerCase()
-					+ " CallToAction.  An unexpected Error ocurred: " + ex.toString();
+					+ " MileStone.  An unexpected Error ocurred: " + ex.toString();
 			logger.debug(" " + ctaModificationResult);
 		} finally {
 			ctaservice = null;
@@ -306,6 +289,16 @@ public class EditCTABean implements Serializable {
 			userservice = null;
 		}
 		return user;
+	}
+	
+	public String getcommentsAvailable() {
+
+		if (this.ctaOperation == CREATE_OPERATION) {
+		
+		return "true"; 
+		} else {
+			return "false";
+		}
 	}
 
 	public void onDateSelect(SelectEvent event) {
@@ -354,7 +347,8 @@ public class EditCTABean implements Serializable {
 	}
 
 	/**
-	 * @param lifecycle the lifecycle to set
+	 * @param lifecycle
+	 *            the lifecycle to set
 	 */
 	public void setLifecycle(TimelineModel lifecycle) {
 		this.lifecycle = lifecycle;
@@ -368,7 +362,8 @@ public class EditCTABean implements Serializable {
 	}
 
 	/**
-	 * @param lcmin the lcmin to set
+	 * @param lcmin
+	 *            the lcmin to set
 	 */
 	public void setLcmin(Date lcmin) {
 		this.lcmin = lcmin;
@@ -382,7 +377,8 @@ public class EditCTABean implements Serializable {
 	}
 
 	/**
-	 * @param lcmax the lcmax to set
+	 * @param lcmax
+	 *            the lcmax to set
 	 */
 	public void setLcmax(Date lcmax) {
 		this.lcmax = lcmax;
@@ -396,7 +392,8 @@ public class EditCTABean implements Serializable {
 	}
 
 	/**
-	 * @param lczoomMin the lczoomMin to set
+	 * @param lczoomMin
+	 *            the lczoomMin to set
 	 */
 	public void setLczoomMin(long lczoomMin) {
 		this.lczoomMin = lczoomMin;
@@ -410,7 +407,8 @@ public class EditCTABean implements Serializable {
 	}
 
 	/**
-	 * @param lczoomMax the lczoomMax to set
+	 * @param lczoomMax
+	 *            the lczoomMax to set
 	 */
 	public void setLczoomMax(long lczoomMax) {
 		this.lczoomMax = lczoomMax;
@@ -552,7 +550,11 @@ public class EditCTABean implements Serializable {
 	}
 
 	public int getImpact() {
+		if (cta == null) {
+			return 0;
+		} else {
 		return cta.getImpact();
+		}
 	}
 
 	public void setImpact(int impact) {
@@ -620,7 +622,8 @@ public class EditCTABean implements Serializable {
 	}
 
 	/**
-	 * @param comments the comments to set
+	 * @param comments
+	 *            the comments to set
 	 */
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
@@ -631,6 +634,19 @@ public class EditCTABean implements Serializable {
 	 */
 	public boolean getSuccess() {
 		return ctaModificationResult == SUCCESS;
+	}
+	
+	
+	public void refreshComments() {
+		try {
+			commentService = new CommentService();
+			this.comments = commentService.getCommentsByCTA(this.cta);
+		} catch (RuntimeException ex) {
+			handleException(ex);
+		} finally {
+			commentService = null;
+		}
+
 	}
 
 	// This method is used to handle exceptions and display cause to user.

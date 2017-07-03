@@ -79,12 +79,12 @@ public class TestCTADAO {
 	 * @Test public void testMSSQLCTADAO() throws Exception { EntityManager em =
 	 * HSDashboardUtility.getEMF().createEntityManager();
 	 * 
-	 * Create CTA Object CallToAction cta = new CallToAction(); cta =
+	 * Create CTA Object MileStone cta = new MileStone(); cta =
 	 * createCTAobject();
 	 * 
 	 * em.persist(cta); assertTrue("Record was inserted into the DB", inserted);
 	 * 
-	 * test find function CallToAction fcta = dao.getCallToActionById(1);
+	 * test find function MileStone fcta = dao.getCallToActionById(1);
 	 * assertEquals("Record was not found", "Test Call To Action",
 	 * fcta.getDescription());
 	 * 

@@ -36,10 +36,11 @@ public class WelcomeBean implements Serializable {
 	private CallToActionService ctaService;
 
 	private List<CallToAction> riskctas;
+	private List<CallToAction> filteredriskctas;
 	private List<CallToAction> expansionctas;
 	private List<CallToAction> adoptionctas;
 	private List<CallToAction> lifecyclectas;
-	private List<CallToAction> filteredctas;
+	
 	
 	public String doLogout() {
 		loginBean.doLogout();
@@ -88,15 +89,15 @@ public class WelcomeBean implements Serializable {
 	/**
 	 * @return the filteredctas
 	 */
-	public List<CallToAction> getFilteredctas() {
-		return filteredctas;
+	public List<CallToAction> getFilteredriskctas() {
+		return filteredriskctas;
 	}
 
 	/**
 	 * @param filteredctas the filteredctas to set
 	 */
-	public void setFilteredctas(List<CallToAction> filteredctas) {
-		this.filteredctas = filteredctas;
+	public void setFilteredriskctas(List<CallToAction> filteredriskctas) {
+		this.filteredriskctas = filteredriskctas;
 	}
 
 	/**

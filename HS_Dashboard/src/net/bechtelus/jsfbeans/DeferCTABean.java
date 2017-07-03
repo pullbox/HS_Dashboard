@@ -233,10 +233,13 @@ public class DeferCTABean implements Serializable {
 	public void setPriority(String priority) {
 		cta.setPriority(priority);
 	}
-	
 
 	public int getImpact() {
+		if (cta == null) {
+			return 0 ;
+		} else {
 		return cta.getImpact();
+	}
 	}
 
 	public void setImpact(int impact) {

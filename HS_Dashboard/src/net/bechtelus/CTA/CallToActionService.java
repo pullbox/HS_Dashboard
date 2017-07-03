@@ -26,7 +26,7 @@ public class CallToActionService {
 	public List<CallToAction> list() {
 		EntityManager em = HSDashboardUtility.getEMF().createEntityManager();
 		try {
-			return em.createQuery("SELECT c FROM CallToAction c", CallToAction.class).getResultList();
+			return em.createQuery("SELECT c FROM MileStone c", CallToAction.class).getResultList();
 		} finally {
 			em.close();
 		}

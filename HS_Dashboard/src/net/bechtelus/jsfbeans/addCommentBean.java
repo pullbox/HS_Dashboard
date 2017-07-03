@@ -88,7 +88,7 @@ public class addCommentBean implements Serializable {
 		comment.setCta_id(cta);
 		comment.setCreateby(user);
 		comment.setCreatedDate(new Date());
-		comment.setComment("Deferred: ");
+		
 
 		// logger.info(cta.toString());
 
