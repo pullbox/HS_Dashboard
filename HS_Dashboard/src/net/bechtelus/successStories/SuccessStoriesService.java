@@ -1,4 +1,4 @@
-package net.bechtelus.csmstones;
+package net.bechtelus.successStories;
 
 import java.util.List;
 

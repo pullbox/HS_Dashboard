@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 import net.bechtelus.account.Account;
+import net.bechtelus.successStories.SuccessStories;
 import net.bechtelus.user.User;
 
 /**
@@ -48,9 +49,11 @@ public class BasicMileStone implements Serializable {
 	@Column(name = "ID", unique = true, nullable = false)
 	private long id;
 	private String description;
+	
 	@ManyToOne
-	@JoinColumn(name = "ID")
-	private BasicMileStone milestone;
+	@JoinColumn(name = "successStoryID")
+	private SuccessStories successStoryID;
+	
 	private Boolean template;
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Calendar startTime;
@@ -287,20 +290,21 @@ public class BasicMileStone implements Serializable {
 		this.template = template;
 	}
 
+	
 	/**
-	 * @return the mid
+	 * @return the successStoryID
 	 */
-	public BasicMileStone getmilestone() {
-		return milestone;
+	public SuccessStories getSuccessStoryID() {
+		return successStoryID;
 	}
 
 	/**
-	 * @param mid the mid to set
+	 * @param successStoryID the successStoryID to set
 	 */
-	public void setmilestone(BasicMileStone amilestone) {
-		this.milestone = amilestone;
+	public void setSuccessStoryID(SuccessStories successStoryID) {
+		this.successStoryID = successStoryID;
 	}
-	
+
 	public BasicMileStone() {
 		super();
 	}

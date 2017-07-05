@@ -8,9 +8,9 @@ import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardModel;
 import org.apache.commons.logging.Log;
 import net.bechtelus.CTA.*;
-import net.bechtelus.csmstones.SuccessStories;
-import net.bechtelus.csmstones.SuccessStoriesService;
 import net.bechtelus.security.LoginBean;
+import net.bechtelus.successStories.SuccessStories;
+import net.bechtelus.successStories.SuccessStoriesService;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

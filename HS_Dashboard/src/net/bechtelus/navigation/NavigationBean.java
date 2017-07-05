@@ -68,7 +68,7 @@ public class NavigationBean implements Serializable {
      * Redirect to create CTA page.
      * @return Welcome page name.
      */
-    public String successSTories() {
+    public String successStories() {
         return "/secured/successStories.xhtml?faces-redirect=true";
     }
      

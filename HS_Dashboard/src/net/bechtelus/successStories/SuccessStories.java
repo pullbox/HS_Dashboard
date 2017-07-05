@@ -1,4 +1,4 @@
-package net.bechtelus.csmstones;
+package net.bechtelus.successStories;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -52,11 +52,6 @@ public class SuccessStories implements Serializable {
 	private Boolean template;
 	private Account account;
 	
-	
-	@ManyToOne
-	@JoinColumn(name = "ID")
-	private BasicMileStone milestone;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Calendar startTime;
 	
