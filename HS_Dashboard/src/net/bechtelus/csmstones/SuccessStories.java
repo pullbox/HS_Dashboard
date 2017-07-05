@@ -32,11 +32,11 @@ import net.bechtelus.user.User;
  */
 
 @Entity
-@Table(name = "SuccessMileStones")
+@Table(name = "SuccessStories")
 @NamedQueries({
 
-		@NamedQuery(name = "csmsByID", query = "Select m from SuccessMileStones m where m.id = :csmsid") })
-public class SuccessMileStones implements Serializable {
+		@NamedQuery(name = "cssByAccount", query = "Select c from SuccessStories c where c.account = :account_id") })
+public class SuccessStories implements Serializable {
 
 	/**
 	 * 
@@ -49,6 +49,9 @@ public class SuccessMileStones implements Serializable {
 	@Column(name = "ID", unique = true, nullable = false)
 	private long id;
 	private String description;
+	private Boolean template;
+	private Account account;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "ID")
@@ -264,27 +267,36 @@ public class SuccessMileStones implements Serializable {
 	public void setVersion(int version) {
 		this.version = version;
 	}
-
 	/**
-	 * @return the mid
+	 * @return the account
 	 */
-	public BasicMileStone getmilestone() {
-		return milestone;
+	public Account getAccount() {
+		return account;
 	}
 
 	/**
-	 * @param mid the mid to set
+	 * @param account the account to set
 	 */
-	public void setmilestone(BasicMileStone amilestone) {
-		this.milestone = amilestone;
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
-	public SuccessMileStones() {
+	
+
+	public Boolean isTemplate() {
+		return template;
+	}
+
+	public void setTemplate(Boolean template) {
+		this.template = template;
+	}
+
+	public SuccessStories() {
 		super();
 	}
 
 	@Override
 	public String toString() {
-		return "SuccessMileStones [id=" + id + ", name=" + description + "]";
+		return "SuccessStories [id=" + id + ", name=" + description + "]";
 	}
 }

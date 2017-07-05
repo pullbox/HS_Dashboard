@@ -31,10 +31,10 @@ import net.bechtelus.user.User;
  */
 
 @Entity
-@Table(name = "BasicMileStone")
+@Table(name = "MileStone")
 @NamedQueries({
 
-		@NamedQuery(name = "mstonByID", query = "Select m from BasicMileStone m where m.id = :mstoneid") })
+		@NamedQuery(name = "mstonByID", query = "Select m from SuccessStories m where m.id = :mstoneid") })
 public class BasicMileStone implements Serializable {
 
 	/**
@@ -48,7 +48,10 @@ public class BasicMileStone implements Serializable {
 	@Column(name = "ID", unique = true, nullable = false)
 	private long id;
 	private String description;
-
+	@ManyToOne
+	@JoinColumn(name = "ID")
+	private BasicMileStone milestone;
+	private Boolean template;
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Calendar startTime;
 	
@@ -276,12 +279,34 @@ public class BasicMileStone implements Serializable {
 		this.version = version;
 	}
 
+	public Boolean isTemplate() {
+		return template;
+	}
+
+	public void setTemplate(Boolean template) {
+		this.template = template;
+	}
+
+	/**
+	 * @return the mid
+	 */
+	public BasicMileStone getmilestone() {
+		return milestone;
+	}
+
+	/**
+	 * @param mid the mid to set
+	 */
+	public void setmilestone(BasicMileStone amilestone) {
+		this.milestone = amilestone;
+	}
+	
 	public BasicMileStone() {
 		super();
 	}
 
 	@Override
 	public String toString() {
-		return "BasicMileStone [id=" + id + ", name=" + description + "]";
+		return "SuccessStories [id=" + id + ", name=" + description + "]";
 	}
 }

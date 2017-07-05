@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="/templates/tr-template.xhtml">
+
+	<ui:define name="content">
+
+
+		<h:form id="success">
+			<h:message id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+
+
+
+			<p:carousel value="#{successStoriesBean.csstories}"
+				headerText="headerText" var="css" responsive="true">
+
+
+				<p:panel id="#{css.description}" header="#{css.description}">
+					<h:outputText value="#{css.description}" />
+				</p:panel>
+
+
+			</p:carousel>
+
+
+
+
+
+
+			<p:commandLink action="#{welcomeBean.doLogout}" value="Logout" />
+		</h:form>
+
+	</ui:define>
+</ui:composition>
