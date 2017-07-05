@@ -8,12 +8,13 @@ import net.bechtelus.account.Account;
 import net.bechtelus.milestone.BasicMileStone;
 import net.bechtelus.user.User;
 
-@Generated(value="Dali", date="2017-07-03T16:33:12.191-0400")
+@Generated(value="Dali", date="2017-07-05T15:46:43.225-0400")
 @StaticMetamodel(SuccessStories.class)
 public class SuccessStories_ {
 	public static volatile SingularAttribute<SuccessStories, Long> id;
 	public static volatile SingularAttribute<SuccessStories, String> description;
 	public static volatile SingularAttribute<SuccessStories, Boolean> template;
+	public static volatile SingularAttribute<SuccessStories, Account> account;
 	public static volatile SingularAttribute<SuccessStories, BasicMileStone> milestone;
 	public static volatile SingularAttribute<SuccessStories, Calendar> startTime;
 	public static volatile SingularAttribute<SuccessStories, Calendar> endTime;
@@ -22,5 +23,4 @@ public class SuccessStories_ {
 	public static volatile SingularAttribute<SuccessStories, Calendar> modifiedDate;
 	public static volatile SingularAttribute<SuccessStories, User> modifiedby;
 	public static volatile SingularAttribute<SuccessStories, Integer> version;
-	public static volatile SingularAttribute<SuccessStories, Account> account;
 }

@@ -31,12 +31,12 @@ import net.bechtelus.user.User;
  */
 
 @Entity
-@Table(name = "BasicMileStone")
+@Table(name = "CallToAction")
 @NamedQueries({
 
-		@NamedQuery(name = "ctaByID", query = "Select c from BasicMileStone c where c.id = :ctaid"),
-		@NamedQuery(name = "ctasByType", query = "Select c from BasicMileStone c where c.type = :ctaType"),
-		@NamedQuery(name = "ctasByAssignee", query = "Select c from BasicMileStone c where c.assignee = :assignee_user_id") })
+		@NamedQuery(name = "ctaByID", query = "Select c from CallToAction c where c.id = :ctaid"),
+		@NamedQuery(name = "ctasByType", query = "Select c from CallToAction c where c.type = :ctaType"),
+		@NamedQuery(name = "ctasByAssignee", query = "Select c from CallToAction c where c.assignee = :assignee_user_id") })
 public class CallToAction implements Serializable {
 
 	/**
