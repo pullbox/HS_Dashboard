@@ -52,11 +52,11 @@ public class SuccessStories implements Serializable {
 	private Boolean template;
 	private Account account;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private java.util.Calendar startTime;
+	//@Temporal(TemporalType.TIMESTAMP)
+	//private java.util.Calendar startTime;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private java.util.Calendar endTime;
+	//@Temporal(TemporalType.TIMESTAMP)
+	//private java.util.Calendar endTime;
 
 
 	@ManyToOne
@@ -153,7 +153,7 @@ public class SuccessStories implements Serializable {
 	
 	/**
 	 * @return the createdDate
-	 */
+	 
 	public Date getstartTime() {
 		if (this.startTime == null) {
 			return null;
@@ -166,7 +166,7 @@ public class SuccessStories implements Serializable {
 	/**
 	 * @param createdDate
 	 *            the createdDate to set
-	 */
+	
 	public void setstartTime(Date aStartTime) {
 		if (aStartTime == null) {
 			this.startTime = null;
@@ -182,7 +182,7 @@ public class SuccessStories implements Serializable {
 	
 	/**
 	 * @return the createdDate
-	 */
+	
 	public Date getendTime() {
 		if (this.endTime == null) {
 			return null;
@@ -195,7 +195,7 @@ public class SuccessStories implements Serializable {
 	/**
 	 * @param createdDate
 	 *            the createdDate to set
-	 */
+	 
 	public void setendTime(Date aendTime) {
 		if (aendTime == null) {
 			this.endTime = null;
@@ -206,7 +206,7 @@ public class SuccessStories implements Serializable {
 		}
 	}
 	
-	
+	 */	
 
 	/**
 	 * @return the modifiedDate

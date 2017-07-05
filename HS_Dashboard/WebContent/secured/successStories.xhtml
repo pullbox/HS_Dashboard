@@ -16,12 +16,12 @@
 
 
 
-			<p:carousel value="#{successStoriesBean.csstories}"
+			<p:carousel id="stories" value="#{successStoriesBean.csstories}"
 				headerText="headerText" var="css" responsive="true">
 
 
-				<p:panel id="#{css.description}" header="#{css.description}">
-					<h:outputText value="#{css.description}" />
+				<p:panel id="test" header="#{css.description}">
+					<h:outputText value="#{css.description}"  />
 				</p:panel>
 
 

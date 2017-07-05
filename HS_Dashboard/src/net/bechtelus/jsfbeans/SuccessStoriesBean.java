@@ -64,7 +64,7 @@ public class SuccessStoriesBean implements Serializable {
 	}
 
 	/**
-	 * @return the ctas
+	 * @return the csstories
 	 */
 	public void populateCSStories() {
 		SuccessStoriesService cssService = new SuccessStoriesService();
@@ -72,20 +72,8 @@ public class SuccessStoriesBean implements Serializable {
 		cssService = null;
 	}
 
-	/**
-	 * @return the userid
-	 */
-	public String getUserName() {
-		return userName;
-	}
-
-	/**
-	 * @return the userid
-	 */
-	public void setUserName(String aUname) {
-		this.userName = aUname;
-	}
-
+	
+	
 	/**
 	 * @return the filteredctas
 	 */
