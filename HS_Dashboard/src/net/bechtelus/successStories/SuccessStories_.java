@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import net.bechtelus.account.Account;
 import net.bechtelus.user.User;
 
-@Generated(value="Dali", date="2017-07-05T17:00:48.593-0400")
+@Generated(value="Dali", date="2017-07-05T17:36:24.742-0400")
 @StaticMetamodel(SuccessStories.class)
 public class SuccessStories_ {
 	public static volatile SingularAttribute<SuccessStories, Long> id;
@@ -19,4 +19,5 @@ public class SuccessStories_ {
 	public static volatile SingularAttribute<SuccessStories, Calendar> modifiedDate;
 	public static volatile SingularAttribute<SuccessStories, User> modifiedby;
 	public static volatile SingularAttribute<SuccessStories, Integer> version;
+	public static volatile SingularAttribute<SuccessStories, String> name;
 }

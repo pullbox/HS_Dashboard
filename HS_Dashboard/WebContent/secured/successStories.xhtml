@@ -17,11 +17,19 @@
 
 
 			<p:carousel id="stories" value="#{successStoriesBean.csstories}"
-				headerText="headerText" var="css" responsive="true">
+				headerText="Success Stories" var="css" responsive="true" >
 
 
-				<p:panel id="test" header="#{css.description}">
-					<h:outputText value="#{css.description}"  />
+				<p:panel id="story" header="#{css.name}"
+					styleClass="ui-panelgrid-blank">
+					<h:outputText value="#{css.description}" />
+				</p:panel>
+
+				<p:panel id="newbutton" header="">
+					<p:commandButton id="createStory" value="add new Success Story"
+						action="#{navigationBean.createSuccessStory}"
+						rendered="#{(rowIndex+1) eq successStoriesBean.csstories.size()}" />
+
 				</p:panel>
 
 

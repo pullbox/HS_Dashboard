@@ -48,8 +48,12 @@ public class SuccessStories implements Serializable {
 	@GeneratedValue(generator = "TABLE_MStone", strategy = GenerationType.TABLE)
 	@Column(name = "ID", unique = true, nullable = false)
 	private long id;
+	private String name;
 	private String description;
 	private Boolean template;
+	
+	@ManyToOne
+	@JoinColumn(name = "ACCOUNT")
 	private Account account;
 	
 	//@Temporal(TemporalType.TIMESTAMP)
@@ -91,6 +95,14 @@ public class SuccessStories implements Serializable {
 	 */
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
@@ -290,8 +302,17 @@ public class SuccessStories implements Serializable {
 		super();
 	}
 
+
+	public SuccessStories(String name, Boolean template) {
+		super();
+		this.name = name;
+		this.template = template;
+		
+	}
+	
+	
 	@Override
 	public String toString() {
-		return "SuccessStories [id=" + id + ", name=" + description + "]";
+		return "SuccessStories [id=" + id + ", name=" + name + "]";
 	}
 }

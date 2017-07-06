@@ -69,6 +69,7 @@ public class SuccessStoriesBean implements Serializable {
 	public void populateCSStories() {
 		SuccessStoriesService cssService = new SuccessStoriesService();
 		this.csstories = cssService.list();
+		this.csstories.add(new SuccessStories("add new Success Story", false));
 		cssService = null;
 	}
 

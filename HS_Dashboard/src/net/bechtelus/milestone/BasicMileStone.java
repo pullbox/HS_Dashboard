@@ -48,6 +48,7 @@ public class BasicMileStone implements Serializable {
 	@GeneratedValue(generator = "TABLE_MStone", strategy = GenerationType.TABLE)
 	@Column(name = "ID", unique = true, nullable = false)
 	private long id;
+	private String name;
 	private String description;
 	
 	@ManyToOne
@@ -95,6 +96,14 @@ public class BasicMileStone implements Serializable {
 	 */
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**

@@ -65,6 +65,7 @@ public class SuccessStoriesService {
 			acss.setCreateby(css.getCreateby());
 			acss.setAccount(css.getAccount());
 			acss.setCreatedDate(css.getCreatedDate());
+			acss.setName(css.getName());
 			acss.setDescription(css.getDescription());
 			acss.setTemplate(css.isTemplate());
 			acss.setModifiedby(css.getModifiedby());
